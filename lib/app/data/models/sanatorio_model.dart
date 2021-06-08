@@ -1,0 +1,62 @@
+// To parse this JSON data, do
+//
+//     final sanatorioModel = sanatorioModelFromJson(jsonString);
+
+import 'dart:convert';
+
+SanatorioModel sanatorioModelFromJson(String str) =>
+    SanatorioModel.fromJson(json.decode(str));
+
+String sanatorioModelToJson(SanatorioModel data) => json.encode(data.toJson());
+
+class SanatorioModel {
+  SanatorioModel({
+    this.idsanatorio,
+    this.descripcion,
+    this.direccion,
+    this.telefono,
+    this.correo,
+    this.ciudad,
+    this.coordenadas,
+    this.habilitado,
+    this.nrosucursal,
+    this.productos,
+  });
+
+  int idsanatorio;
+  String descripcion;
+  dynamic direccion;
+  String telefono;
+  String correo;
+  dynamic ciudad;
+  String coordenadas;
+  bool habilitado;
+  int nrosucursal;
+  List<dynamic> productos;
+
+  factory SanatorioModel.fromJson(Map<String, dynamic> json) => SanatorioModel(
+        idsanatorio: json["idsanatorio"],
+        descripcion: json["descripcion"],
+        direccion: json["direccion"],
+        telefono: json["telefono"],
+        correo: json["correo"],
+        ciudad: json["ciudad"],
+        coordenadas: json["coordenadas"],
+        habilitado: json["habilitado"],
+        nrosucursal: json["nrosucursal"],
+        productos: List<dynamic>.from(json["productos"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "idsanatorio": idsanatorio,
+        "descripcion": descripcion,
+        "direccion": direccion,
+        "telefono": telefono,
+        "correo": correo,
+        "ciudad": ciudad,
+        "coordenadas": coordenadas,
+        "habilitado": habilitado,
+        "nrosucursal": nrosucursal,
+        "productos": List<dynamic>.from(productos.map((x) => x)),
+      };
+}
