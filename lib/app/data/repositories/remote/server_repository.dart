@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fupa_aliados/app/config/errors/failures.dart';
+import 'package:fupa_aliados/app/data/models/cliente_model.dart';
+import 'package:fupa_aliados/app/data/models/proforma_model.dart';
 import 'package:fupa_aliados/app/data/models/token_model.dart';
 import 'package:fupa_aliados/app/data/models/usuario_model.dart';
 import 'package:fupa_aliados/app/data/providers/remote/server_api.dart';
@@ -25,4 +27,20 @@ class ServerRepository {
   Future<Either<Failure, String>> cambiarPassword(
           String password, String newpassword) =>
       _api.cambiarPassword(password, newpassword);
+
+  Future<Either<Failure, ClienteModel>> verificarDisponibilidadCliente(
+          String tipoDoc, String doc) =>
+      _api.verificarDisponibilidadCliente(tipoDoc, doc);
+
+  Future<Either<Failure, String>> solicitarCodigoVerificacion(
+          {int idpersona, String cel, String monto, String plazo}) =>
+      _api.solicitarCodigoVerificacion(
+          idpersona: idpersona, cel: cel, monto: monto, plazo: plazo);
+
+  Future<Either<Failure, bool>> reenviarCodigo(String numero, String mensaje) =>
+      _api.reenviarCodigo(numero, mensaje);
+
+  Future<Either<Failure, String>> enviarSolicitud(
+          String numero, ProformaModel proforma) =>
+      _api.enviarSolicitud(numero, proforma);
 }

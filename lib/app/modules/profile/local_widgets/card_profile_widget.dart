@@ -126,7 +126,6 @@ _listWidget(BuildContext context, ProfileController _) {
         onTap: () => _.showDialog('Celular', '', 'celular', _.user.phonenumber),
       ),
       lineSeparator(),
-      lineSeparator(),
       ListTile(
         leading: Icon(
           FontAwesomeIcons.at,

@@ -37,8 +37,8 @@ class NoDataFailure extends Failure {
   List<Object> get props => [mensaje];
 }
 
-class ScanFailure extends Failure {
-  ScanFailure({String mensaje = FailureMessages.SCAN_FAILURE})
+class CustomFailure extends Failure {
+  CustomFailure({String mensaje = FailureMessages.CUSTOM_FAILURE})
       : super(mensaje: mensaje);
   @override
   List<Object> get props => [mensaje];

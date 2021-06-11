@@ -2,6 +2,12 @@ import 'package:fupa_aliados/app/modules/home/home_binding.dart';
 import 'package:fupa_aliados/app/modules/home/home_page.dart';
 import 'package:fupa_aliados/app/modules/login/login_binding.dart';
 import 'package:fupa_aliados/app/modules/login/login_page.dart';
+import 'package:fupa_aliados/app/modules/microfranquicia/reporte-totales/reporte_totales_binding.dart';
+import 'package:fupa_aliados/app/modules/microfranquicia/reporte-totales/reporte_totales_page.dart';
+import 'package:fupa_aliados/app/modules/microfranquicia/solicitar-credito/solicitar_credito_binding.dart';
+import 'package:fupa_aliados/app/modules/microfranquicia/solicitar-credito/solicitar_credito_page.dart';
+import 'package:fupa_aliados/app/modules/pin_code/pin_code_binding.dart';
+import 'package:fupa_aliados/app/modules/pin_code/pin_code_page.dart';
 import 'package:fupa_aliados/app/modules/register/register_binding.dart';
 import 'package:fupa_aliados/app/modules/register/register_page.dart';
 import 'package:fupa_aliados/app/modules/splash/splash_binding.dart';
@@ -26,5 +32,17 @@ class AppPage {
         binding: RegisterBinding()),
     GetPage(
         name: AppRoutes.HOME, page: () => HomePage(), binding: HomeBinding()),
+    GetPage(
+        name: AppRoutes.SOLICITAR_CREDITO,
+        page: () => SolicitarCreditoPage(),
+        binding: SolicitarCreditoBinding()),
+    GetPage(
+        name: AppRoutes.PIN_CODE,
+        page: () => PinCodePage(),
+        binding: PinCodeBinding()),
+    GetPage(
+        name: AppRoutes.REPORTE_TOTALES,
+        page: () => ReporteTotalesPage(),
+        binding: ReporteTotalesBinding()),
   ];
 }

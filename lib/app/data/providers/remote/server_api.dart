@@ -1,9 +1,12 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:fupa_aliados/app/config/constants.dart';
 import 'package:fupa_aliados/app/config/dio_config.dart';
 import 'package:fupa_aliados/app/config/errors/failures.dart';
+import 'package:fupa_aliados/app/data/models/cliente_model.dart';
+import 'package:fupa_aliados/app/data/models/proforma_model.dart';
 import 'package:fupa_aliados/app/data/models/respuesta_model.dart';
 import 'package:fupa_aliados/app/data/models/token_model.dart';
 import 'package:fupa_aliados/app/data/models/usuario_model.dart';
@@ -113,5 +116,89 @@ class ServerAPI {
 
     await _dio.client.post(url);
     // await _localAuth.();
+  }
+
+  Future<Either<Failure, ClienteModel>> verificarDisponibilidadCliente(
+      String tipoDoc, String doc) async {
+    //final url = AppConstants.API_URL + 'private/user-info';
+    final url = 'private/franquicia/disponibilidad-cliente/$doc/$tipoDoc';
+
+    final res = await _dio.client.get(url);
+    if (res.statusCode == 200) {
+      final data = RespuestaModel.fromJson(res.data);
+
+      if (data.estado.toUpperCase() == 'OK') {
+        return right(ClienteModel.fromJson(data.datos));
+      } else {
+        return left(NoDataFailure(mensaje: data.error));
+      }
+    } else {
+      return left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, String>> solicitarCodigoVerificacion(
+      {int idpersona, String cel, String monto, String plazo}) async {
+    //final url = AppConstants.API_URL + 'private/user-info';
+    final url =
+        'private/franquicia/solicitar-codigo/$idpersona/$cel/$monto/$plazo';
+
+    final res = await _dio.client.get(url);
+    print(res.statusCode);
+    if (res.statusCode == 200) {
+      return right(res.data['datos']);
+    }
+    return left(ServerFailure());
+  }
+
+  Future<Either<Failure, String>> enviarSolicitud(
+      String codigo, ProformaModel proforma) async {
+    print(proforma.toJson());
+
+    try {
+      final url = AppConstants.API_URL +
+          'private/franquicia/enviar-solicitud/$codigo?json=${jsonEncode(proforma)}';
+
+      final res = await _dio.client
+          .post(url, queryParameters: {"json": proforma.toJson()});
+      if (res.statusCode == 200) {
+        print(res);
+        if (res.data['estado'].toUpperCase() == 'OK') {
+          return right(res.data['datos']);
+        } else {
+          return left(CustomFailure(mensaje: res.data['error']));
+        }
+      } else {
+        return left(ServerFailure(mensaje: res.data['error']));
+      }
+    } catch (e) {
+      print(e);
+      return left(ServerFailure(mensaje: 'Erro interno'));
+    }
+  }
+
+  Future<Either<Failure, bool>> reenviarCodigo(
+      String numero, String mensaje) async {
+    final url = AppConstants.API_URL + 'private/reenviar-sms';
+
+    final res = await _dio.client.post(url, queryParameters: {
+      'numero': numero,
+      'mensaje': mensaje,
+    });
+    if (res.statusCode == 200) {
+      return right(true);
+    }
+    return left(ServerFailure());
+  }
+
+  Future<Either<Failure, List<ProformaModel>>> obtenerSolicitudes(
+      int mes, int anio) async {
+    final url = AppConstants.API_URL + 'private/franquicia/$mes/$anio';
+
+    final res = await _dio.client.post(url);
+    if (res.statusCode == 200) {
+      return right(ProformaModel.fromJsonList(res.data['datos']));
+    }
+    return left(ServerFailure());
   }
 }

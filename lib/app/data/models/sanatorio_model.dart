@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:fupa_aliados/app/data/models/sanatorio_producto_model.dart';
+
 SanatorioModel sanatorioModelFromJson(String str) =>
     SanatorioModel.fromJson(json.decode(str));
 
@@ -32,7 +34,7 @@ class SanatorioModel {
   String coordenadas;
   bool habilitado;
   int nrosucursal;
-  List<dynamic> productos;
+  List<SanatorioProductoModel> productos;
 
   factory SanatorioModel.fromJson(Map<String, dynamic> json) => SanatorioModel(
         idsanatorio: json["idsanatorio"],
@@ -44,7 +46,8 @@ class SanatorioModel {
         coordenadas: json["coordenadas"],
         habilitado: json["habilitado"],
         nrosucursal: json["nrosucursal"],
-        productos: List<dynamic>.from(json["productos"].map((x) => x)),
+        productos:
+            List<SanatorioProductoModel>.from(json["productos"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -57,6 +60,6 @@ class SanatorioModel {
         "coordenadas": coordenadas,
         "habilitado": habilitado,
         "nrosucursal": nrosucursal,
-        "productos": List<dynamic>.from(productos.map((x) => x)),
+        "productos": List<SanatorioProductoModel>.from(productos.map((x) => x)),
       };
 }

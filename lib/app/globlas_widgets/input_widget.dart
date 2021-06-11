@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:focus_widget/focus_widget.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:fupa_aliados/app/helpers/MyValidation.dart';
 import 'package:fupa_aliados/app/theme/colors.dart';
 
 class InputWidget extends StatelessWidget {
@@ -17,6 +15,7 @@ class InputWidget extends StatelessWidget {
   final IconData icon;
   final void Function(String text) onChanged;
   final String Function(String text) validator;
+  final String error;
 
   InputWidget({
     Key key,
@@ -31,6 +30,7 @@ class InputWidget extends StatelessWidget {
     this.fontSize = 18,
     this.onChanged,
     this.validator,
+    this.error = "",
     this.valor,
     this.maxLength,
   }) : super(key: key);
@@ -38,7 +38,11 @@ class InputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      padding: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(.1),
+        borderRadius: BorderRadius.circular(20.0),
+      ),
       child: Column(
         children: _getSlider(context),
       ),
@@ -56,7 +60,6 @@ class InputWidget extends StatelessWidget {
     var dias;
     var meses;
     var anos;
-    String checkUserIDType;
 
     dias = [
       "día",
@@ -149,13 +152,11 @@ class InputWidget extends StatelessWidget {
             child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  this.validator ?? "",
+                  this.error ?? "",
                   style: TextStyle(
-                      fontFamily: "Roboto",
-                      fontWeight: FontWeight.w400,
-                      color: Colors.red),
+                      fontWeight: FontWeight.w500, color: Colors.red.shade800),
                 )));
-        listaWidgets.add(this.validator == null ? SizedBox() : errorTextWidget);
+        listaWidgets.add(this.error.isEmpty ? SizedBox() : errorTextWidget);
         String keyInputValue = "$key";
         bool existeValor = inputsValues.containsKey(keyInputValue);
         bool existeNodo = inputsFocusNodes.containsKey(keyInputValue);
@@ -193,6 +194,7 @@ class InputWidget extends StatelessWidget {
             inputsValues[keyInputValue] = valor;
             this.onChanged(valor);
           },
+          validator: this.validator,
           maxLength: maxLength,
           focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
           controller: inputsValuesControllers[keyInputValue],
@@ -207,6 +209,8 @@ class InputWidget extends StatelessWidget {
             fontSize: fontSize,
           ),
           decoration: InputDecoration(
+            fillColor: Colors.white,
+            filled: true,
             // cambie icon por prefixIcon
             prefixIcon: icon != null
                 ? Icon(
@@ -227,493 +231,26 @@ class InputWidget extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20.0),
               borderSide: BorderSide(
-                color: this.validator == null ? Colors.grey : Colors.red,
+                color: this.error.isEmpty ? Colors.grey : Colors.red,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20.0),
               borderSide: BorderSide(
-                color:
-                    this.validator == null ? AppColors.inputColor : Colors.red,
+                color: this.error.isEmpty ? AppColors.inputColor : Colors.red,
               ),
             ),
           ),
         )));
         break;
-      case "email":
-        if (checkUserIDType == "1") {
-          print("REVISAR EMAIL >>>>>>>>>>>>>>>>>>>>>>>");
-          String errorMail = MyValidation().validar(
-              valorActual: inputsValues["pagina-1-1"] ?? "",
-              codigosValidacion: ["4"],
-              tipo: "email");
-          if (errorMail == null) {
-            //NO RENDER
-            print("NO RENDER EMAIL");
-            String keyInputValue = "$key";
-            inputsValues.remove(keyInputValue);
-            inputsFocusNodes.remove(keyInputValue);
-            inputsValuesControllers.remove(keyInputValue);
-          } else {
-            print("NO EMAIL");
 
-            Widget errorTextWidget = Container(
-                margin: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      this.validator ?? "",
-                      style: TextStyle(
-                          fontFamily: "Roboto",
-                          fontWeight: FontWeight.w400,
-                          color: Colors.red),
-                    )));
-            listaWidgets
-                .add(this.validator == null ? SizedBox() : errorTextWidget);
-            String keyInputValue = "$key";
-            bool existeValor = inputsValues.containsKey(keyInputValue);
-            bool existeNodo = inputsFocusNodes.containsKey(keyInputValue);
-            bool existeController =
-                inputsValuesControllers.containsKey(keyInputValue);
-            if (existeValor) {
-              //DO NOTHING
-            } else {
-              inputsValues[keyInputValue] = "";
-            }
-            if (existeNodo) {
-              //NOTHING
-            } else {
-              inputsFocusNodes[keyInputValue] = FocusNode();
-            }
-            if (existeController) {
-              //NOTHING
-            } else {
-              inputsValuesControllers[keyInputValue] = TextEditingController();
-            }
-            listaWidgets.add(Container(
-                margin: EdgeInsets.only(
-                    top: 8.0, bottom: 25.0, left: 20.0, right: 20.0),
-                child: TextFormField(
-                  onFieldSubmitted: (value) {
-                    FocusScope.of(context).unfocus();
-                    if (inputsFocusNodes.containsKey("$key")) {
-                      FocusScope.of(context)
-                          .requestFocus(inputsFocusNodes["$key"]);
-                    } else {
-                      //NO EN ESTA PAGINA
-                    }
-                  },
-                  onChanged: (valor) {
-                    inputsValues[keyInputValue] = valor.toLowerCase();
-                    this.onChanged(valor);
-                  },
-                  focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
-                  textInputAction: inputsFocusNodes.containsKey("$key")
-                      ? TextInputAction.next
-                      : TextInputAction.done,
-                  keyboardType: TextInputType.emailAddress,
-                  textCapitalization: TextCapitalization.none,
-                  controller: inputsValuesControllers[keyInputValue],
-                  style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black,
-                    fontSize: fontSize,
-                  ),
-                  decoration: InputDecoration(
-                    hintText: placeHolder,
-                    hintStyle: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.grey,
-                      fontSize: fontSize,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color:
-                            this.validator == null ? Colors.grey : Colors.red,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: this.validator == null
-                            ? Colors.blueAccent
-                            : Colors.red,
-                      ),
-                    ),
-                  ),
-                )));
-          }
-        } else {
-          Widget errorTextWidget = Container(
-              margin: EdgeInsets.only(left: 20.0, right: 20.0),
-              child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    this.validator ?? "",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400, color: Colors.red),
-                  )));
-          listaWidgets
-              .add(this.validator == null ? SizedBox() : errorTextWidget);
-          String keyInputValue = "$key";
-          bool existeValor = inputsValues.containsKey(keyInputValue);
-          bool existeNodo = inputsFocusNodes.containsKey(keyInputValue);
-          bool existeController =
-              inputsValuesControllers.containsKey(keyInputValue);
-          if (existeValor) {
-            //DO NOTHING
-          } else {
-            inputsValues[keyInputValue] = "";
-          }
-          if (existeNodo) {
-            //NOTHING
-          } else {
-            inputsFocusNodes[keyInputValue] = FocusNode();
-          }
-          if (existeController) {
-            //NOTHING
-          } else {
-            inputsValuesControllers[keyInputValue] = TextEditingController();
-          }
-          listaWidgets.add(Container(
-              margin: EdgeInsets.only(
-                  top: 8.0, bottom: 25.0, left: 20.0, right: 20.0),
-              child: TextFormField(
-                onFieldSubmitted: (value) {
-                  FocusScope.of(context).unfocus();
-                  if (inputsFocusNodes.containsKey("$key")) {
-                    FocusScope.of(context)
-                        .requestFocus(inputsFocusNodes["$key"]);
-                  } else {
-                    //NO EN ESTA PAGINA
-                  }
-                },
-                onChanged: (valor) {
-                  inputsValues[keyInputValue] = valor.toLowerCase();
-                  this.onChanged(valor);
-                },
-                focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
-                textInputAction: inputsFocusNodes.containsKey("$key")
-                    ? TextInputAction.next
-                    : TextInputAction.done,
-                keyboardType: TextInputType.emailAddress,
-                textCapitalization: TextCapitalization.none,
-                controller: inputsValuesControllers[keyInputValue],
-                style: TextStyle(
-                  fontWeight: FontWeight.w300,
-                  color: Colors.black,
-                  fontSize: fontSize,
-                ),
-                decoration: InputDecoration(
-                  hintText: placeHolder,
-                  hintStyle: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey,
-                    fontSize: fontSize,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: this.validator == null ? Colors.grey : Colors.red,
-                    ),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: this.validator == null
-                          ? Colors.blueAccent
-                          : Colors.red,
-                    ),
-                  ),
-                ),
-              )));
-        }
-
-        break;
-      case "phone":
-        if (checkUserIDType == "1") {
-          print("REVISAR PHONE >>>>>>>>");
-          //String errorMail = MyValidation().validar(valorActual: inputsValues["pagina-1-1"] ?? "" , codigosValidacion: ["4"], tipo: "email");
-          String errorPhone = MyValidation().validar(
-              valorActual: inputsValues["pagina-1-1"] ?? "",
-              codigosValidacion: ["3"],
-              tipo: "email");
-          if (errorPhone == null) {
-            //NO RENDER
-            print("NO RENDER PHONE >>>>");
-            String keyInputValue = "$key";
-            print("MAPA >>>>>>>>>>>> $inputsValues");
-            inputsValues.remove(keyInputValue);
-            inputsFocusNodes.remove(keyInputValue);
-            inputsValuesControllers.remove(keyInputValue);
-            print("MAPA >>>>>>>>>>>> $inputsValues");
-          } else {
-            print("NO TEL >>>>>>");
-
-            Widget errorTextWidget = Container(
-                margin: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      this.validator ?? "",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400, color: Colors.red),
-                    )));
-            listaWidgets
-                .add(this.validator == null ? SizedBox() : errorTextWidget);
-            String keyInputValue = "$key";
-            bool existeValor = inputsValues.containsKey(keyInputValue);
-            bool existeNodo = inputsFocusNodes.containsKey(keyInputValue);
-            bool existeController =
-                inputsValuesControllers.containsKey(keyInputValue);
-            if (existeValor) {
-              //DO NOTHING
-            } else {
-              inputsValues[keyInputValue] = "";
-            }
-            if (existeNodo) {
-              //NOTHING
-            } else {
-              inputsFocusNodes[keyInputValue] = FocusNode();
-            }
-            if (existeController) {
-              //NOTHING
-            } else {
-              inputsValuesControllers[keyInputValue] = TextEditingController();
-            }
-            listaWidgets.add(Container(
-                margin: EdgeInsets.only(
-                    top: 8.0, bottom: 25.0, left: 20.0, right: 20.0),
-                child: TextFormField(
-                  onFieldSubmitted: (value) {
-                    FocusScope.of(context).unfocus();
-                    if (inputsFocusNodes.containsKey("$key")) {
-                      FocusScope.of(context)
-                          .requestFocus(inputsFocusNodes["$key"]);
-                    } else {
-                      //NO EN ESTA PAGINA
-                    }
-                  },
-                  onChanged: (valor) {
-                    inputsValues[keyInputValue] = valor;
-                  },
-                  focusNode: inputsFocusNodes[keyInputValue],
-                  textInputAction: inputsFocusNodes.containsKey("$key")
-                      ? TextInputAction.next
-                      : TextInputAction.done,
-                  keyboardType: TextInputType.phone,
-                  controller:
-                      inputsValuesControllers[keyInputValue] ?? FocusNode(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black,
-                    fontSize: fontSize,
-                  ),
-                  decoration: InputDecoration(
-                    hintText: placeHolder,
-                    hintStyle: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.grey,
-                      fontSize: fontSize,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color:
-                            this.validator == null ? Colors.grey : Colors.red,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: this.validator == null
-                            ? Colors.blueAccent
-                            : Colors.red,
-                      ),
-                    ),
-                  ),
-                )));
-          }
-        } else {
-          print("NO REVISAR PHONE >>>>>>>");
-
-          Widget errorTextWidget = Container(
-              margin: EdgeInsets.only(left: 20.0, right: 20.0),
-              child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    this.validator ?? "",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400, color: Colors.red),
-                  )));
-          listaWidgets
-              .add(this.validator == null ? SizedBox() : errorTextWidget);
-          String keyInputValue = "$key";
-          bool existeValor = inputsValues.containsKey(keyInputValue);
-          bool existeNodo = inputsFocusNodes.containsKey(keyInputValue);
-          bool existeController =
-              inputsValuesControllers.containsKey(keyInputValue);
-          if (existeValor) {
-            //DO NOTHING
-          } else {
-            inputsValues[keyInputValue] = "";
-          }
-          if (existeNodo) {
-            //NOTHING
-          } else {
-            inputsFocusNodes[keyInputValue] = FocusNode();
-          }
-          if (existeController) {
-            //NOTHING
-          } else {
-            inputsValuesControllers[keyInputValue] = TextEditingController();
-          }
-          listaWidgets.add(Container(
-              margin: EdgeInsets.only(
-                  top: 8.0, bottom: 25.0, left: 20.0, right: 20.0),
-              child: TextFormField(
-                onFieldSubmitted: (value) {
-                  FocusScope.of(context).unfocus();
-                  if (inputsFocusNodes.containsKey("$key")) {
-                    FocusScope.of(context)
-                        .requestFocus(inputsFocusNodes["$key"]);
-                  } else {
-                    //NO EN ESTA PAGINA
-                  }
-                },
-                onChanged: (valor) {
-                  inputsValues[keyInputValue] = valor;
-                  this.onChanged(valor);
-                },
-                focusNode: inputsFocusNodes[keyInputValue],
-                textInputAction: inputsFocusNodes.containsKey("$key")
-                    ? TextInputAction.next
-                    : TextInputAction.done,
-                keyboardType: TextInputType.phone,
-                controller:
-                    inputsValuesControllers[keyInputValue] ?? FocusNode(),
-                style: TextStyle(
-                  fontWeight: FontWeight.w300,
-                  color: Colors.black,
-                  fontSize: fontSize,
-                ),
-                decoration: InputDecoration(
-                  hintText: placeHolder,
-                  hintStyle: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey,
-                    fontSize: fontSize,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: this.validator == null ? Colors.grey : Colors.red,
-                    ),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: this.validator == null
-                          ? Colors.blueAccent
-                          : Colors.red,
-                    ),
-                  ),
-                ),
-              )));
-        }
-        break;
-      case "password":
-        Widget errorTextWidget = Container(
-            margin: EdgeInsets.only(left: 20.0, right: 20.0),
-            child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  this.validator ?? "",
-                  style:
-                      TextStyle(fontWeight: FontWeight.w400, color: Colors.red),
-                )));
-        listaWidgets.add(this.validator == null ? SizedBox() : errorTextWidget);
-        String keyInputValue = "$key";
-        bool existeValor = inputsValues.containsKey(keyInputValue);
-        bool existeNodo = inputsFocusNodes.containsKey(keyInputValue);
-        bool existeController =
-            inputsValuesControllers.containsKey(keyInputValue);
-        if (existeValor) {
-          //DO NOTHING
-        } else {
-          inputsValues[keyInputValue] = "";
-        }
-        if (existeNodo) {
-          //NOTHING
-        } else {
-          inputsFocusNodes[keyInputValue] = FocusNode();
-        }
-        if (existeController) {
-          //NOTHING
-        } else {
-          inputsValuesControllers[keyInputValue] = TextEditingController();
-        }
-        listaWidgets.add(Container(
-            margin: EdgeInsets.only(
-                top: 8.0, bottom: 25.0, left: 20.0, right: 20.0),
-            child: TextFormField(
-              onFieldSubmitted: (value) {
-                FocusScope.of(context).unfocus();
-                if (inputsFocusNodes.containsKey("$key")) {
-                  FocusScope.of(context).requestFocus(inputsFocusNodes["$key"]);
-                } else {
-                  //NO EN ESTA PAGINA
-                }
-              },
-              onChanged: (valor) {
-                inputsValues[keyInputValue] = valor;
-                this.onChanged(valor);
-              },
-              focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
-              textInputAction: inputsFocusNodes.containsKey("$key")
-                  ? TextInputAction.next
-                  : TextInputAction.done,
-              controller: inputsValuesControllers[keyInputValue] ?? FocusNode(),
-              keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.none,
-              obscureText: true,
-              autocorrect: false,
-              style: TextStyle(
-                fontWeight: FontWeight.w300,
-                color: Colors.black,
-                fontSize: fontSize,
-              ),
-              decoration: InputDecoration(
-                hintText: placeHolder,
-                hintStyle: TextStyle(
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.grey,
-                  fontSize: fontSize,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: this.validator == null ? Colors.grey : Colors.red,
-                  ),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color:
-                        this.validator == null ? Colors.blueAccent : Colors.red,
-                  ),
-                ),
-              ),
-            )));
-        break;
       case "select":
         Widget errorTextWidget = Container(
             margin: EdgeInsets.only(left: 20.0, right: 20.0),
             child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  this.validator ?? "",
+                  this.error ?? "",
                   style:
                       TextStyle(fontWeight: FontWeight.w400, color: Colors.red),
                 )));
@@ -741,11 +278,9 @@ class InputWidget extends StatelessWidget {
                 color: this.validator == null ? Colors.grey : Colors.red,
                 width: 1,
               ),
-              borderRadius: BorderRadius.circular(5.0),
+              borderRadius: BorderRadius.circular(20.0),
             ),
-            margin: EdgeInsets.only(
-                top: 8.0, bottom: 25.0, left: 20.0, right: 20.0),
-            padding: EdgeInsets.only(left: 10.0, right: 10.0),
+            padding: EdgeInsets.only(left: 10.0, right: 5.0, top: 5, bottom: 5),
             width: MediaQuery.of(context).size.width,
             child: DropdownButtonHideUnderline(
                 child: DropdownButton(
@@ -758,6 +293,7 @@ class InputWidget extends StatelessWidget {
               value: inputsValues[keyInputValue],
               onChanged: (valor) {
                 FocusScope.of(context).requestFocus(new FocusNode());
+                inputsValues[keyInputValue] = valor;
               },
               items: options.map<DropdownMenuItem>((valor) {
                 return DropdownMenuItem(

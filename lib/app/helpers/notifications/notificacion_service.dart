@@ -31,7 +31,7 @@ class NotificationService {
         colorText: Colors.white,
         backgroundColor: coloresSnack[color],
         duration: Duration(
-          milliseconds: 2500,
+          milliseconds: 3000,
         ),
         icon: (color == NotiKey.SUCCESS)
             ? Icon(FontAwesomeIcons.checkCircle)
