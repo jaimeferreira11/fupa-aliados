@@ -6,6 +6,7 @@ import 'package:fupa_aliados/app/modules/microfranquicia/solicitar-credito/solic
 import 'package:fupa_aliados/app/modules/pin_code/pin_code_binding.dart';
 import 'package:fupa_aliados/app/modules/pin_code/pin_code_page.dart';
 import 'package:get/route_manager.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'app/config/dependencies/dependency_injection.dart';
 import 'app/modules/microfranquicia/solicitar-credito/solicitar_credito_page.dart';
@@ -27,6 +28,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('es_EN');
     return GetMaterialApp(
       title: 'Aliados FP',
       debugShowCheckedModeBanner: false,

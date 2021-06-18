@@ -8,6 +8,9 @@ ThemeData buildThemeData() {
     primaryColor: AppColors.primaryColor,
     accentColor: AppColors.accentColor,
     primarySwatch: AppColors.inputColor,
+    textTheme: TextTheme(
+      headline6: TextStyle(color: Colors.white), // card header text
+    ),
     inputDecorationTheme: InputDecorationTheme(
         focusColor: AppColors.inputColor,
         focusedBorder: OutlineInputBorder(

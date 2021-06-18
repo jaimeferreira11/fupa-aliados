@@ -12,19 +12,20 @@ class ProformaModel {
   final String codigo;
   final String usuario;
   int idsanatorioproducto;
+  final String fechaLog;
 
-  ProformaModel({
-    this.idproforma,
-    this.idpersona,
-    this.cliente,
-    this.monto,
-    this.plazo,
-    this.periodicidad,
-    this.nrosucursal,
-    this.codigo,
-    this.usuario,
-    this.idsanatorioproducto,
-  });
+  ProformaModel(
+      {this.idproforma,
+      this.idpersona,
+      this.cliente,
+      this.monto,
+      this.plazo,
+      this.periodicidad,
+      this.nrosucursal,
+      this.codigo,
+      this.usuario,
+      this.idsanatorioproducto,
+      this.fechaLog});
 
   Map<String, dynamic> toJson() {
     return {
@@ -38,6 +39,7 @@ class ProformaModel {
       'usuario': usuario,
       'idsanatorioproducto': idsanatorioproducto,
       "cliente": cliente == null ? null : cliente.toJson(),
+      "fechaLog": fechaLog
     };
   }
 
@@ -52,6 +54,7 @@ class ProformaModel {
         codigo: map['codigo'],
         usuario: map['usuario'],
         idsanatorioproducto: map['idsanatorioproducto'],
+        fechaLog: map['fechaLog'],
         cliente: map["cliente"] == null
             ? null
             : ClienteModel.fromJson(map["cliente"]));
