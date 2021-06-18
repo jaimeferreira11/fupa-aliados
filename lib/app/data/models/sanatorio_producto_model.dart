@@ -1,13 +1,13 @@
 // To parse this JSON data, do
 //
-//     final sanatorioModel = sanatorioModelFromJson(jsonString);
+//     final sanatorioProductoModel = sanatorioProductoModelFromJson(jsonString);
 
 import 'dart:convert';
 
-SanatorioProductoModel sanatorioModelFromJson(String str) =>
+SanatorioProductoModel sanatorioProductoModelFromJson(String str) =>
     SanatorioProductoModel.fromJson(json.decode(str));
 
-String sanatorioModelToJson(SanatorioProductoModel data) =>
+String sanatorioProductoModelToJson(SanatorioProductoModel data) =>
     json.encode(data.toJson());
 
 class SanatorioProductoModel {
@@ -37,4 +37,16 @@ class SanatorioProductoModel {
         "idsanatorioproducto": idsanatorioproducto,
         "estado": estado,
       };
+
+  static List<SanatorioProductoModel> fromJsonList(List<dynamic> jsonList) {
+    if (jsonList == null) return [];
+
+    List<SanatorioProductoModel> list = [];
+
+    for (var item in jsonList) {
+      final p = SanatorioProductoModel.fromJson(item);
+      list.add(p);
+    }
+    return list;
+  }
 }

@@ -125,6 +125,7 @@ class ServerAPI {
 
     final res = await _dio.client.get(url);
     if (res.statusCode == 200) {
+      print(res.data);
       final data = RespuestaModel.fromJson(res.data);
 
       if (data.estado.toUpperCase() == 'OK') {
@@ -195,7 +196,7 @@ class ServerAPI {
       int mes, int anio) async {
     final url = AppConstants.API_URL + 'private/franquicia/$mes/$anio';
 
-    final res = await _dio.client.post(url);
+    final res = await _dio.client.get(url);
     if (res.statusCode == 200) {
       return right(ProformaModel.fromJsonList(res.data['datos']));
     }

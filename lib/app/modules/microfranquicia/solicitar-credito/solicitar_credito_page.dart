@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:fupa_aliados/app/data/models/proforma_model.dart';
 import 'package:fupa_aliados/app/data/models/sanatorio_producto_model.dart';
 import 'package:fupa_aliados/app/data/providers/local/cache.dart';
 import 'package:fupa_aliados/app/globlas_widgets/buscando_progress_w.dart';
@@ -137,7 +136,7 @@ _listWidget(BuildContext context, SolicitarCreditoController _) {
       Container(
           margin: EdgeInsets.only(
               top: responsive.hp(2),
-              bottom: responsive.hp(2),
+              bottom: responsive.hp(1),
               left: responsive.wp(5),
               right: responsive.wp(5)),
           child: Obx(() => InputWidget(
@@ -181,33 +180,39 @@ _listWidget(BuildContext context, SolicitarCreditoController _) {
         visible: Cache.instance.user.sanatorio.productos.isNotEmpty,
         child: Container(
             margin: EdgeInsets.only(
-                top: responsive.hp(2),
                 bottom: responsive.hp(3),
-                left: responsive.wp(5),
-                right: responsive.wp(5)),
-            child: Wrap(
-                children: Cache.instance.user.sanatorio.productos
-                    .map((e) => null)
-                    .toList())),
+                left: responsive.wp(3),
+                right: responsive.wp(1)),
+            child: GetBuilder<SolicitarCreditoController>(
+              id: 'productos',
+              builder: (_) {
+                return Wrap(
+                    children: Cache.instance.user.sanatorio.productos
+                        .map((p) => _buildProductos(_, p))
+                        .toList());
+              },
+            )),
       ),
     ],
   );
 }
 
-_buildProductos(SolicitarCreditoController _, SanatorioProductoModel p) {
+Widget _buildProductos(SolicitarCreditoController _, SanatorioProductoModel p) {
   final responsive = Responsive.of(Get.context);
 
-  return _.pinController.proforma.idsanatorioproducto == p.idsanatorioproducto
+  return _.idsanatorioproducto == p.idsanatorioproducto
       ? Container(
-          margin: EdgeInsets.only(right: 10),
+          margin: EdgeInsets.only(right: 5),
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              _.idsanatorioproducto = p.idsanatorioproducto;
+            },
             child: Chip(
               backgroundColor: Colors.green[200],
               label: Text(
                 p.descripcion,
                 style: TextStyle(
-                  fontSize: responsive.dp(1.8),
+                  fontSize: responsive.dp(1.7),
                   fontWeight: FontWeight.w500,
                   color: Colors.green.shade900,
                 ),
@@ -221,14 +226,17 @@ _buildProductos(SolicitarCreditoController _, SanatorioProductoModel p) {
           ),
         )
       : Container(
-          margin: EdgeInsets.only(right: 10),
+          margin: EdgeInsets.only(right: 5),
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              _.idsanatorioproducto = p.idsanatorioproducto;
+              _.update(['productos']);
+            },
             child: Chip(
               label: Text(
                 p.descripcion,
                 style: TextStyle(
-                  fontSize: responsive.dp(1.8),
+                  fontSize: responsive.dp(1.6),
                   fontWeight: FontWeight.w500,
                   color: Colors.grey[700],
                 ),

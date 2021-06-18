@@ -40,7 +40,7 @@ class NotificationService {
                 : (color == NotiKey.INFO)
                     ? Icon(FontAwesomeIcons.infoCircle)
                     : (color == NotiKey.WARNING)
-                        ? Icon(FontAwesomeIcons.walking)
+                        ? Icon(FontAwesomeIcons.exclamationTriangle)
                         : null);
   }
 

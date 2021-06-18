@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:fupa_aliados/app/data/repositories/local/auth_repository.dart';
 import 'package:fupa_aliados/app/data/repositories/remote/server_repository.dart';
 import 'package:fupa_aliados/app/globlas_widgets/yes_no_dialog.dart';
@@ -53,6 +54,7 @@ class LoginController extends GetxController {
 
   void login() async {
     _ignore.value = true;
+    FocusScope.of(Get.context).requestFocus(FocusNode());
 
     try {
       final result = await serverRepo.login(username, password);

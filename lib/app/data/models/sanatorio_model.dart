@@ -46,8 +46,9 @@ class SanatorioModel {
         coordenadas: json["coordenadas"],
         habilitado: json["habilitado"],
         nrosucursal: json["nrosucursal"],
-        productos:
-            List<SanatorioProductoModel>.from(json["productos"].map((x) => x)),
+        productos: json["productos"] == null
+            ? null
+            : SanatorioProductoModel.fromJsonList(json["productos"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -60,6 +61,8 @@ class SanatorioModel {
         "coordenadas": coordenadas,
         "habilitado": habilitado,
         "nrosucursal": nrosucursal,
-        "productos": List<SanatorioProductoModel>.from(productos.map((x) => x)),
+        "productos": productos == null
+            ? null
+            : List<SanatorioProductoModel>.from(productos.map((x) => x)),
       };
 }

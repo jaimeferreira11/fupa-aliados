@@ -43,4 +43,8 @@ class ServerRepository {
   Future<Either<Failure, String>> enviarSolicitud(
           String numero, ProformaModel proforma) =>
       _api.enviarSolicitud(numero, proforma);
+
+  Future<Either<Failure, List<ProformaModel>>> obtenerSolicitudes(
+          int mes, int anio) =>
+      _api.obtenerSolicitudes(mes, anio);
 }

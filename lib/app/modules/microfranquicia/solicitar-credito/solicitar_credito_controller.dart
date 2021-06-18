@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fupa_aliados/app/config/errors/failures.dart';
 import 'package:fupa_aliados/app/data/models/cliente_model.dart';
 import 'package:fupa_aliados/app/data/models/proforma_model.dart';
+import 'package:fupa_aliados/app/data/providers/local/cache.dart';
 import 'package:fupa_aliados/app/data/repositories/local/auth_repository.dart';
 import 'package:fupa_aliados/app/data/repositories/remote/server_repository.dart';
-import 'package:fupa_aliados/app/globlas_widgets/yes_no_dialog.dart';
 import 'package:fupa_aliados/app/helpers/notifications/notificacion_service.dart';
 import 'package:fupa_aliados/app/helpers/notifications/notifications_keys.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';
@@ -37,11 +37,15 @@ class SolicitarCreditoController extends GetxController {
   RxString error2 = "".obs;
   String monto = "";
   String plazo = '7';
+  bool busquedaRealizada = false;
+
+  int idsanatorioproducto;
 
   @override
   void onReady() {
-    // height = responsive.hp(35);
-    // update(['fondo']);
+    if (Cache.instance.user.sanatorio.productos.isNotEmpty)
+      idsanatorioproducto =
+          Cache.instance.user.sanatorio.productos[0].idsanatorioproducto;
 
     super.onReady();
   }
@@ -56,8 +60,10 @@ class SolicitarCreditoController extends GetxController {
     FocusScope.of(Get.context).requestFocus(FocusNode());
 
     reset();
+
     final resp = await serverRepo.verificarDisponibilidadCliente(tipodoc, doc);
     workInProgress = false;
+    busquedaRealizada = true;
     update();
     resp.fold((l) {
       cliente = null;
@@ -75,6 +81,7 @@ class SolicitarCreditoController extends GetxController {
     }, (r) {
       height = responsive.hp(37);
       cliente = r;
+      busquedaRealizada = true;
       update();
     });
   }
@@ -102,11 +109,11 @@ class SolicitarCreditoController extends GetxController {
       noti.mostrarInternalError(mensaje: l.mensaje);
     }, (r) {
       final proforma = new ProformaModel(
-        idpersona: cliente.persona.idpersona,
-        monto: double.parse(monto.trim()),
-        cliente: cliente,
-        plazo: int.parse(plazo.trim()),
-      );
+          idpersona: cliente.persona.idpersona,
+          monto: double.parse(monto.trim()),
+          cliente: cliente,
+          plazo: int.parse(plazo.trim()),
+          idsanatorioproducto: idsanatorioproducto);
       pinController.celular = cliente.persona.telefono1;
       pinController.mensaje = r;
       pinController.proforma = proforma;
@@ -117,6 +124,7 @@ class SolicitarCreditoController extends GetxController {
   reset() {
     error.value = "";
     cliente = null;
+    busquedaRealizada = false;
     height = responsive.hp(27);
     update();
   }

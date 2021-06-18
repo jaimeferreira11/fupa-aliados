@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
       // idioma
       locale: Get.deviceLocale,
       theme: buildThemeData(),
-      home: ReporteTotalesPage(),
-      initialBinding: ReporteTotalesBinding(),
+      home: SplashPage(),
+      initialBinding: SplashBinding(),
       getPages: AppPage.pages,
     );
   }

@@ -14,7 +14,9 @@ class HomeMenuesView extends StatelessWidget {
               text: 'Procesar crédito',
               route: AppRoutes.SOLICITAR_CREDITO),
           MenuButtonWidget(
-              icon: FontAwesomeIcons.folder, text: 'Reportes', route: ""),
+              icon: FontAwesomeIcons.folder,
+              text: 'Reportes',
+              route: AppRoutes.REPORTE_TOTALES),
         ]),
       ],
     );

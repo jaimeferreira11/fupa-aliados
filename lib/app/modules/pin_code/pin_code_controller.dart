@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fupa_aliados/app/config/errors/failures.dart';
 import 'package:fupa_aliados/app/data/models/proforma_model.dart';
+import 'package:fupa_aliados/app/data/models/sanatorio_producto_model.dart';
 import 'package:fupa_aliados/app/data/providers/local/cache.dart';
 import 'package:fupa_aliados/app/data/repositories/local/auth_repository.dart';
 import 'package:fupa_aliados/app/data/repositories/remote/server_repository.dart';
@@ -50,9 +51,8 @@ class PinCodeController extends GetxController {
   }
 
   init() async {
-    if (Cache.instance.user.sanatorio.productos.isNotEmpty)
-      proforma.idsanatorioproducto =
-          Cache.instance.user.sanatorio.productos[0].idsanatorioproducto;
+    print(Cache.instance.user.sanatorio.productos.length);
+    print(Cache.instance.user.sanatorio.productos[0].toJson());
     onTapRecognizer = TapGestureRecognizer()
       ..onTap = () {
         reenviar = true;

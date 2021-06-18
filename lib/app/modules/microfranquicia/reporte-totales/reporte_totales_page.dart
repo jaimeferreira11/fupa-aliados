@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fupa_aliados/app/data/models/cliente_model.dart';
 import 'package:fupa_aliados/app/data/models/persona_model.dart';
 import 'package:fupa_aliados/app/data/models/proforma_model.dart';
+import 'package:fupa_aliados/app/globlas_widgets/buscando_progress_w.dart';
 import 'package:fupa_aliados/app/globlas_widgets/input_select_widget.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';
 import 'package:fupa_aliados/app/modules/microfranquicia/reporte-totales/local_widgets/card_detalle_widget.dart';
@@ -19,15 +20,23 @@ class ReporteTotalesPage extends StatelessWidget {
     return Container(
       child: GetBuilder<ReporteTotalesController>(
           builder: (_) => SafeArea(
-                child: Scaffold(
-                  appBar: AppBar(title: Text('Reporte totales')),
-                  body: Container(
-                    child: Column(children: [
-                      _HeaderBackground(),
-                      _Totales(),
-                      Expanded(child: _Detalles())
-                    ]),
-                  ),
+                child: Stack(
+                  children: [
+                    Scaffold(
+                      appBar: AppBar(title: Text('Reporte totales')),
+                      body: Container(
+                        child: Column(children: [
+                          _HeaderBackground(),
+                          Obx(() => Visibility(
+                              visible: _.existeDatos.value, child: _Totales())),
+                          Obx(() => Visibility(
+                              visible: _.existeDatos.value,
+                              child: Expanded(child: _Detalles())))
+                        ]),
+                      ),
+                    ),
+                    BuscandoProgressWidget(buscando: _.buscando),
+                  ],
                 ),
               )),
     );
@@ -40,6 +49,7 @@ class _Detalles extends StatelessWidget {
     final responsive = Responsive.of(context);
 
     return GetBuilder<ReporteTotalesController>(
+      id: "detalles",
       initState: (_) {},
       builder: (_) {
         return Container(
@@ -53,7 +63,7 @@ class _Detalles extends StatelessWidget {
                     pinned: true,
                     delegate: _SliverAppBarDelegate(
                       minHeight: responsive.hp(5),
-                      maxHeight: responsive.hp(7),
+                      maxHeight: responsive.hp(6),
                       child: Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.rectangle,
@@ -67,22 +77,15 @@ class _Detalles extends StatelessWidget {
                   ),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
+                      (context, i) {
                         return Container(
                           margin: EdgeInsets.only(top: responsive.hp(1)),
                           child: CardDetalleWidget(
-                            proforma: new ProformaModel(
-                                cliente: ClienteModel(
-                                    persona: PersonaModel(
-                                        nrodoc: '4800301',
-                                        nombres: 'Jaime Dario',
-                                        apellidos: 'Ferreira MEDINA')),
-                                fechaLog: '21/04/2021',
-                                monto: 50000),
+                            proforma: _.list[i],
                           ),
                         );
                       },
-                      childCount: 1000, // 1000 list items
+                      childCount: _.list.length, // 1000 list items
                     ),
                   ),
                 ])));
@@ -98,6 +101,7 @@ class _Totales extends StatelessWidget {
 
     return GetBuilder<ReporteTotalesController>(
       initState: (_) {},
+      id: "totales",
       builder: (_) {
         return Container(
             padding: EdgeInsets.all(responsive.dp(1)),
@@ -112,7 +116,7 @@ class _Totales extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: responsive.hp(2)),
                   child: Column(children: [
                     Text(
-                      'G. 2.000.000',
+                      'G. ${_.numberFormat.format(_.total)}',
                       style: TextStyle(
                           fontSize: responsive.dp(3.2),
                           fontWeight: FontWeight.bold,
@@ -122,7 +126,7 @@ class _Totales extends StatelessWidget {
                       height: responsive.hp(.3),
                     ),
                     Text(
-                      '2 operaciones',
+                      '${_.numberFormat.format(_.cantidad)} operacione${(_.cantidad > 1) ? "s" : ""}',
                       style: TextStyle(
                           fontSize: responsive.dp(2),
                           fontWeight: FontWeight.w400,
@@ -214,8 +218,9 @@ class _HeaderBackground extends StatelessWidget {
                               value: DateFormat('MMMM', 'es_US')
                                   .format(DateTime.now()),
                               options: _.generateListofMonths(),
-                              onChanged: (text) {
-                                // _.plazo = text;
+                              onChanged: (text) async {
+                                _.mes = text;
+                                await _.obtenerReporte();
                               },
                             );
                           },
@@ -242,8 +247,9 @@ class _HeaderBackground extends StatelessWidget {
                             return InputSelectWidget(
                               value: DateFormat('y').format(DateTime.now()),
                               options: _.generateListofyears(),
-                              onChanged: (text) {
-                                // _.plazo = text;
+                              onChanged: (text) async {
+                                _.anio = text;
+                                await _.obtenerReporte();
                               },
                             );
                           },
