@@ -3,6 +3,7 @@ import 'package:fupa_aliados/app/globlas_widgets/yes_no_dialog.dart';
 import 'package:fupa_aliados/app/helpers/notifications/notificacion_service.dart';
 import 'package:fupa_aliados/app/helpers/notifications/notifications_keys.dart';
 import 'package:fupa_aliados/app/routes/navigator.dart';
+import 'package:fupa_aliados/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -51,6 +52,9 @@ class RegisterController extends GetxController {
   String correo;
 
   void login() async {
+
+   await DialogoSiNo().abrirDialogoSucccess("Te notificaremos cuando puedas ingresar a la app");
+      nav.goToAndClean(AppRoutes.LOGIN);
     /* _ignore.value = true;
     final result = await 
     

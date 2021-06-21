@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     initializeDateFormatting('es_EN');
     return GetMaterialApp(
-      title: 'Aliados FP',
+      title: 'Aliados Fundación Paraguaya',
       debugShowCheckedModeBanner: false,
       // idioma
       locale: Get.deviceLocale,

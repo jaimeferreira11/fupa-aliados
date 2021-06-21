@@ -1,4 +1,4 @@
-package com.example.fupa_aliados
+package py.org.fundacionparaguaya.fupaaliados
 
 import io.flutter.embedding.android.FlutterActivity
 
