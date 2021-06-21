@@ -47,4 +47,9 @@ class ServerRepository {
   Future<Either<Failure, List<ProformaModel>>> obtenerSolicitudes(
           int mes, int anio) =>
       _api.obtenerSolicitudes(mes, anio);
+
+  Future<Either<Failure, String>> sendMail(String asunto, String mensaje) =>
+      _api.sendMail(asunto, mensaje);
+
+  Future<Either<Failure, int>> getVersion() => _api.getVersion();
 }

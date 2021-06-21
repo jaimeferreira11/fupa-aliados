@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fupa_aliados/app/helpers/responsive.dart';
 import 'package:fupa_aliados/app/modules/home/home_controller.dart';
 import 'package:fupa_aliados/app/modules/home/local_widgets/drawer_view.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -36,10 +37,23 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive.of(context);
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
         children: [
+          Hero(
+            tag: 'login',
+            child: Container(
+              margin: EdgeInsets.only(
+                  top: responsive.hp(2), bottom: responsive.hp(1.5)),
+              child: Image(
+                image: AssetImage('assets/images/logo_fupa.jpeg'),
+                height: responsive.hp(8),
+              ),
+            ),
+          ),
+
           // Card Table
           HomeMenuesView(),
         ],

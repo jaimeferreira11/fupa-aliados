@@ -1,7 +1,6 @@
 import 'package:fupa_aliados/app/data/repositories/remote/server_repository.dart';
 import 'package:fupa_aliados/app/globlas_widgets/yes_no_dialog.dart';
 import 'package:fupa_aliados/app/helpers/notifications/notificacion_service.dart';
-import 'package:fupa_aliados/app/helpers/notifications/notifications_keys.dart';
 import 'package:fupa_aliados/app/routes/navigator.dart';
 import 'package:fupa_aliados/app/routes/app_routes.dart';
 import 'package:get/get.dart';
@@ -25,13 +24,19 @@ class RegisterController extends GetxController {
   final FormGroup loginForm = FormGroup({
     'user': FormControl(
       value: '',
-      validators: [Validators.required, Validators.email],
+      validators: [Validators.required],
     ),
     'correo': FormControl(
       value: '',
-      validators: [Validators.required, Validators.email],
+      validators: [Validators.email],
     ),
     'password': FormControl(
+      value: '',
+      validators: [
+        Validators.required,
+      ],
+    ),
+    'contacto': FormControl(
       value: '',
       validators: [
         Validators.required,
@@ -48,15 +53,26 @@ class RegisterController extends GetxController {
 
   String get username => this.loginForm.control('user').value;
   String get password => this.loginForm.control('password').value;
+  String get correo => this.loginForm.control('correo').value;
+  String get contacto => this.loginForm.control('contacto').value;
 
-  String correo;
+  //String correo;
 
   void login() async {
+    String mensaje =
+        "Un usuario quiere registrarse a la aplicación <b>Aliados FP</b>: <br><br>";
+    mensaje += "<b>Nombre:</b> " + username;
+    if (correo != null) mensaje += "<br><b>Correo:</b> " + correo;
+    mensaje += "<br><b>Contacto:</b> " + contacto;
 
-   await DialogoSiNo().abrirDialogoSucccess("Te notificaremos cuando puedas ingresar a la app");
-      nav.goToAndClean(AppRoutes.LOGIN);
-    /* _ignore.value = true;
-    final result = await 
+    _ignore.value = true;
+    await serverRepo.sendMail("Aliados FP - Intento de registro", mensaje);
+    _ignore.value = false;
+    await DialogoSiNo().abrirDialogoSucccess(
+        "Te notificaremos cuando puedas ingresar a la app");
+    nav.goToAndClean(AppRoutes.LOGIN);
+    /* 
+    
     
     loginSistema(
       ParamsLogin(

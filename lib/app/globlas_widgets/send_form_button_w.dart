@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fupa_aliados/app/helpers/responsive.dart';
 import 'package:fupa_aliados/app/modules/login/login_controller.dart';
 import 'package:fupa_aliados/app/modules/register/register_controller.dart';
 import 'package:fupa_aliados/app/theme/colors.dart';
@@ -61,6 +62,7 @@ class _LoginButtonChild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive.of(context);
     return AnimatedContainer(
       duration: Duration(milliseconds: 300),
       child: Obx(
@@ -71,7 +73,7 @@ class _LoginButtonChild extends StatelessWidget {
             : Text(
                 text,
                 style: AppFonts.secondaryFont
-                    .copyWith(color: Colors.white, fontSize: 20.0),
+                    .copyWith(color: Colors.white, fontSize: responsive.dp(2)),
               ),
       ),
     );

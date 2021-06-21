@@ -32,18 +32,24 @@ class MenuButtonWidget extends StatelessWidget {
               backgroundColor: this.color,
               child: Icon(
                 this.icon,
-                size: responsive.dp(5),
+                size: responsive.dp(3),
                 color: Colors.white,
               ),
-              radius: responsive.dp(5.5),
+              radius: responsive.dp(4),
             ),
-            SizedBox(height: responsive.hp(1.7)),
-            Text(
-              this.text,
-              style: TextStyle(
-                  color: this.color,
-                  fontWeight: FontWeight.w500,
-                  fontSize: responsive.dp(2.3)),
+            SizedBox(height: responsive.hp(1.5)),
+            FittedBox(
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: responsive.wp(1.5)),
+                child: Text(
+                  this.text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: this.color,
+                      fontWeight: FontWeight.w500,
+                      fontSize: responsive.dp(1.8)),
+                ),
+              ),
             )
           ],
         ));
@@ -64,7 +70,11 @@ class _CardBackground extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.toNamed(route),
       child: Container(
-        margin: EdgeInsets.all(responsive.dp(1.5)),
+        margin: EdgeInsets.only(
+            left: responsive.wp(3),
+            right: responsive.wp(3),
+            top: responsive.hp(1),
+            bottom: responsive.hp(1)),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
@@ -81,7 +91,7 @@ class _CardBackground extends StatelessWidget {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: responsive.hp(3.3)),
+              padding: EdgeInsets.symmetric(vertical: responsive.hp(2)),
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(20)),
               child: this.child,

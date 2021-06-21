@@ -45,7 +45,7 @@ class ProfilePage extends StatelessWidget {
                                   .substring(0, 1)
                                   .toUpperCase(),
                               style: TextStyle(
-                                  fontSize: responsive.hp(7),
+                                  fontSize: responsive.dp(6),
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.primaryColor),
                             ),
@@ -54,7 +54,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ),
                     Positioned.fill(
-                        top: responsive.hp(2),
+                        top: responsive.hp(3),
                         child: Align(
                             alignment: Alignment.topCenter,
                             child: Column(children: [
@@ -63,7 +63,7 @@ class ProfilePage extends StatelessWidget {
                                       color: Colors.white,
                                       letterSpacing: 2,
                                       fontStyle: FontStyle.italic,
-                                      fontSize: responsive.hp(3),
+                                      fontSize: responsive.hp(2.1),
                                       fontWeight: FontWeight.w500)),
                               SizedBox(
                                 height: responsive.hp(.5),
@@ -71,7 +71,7 @@ class ProfilePage extends StatelessWidget {
                               Text(Cache.instance.user.sanatorio.descripcion,
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: responsive.hp(2.5),
+                                      fontSize: responsive.hp(2.2),
                                       fontWeight: FontWeight.w300))
                             ]))),
                     Positioned(

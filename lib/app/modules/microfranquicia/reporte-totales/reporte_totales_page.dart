@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fupa_aliados/app/data/models/cliente_model.dart';
-import 'package:fupa_aliados/app/data/models/persona_model.dart';
-import 'package:fupa_aliados/app/data/models/proforma_model.dart';
 import 'package:fupa_aliados/app/globlas_widgets/buscando_progress_w.dart';
 import 'package:fupa_aliados/app/globlas_widgets/input_select_widget.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';
@@ -113,12 +110,12 @@ class _Totales extends StatelessWidget {
                 _Header(titulo: 'Totales'),
                 Container(
                   width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: responsive.hp(2)),
+                  padding: EdgeInsets.symmetric(vertical: responsive.hp(1)),
                   child: Column(children: [
                     Text(
                       'G. ${_.numberFormat.format(_.total)}',
                       style: TextStyle(
-                          fontSize: responsive.dp(3.2),
+                          fontSize: responsive.dp(2.5),
                           fontWeight: FontWeight.bold,
                           color: AppColors.primaryColor),
                     ),
@@ -128,7 +125,7 @@ class _Totales extends StatelessWidget {
                     Text(
                       '${_.numberFormat.format(_.cantidad)} operacione${(_.cantidad > 1) ? "s" : ""}',
                       style: TextStyle(
-                          fontSize: responsive.dp(2),
+                          fontSize: responsive.dp(1.8),
                           fontWeight: FontWeight.w400,
                           color: Colors.black54),
                     )
@@ -164,7 +161,7 @@ class _Header extends StatelessWidget {
           titulo,
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: responsive.dp(2.2),
+              fontSize: responsive.dp(2),
               color: Colors.white,
               fontWeight: FontWeight.w500),
         ));
@@ -204,7 +201,7 @@ class _HeaderBackground extends StatelessWidget {
                       child: Text(
                         "Mes",
                         style: TextStyle(
-                            fontSize: responsive.dp(2.2),
+                            fontSize: responsive.dp(2),
                             color: Colors.white,
                             fontWeight: FontWeight.w500),
                       ),
@@ -215,6 +212,7 @@ class _HeaderBackground extends StatelessWidget {
                         child: GetBuilder<ReporteTotalesController>(
                           builder: (_) {
                             return InputSelectWidget(
+                              fontSize: responsive.dp(1.8),
                               value: DateFormat('MMMM', 'es_US')
                                   .format(DateTime.now()),
                               options: _.generateListofMonths(),
@@ -234,7 +232,7 @@ class _HeaderBackground extends StatelessWidget {
                       child: Text(
                         "Año",
                         style: TextStyle(
-                            fontSize: responsive.dp(2.2),
+                            fontSize: responsive.dp(2),
                             color: Colors.white,
                             fontWeight: FontWeight.w500),
                       ),
@@ -245,6 +243,7 @@ class _HeaderBackground extends StatelessWidget {
                         child: GetBuilder<ReporteTotalesController>(
                           builder: (_) {
                             return InputSelectWidget(
+                              fontSize: responsive.dp(1.8),
                               value: DateFormat('y').format(DateTime.now()),
                               options: _.generateListofyears(),
                               onChanged: (text) async {

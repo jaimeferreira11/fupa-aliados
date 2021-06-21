@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:fupa_aliados/app/globlas_widgets/input_widget.dart';
 import 'package:fupa_aliados/app/globlas_widgets/line_separator_widget.dart';
 import 'package:fupa_aliados/app/globlas_widgets/send_form_button_w.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';
@@ -43,7 +42,7 @@ class RegisterForm extends GetView<RegisterController> {
               Hero(
                 tag: 'login',
                 child: Container(
-                  margin: EdgeInsets.only(bottom: responsive.hp(2)),
+                  margin: EdgeInsets.only(bottom: responsive.hp(3)),
                   child: Image(
                     image: AssetImage('assets/images/logo_fupa.jpeg'),
                     height: responsive.hp(8),
@@ -51,7 +50,7 @@ class RegisterForm extends GetView<RegisterController> {
                 ),
               ),
               Text(
-                'Ingrese sus datos',
+                'Ingresá tus datos',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: responsive.dp(2),
@@ -59,7 +58,7 @@ class RegisterForm extends GetView<RegisterController> {
                 ),
               ),
               SizedBox(
-                height: responsive.hp(3),
+                height: responsive.hp(2),
               ),
               Container(
                 child: _InputWidget(
@@ -85,7 +84,7 @@ class RegisterForm extends GetView<RegisterController> {
               SizedBox(height: responsive.hp(2)),
               Container(
                 child: _InputWidget(
-                  controlName: 'correo',
+                  controlName: 'contacto',
                   hintText: 'Contacto',
                   icon: FontAwesomeIcons.mobileAlt,
                   validationMessageRequired: 'Este campo es obligatorio',
@@ -110,10 +109,7 @@ class RegisterForm extends GetView<RegisterController> {
                   ),
                 ),
               ),
-              SizedBox(height: responsive.hp(3)),
-              SizedBox(
-                height: responsive.hp(3.0),
-              ),
+              SizedBox(height: responsive.hp(4)),
               ReactiveFormConsumer(
                 builder: (context, form, child) {
                   return Obx(
@@ -133,17 +129,17 @@ class RegisterForm extends GetView<RegisterController> {
                 },
               ),
               SizedBox(
-                height: responsive.hp(3.0),
+                height: responsive.hp(4.0),
               ),
               lineSeparator(),
               SizedBox(
-                height: responsive.hp(3.0),
+                height: responsive.hp(1.0),
               ),
               Wrap(children: [
                 Text(
                   'Ya tenés usuario?',
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: responsive.dp(1.8),
                       fontWeight: FontWeight.w500,
                       color: Colors.black87),
                 ),
@@ -153,7 +149,7 @@ class RegisterForm extends GetView<RegisterController> {
                   child: Text(
                     'Ingresá',
                     style: AppFonts.secondaryFont.copyWith(
-                        fontSize: 18,
+                        fontSize: responsive.dp(1.8),
                         fontWeight: FontWeight.bold,
                         color: Colors.blueGrey),
                   ),
@@ -190,6 +186,7 @@ class _InputWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive.of(context);
     return ReactiveTextField(
       formControlName: controlName,
       obscureText: obscureText ? controller.mostrarPassword : false,
@@ -202,7 +199,7 @@ class _InputWidget extends StatelessWidget {
         icon: FaIcon(
           icon,
           color: AppColors.secondaryColor,
-          size: 20,
+          size: responsive.dp(1.8),
         ),
         hintText: hintText,
         labelText: hintText,
@@ -213,7 +210,7 @@ class _InputWidget extends StatelessWidget {
               )
             : null,
       ),
-      style: TextStyle(fontSize: 18),
+      style: TextStyle(fontSize: responsive.dp(1.8)),
     );
   }
 }

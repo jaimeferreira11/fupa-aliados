@@ -51,10 +51,10 @@ class _SearchHeaderBackground extends StatelessWidget {
                         color: Colors.white.withOpacity(0.1))),
                 Column(
                   children: <Widget>[
-                    SizedBox(height: responsive.hp(2), width: double.infinity),
+                    SizedBox(height: responsive.hp(1), width: double.infinity),
                     Text("Buscar cliente",
                         style: TextStyle(
-                            fontSize: responsive.dp(2.2),
+                            fontSize: responsive.dp(2),
                             color: colorBlanco,
                             fontWeight: FontWeight.w500)),
                     SizedBox(height: responsive.hp(1.5)),
@@ -68,6 +68,7 @@ class _SearchHeaderBackground extends StatelessWidget {
                             builder: (_) {
                               return InputSelectWidget(
                                 value: _.tipodoc,
+                                fontSize: responsive.dp(1.8),
                                 label: 'Tipo documento',
                                 options: ['CI', 'RUC', 'DNI', 'PASS'],
                                 onChanged: (text) {
@@ -84,6 +85,7 @@ class _SearchHeaderBackground extends StatelessWidget {
                               width: responsive.wp(60),
                               child: InputWidget(
                                   label: 'Documento cliente',
+                                  fontSize: responsive.dp(1.8),
                                   valor: _.doc,
                                   error: _.error.value,
                                   onChanged: (valor) {
@@ -94,7 +96,7 @@ class _SearchHeaderBackground extends StatelessWidget {
                         // FaIcon(FontAwesomeIcons.times, size: 30, color: Colors.white),
                       ],
                     ),
-                    SizedBox(height: responsive.hp(2)),
+                    SizedBox(height: responsive.hp(1)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -145,7 +147,7 @@ class _SearchHeaderBackground extends StatelessWidget {
                               ? "No encontrado"
                               : "Cliente encontrado",
                           style: TextStyle(
-                              fontSize: responsive.dp(2),
+                              fontSize: responsive.dp(1.8),
                               color: colorBlanco,
                               fontWeight: FontWeight.w200)),
                     ),
@@ -164,7 +166,7 @@ class _SearchHeaderBackground extends StatelessWidget {
                                     .capitalize,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: responsive.dp(2.1),
+                                fontSize: responsive.dp(1.8),
                                 color: colorBlanco,
                                 fontWeight: FontWeight.w500)),
                       ),

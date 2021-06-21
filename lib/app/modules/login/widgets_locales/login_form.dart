@@ -22,9 +22,9 @@ class LoginForm extends GetView<LoginController> {
         formGroup: form,
         child: Container(
           width: responsive.wp(90),
-          margin: EdgeInsets.only(top: responsive.hp(4)),
+          margin: EdgeInsets.only(top: responsive.hp(2)),
           padding: EdgeInsets.symmetric(
-              vertical: responsive.hp(3), horizontal: responsive.wp(5)),
+              vertical: responsive.hp(2), horizontal: responsive.wp(5)),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20.0),
@@ -46,12 +46,12 @@ class LoginForm extends GetView<LoginController> {
                 'Ingrese sus credenciales',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: responsive.dp(2.2),
+                  fontSize: responsive.dp(2),
                   fontWeight: FontWeight.w400,
                 ),
               ),
               SizedBox(
-                height: responsive.hp(3.5),
+                height: responsive.hp(4),
               ),
               Container(
                 child: _InputWidget(
@@ -64,7 +64,7 @@ class LoginForm extends GetView<LoginController> {
                 ),
               ),
               SizedBox(
-                height: responsive.hp(3.5),
+                height: responsive.hp(3),
               ),
               Container(
                 child: Obx(
@@ -95,7 +95,7 @@ class LoginForm extends GetView<LoginController> {
                       textAlign: TextAlign.right,
                       style: AppFonts.secondaryFont.copyWith(
                           decoration: TextDecoration.underline,
-                          fontSize: responsive.dp(2),
+                          fontSize: responsive.dp(1.8),
                           color: Colors.blue.shade700),
                     ),
                   ),
@@ -116,7 +116,7 @@ class LoginForm extends GetView<LoginController> {
                         form: form,
                         funcion: controller.login,
                         width: double.infinity,
-                        height: responsive.hp(7),
+                        height: responsive.hp(6),
                         ignore: controller.ignore,
                       ),
                     ),
@@ -134,7 +134,7 @@ class LoginForm extends GetView<LoginController> {
                 Text(
                   '¿No tenés usuario?',
                   style: TextStyle(
-                      fontSize: responsive.dp(2),
+                      fontSize: responsive.dp(1.8),
                       fontWeight: FontWeight.w400,
                       color: Colors.black87),
                 ),
@@ -144,7 +144,7 @@ class LoginForm extends GetView<LoginController> {
                   child: Text(
                     'Registrate',
                     style: AppFonts.secondaryFont.copyWith(
-                        fontSize: responsive.dp(2),
+                        fontSize: responsive.dp(1.8),
                         fontWeight: FontWeight.bold,
                         color: Colors.blueGrey),
                   ),
@@ -194,7 +194,7 @@ class _InputWidget extends StatelessWidget {
         prefixIcon: Icon(
           icon,
           color: AppColors.secondaryColor,
-          size: responsive.dp(2.5),
+          size: responsive.dp(1.8),
         ),
         hintText: "Escribe aquí",
         labelStyle: TextStyle(color: Colors.blueGrey),
@@ -208,7 +208,7 @@ class _InputWidget extends StatelessWidget {
               )
             : null,
       ),
-      style: TextStyle(fontSize: responsive.dp(2)),
+      style: TextStyle(fontSize: responsive.dp(1.8)),
     );
   }
 }

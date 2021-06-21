@@ -15,7 +15,7 @@ class CambiarPasswordWidget extends GetView<HomeController> {
     return GetBuilder<HomeController>(
         id: 'changePass',
         builder: (_) => Container(
-              margin: EdgeInsets.symmetric(vertical: responsive.hp(3)),
+              margin: EdgeInsets.symmetric(vertical: responsive.hp(4)),
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: <Widget>[
@@ -50,7 +50,7 @@ class CambiarPasswordWidget extends GetView<HomeController> {
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.black,
-                          fontSize: responsive.dp(2.2),
+                          fontSize: responsive.dp(1.8),
                         ),
                         decoration: InputDecoration(
                           prefixIcon: Icon(
@@ -77,7 +77,7 @@ class CambiarPasswordWidget extends GetView<HomeController> {
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w300,
                             color: Colors.grey,
-                            fontSize: responsive.dp(2.2),
+                            fontSize: responsive.dp(1.8),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
@@ -116,7 +116,7 @@ class CambiarPasswordWidget extends GetView<HomeController> {
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.black,
-                          fontSize: responsive.dp(2.2),
+                          fontSize: responsive.dp(1.8),
                         ),
                         decoration: InputDecoration(
                           prefixIcon: Icon(
@@ -143,7 +143,7 @@ class CambiarPasswordWidget extends GetView<HomeController> {
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w300,
                             color: Colors.grey,
-                            fontSize: responsive.dp(2.2),
+                            fontSize: responsive.dp(1.8),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
@@ -184,7 +184,7 @@ class CambiarPasswordWidget extends GetView<HomeController> {
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.black,
-                          fontSize: responsive.dp(2.2),
+                          fontSize: responsive.dp(1.8),
                         ),
                         decoration: InputDecoration(
                           prefixIcon: Icon(
@@ -211,7 +211,7 @@ class CambiarPasswordWidget extends GetView<HomeController> {
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w300,
                             color: Colors.grey,
-                            fontSize: responsive.dp(2.2),
+                            fontSize: responsive.dp(1.8),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
@@ -247,7 +247,7 @@ class CambiarPasswordWidget extends GetView<HomeController> {
                               child: SpinKitWave(
                                 color: AppColors.primaryColor,
                                 type: SpinKitWaveType.end,
-                                size: 24.0,
+                                size: responsive.dp(1.8),
                               ),
                             ),
                           )
@@ -271,7 +271,7 @@ class CambiarPasswordWidget extends GetView<HomeController> {
                                     style: AppFonts.secondaryFont.copyWith(
                                         letterSpacing: 1.5,
                                         color: Colors.white,
-                                        fontSize: 18.0,
+                                        fontSize: responsive.dp(1.8),
                                         fontWeight: FontWeight.w600),
                                   ),
                                 ),

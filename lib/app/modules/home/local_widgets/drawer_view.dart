@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fupa_aliados/app/data/providers/local/cache.dart';
-import 'package:fupa_aliados/app/globlas_widgets/line_separator_widget.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';
 import 'package:fupa_aliados/app/modules/home/home_controller.dart';
 import 'package:fupa_aliados/app/theme/colors.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 
 class DrawerView extends GetView<HomeController> {
   const DrawerView({Key key}) : super(key: key);
@@ -19,12 +17,12 @@ class DrawerView extends GetView<HomeController> {
       var selected = i == controller.selectedDrawerIndex;
       drawerOptions.add(new ListTile(
         leading: new Icon(d.icon,
-            size: responsive.dp(2.5),
+            size: responsive.dp(2),
             color: selected ? AppColors.primaryColor : Colors.black54),
         title: new Text(
           d.title,
           style: TextStyle(
-              fontSize: responsive.dp(2.2),
+              fontSize: responsive.dp(1.8),
               fontWeight: selected ? FontWeight.w500 : FontWeight.w400,
               color: selected ? AppColors.primaryColor : Colors.black54),
         ),
@@ -43,22 +41,20 @@ class DrawerView extends GetView<HomeController> {
             accountName: new Text(
               Cache.instance.user.username,
               style: TextStyle(
-                  fontSize: responsive.dp(2), fontStyle: FontStyle.italic),
+                  fontSize: responsive.dp(1.8), fontStyle: FontStyle.italic),
             ),
             accountEmail: new Text(
               Cache.instance.user.sanatorio?.descripcion,
               style: TextStyle(
-                fontSize: responsive.dp(1.7),
+                fontSize: responsive.dp(1.5),
               ),
             ),
             currentAccountPicture: CircleAvatar(
-              backgroundColor: Theme.of(context).platform == TargetPlatform.iOS
-                  ? AppColors.accentColor
-                  : Colors.white,
+              backgroundColor:  Colors.white,
               child: Text(
                 Cache.instance.user.username.substring(0, 1).toUpperCase(),
                 style: TextStyle(
-                    fontSize: responsive.hp(7),
+                    fontSize: responsive.dp(4),
                     fontWeight: FontWeight.w500,
                     color: AppColors.primaryColor),
               ),

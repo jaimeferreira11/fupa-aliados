@@ -16,12 +16,12 @@ class CardDetalleWidget extends StatelessWidget {
     final responsive = Responsive.of(context);
     var f = new NumberFormat("###,###", "es_ES");
     TextStyle styleTitle = TextStyle(
-      fontSize: responsive.hp(2),
+      fontSize: responsive.hp(1.8),
       fontWeight: FontWeight.w400,
       color: Colors.black87, //Colors.indigo,
     );
     TextStyle styleSubTitle = TextStyle(
-      fontSize: responsive.hp(1.8),
+      fontSize: responsive.hp(1.6),
       fontWeight: FontWeight.w400,
       color: Colors.black38, //Colors.indigo,
     );
@@ -45,7 +45,7 @@ class CardDetalleWidget extends StatelessWidget {
           child: Text(
             'G. ${f.format(proforma.monto)}',
             style: TextStyle(
-              fontSize: responsive.dp(2),
+              fontSize: responsive.dp(1.7),
               color: AppColors.accentColor,
               fontWeight: FontWeight.bold,
             ),
@@ -57,7 +57,7 @@ class CardDetalleWidget extends StatelessWidget {
           style: styleTitle,
         ),
         subtitle: Container(
-          margin: EdgeInsets.only(top: 5.0),
+          margin: EdgeInsets.only(top: responsive.hp(1)),
           child: Text(
             '${proforma.fechaLog}',
             style: styleSubTitle,

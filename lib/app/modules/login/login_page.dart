@@ -28,11 +28,11 @@ class LoginPage extends StatelessWidget {
                           child: Hero(
                             tag: 'login',
                             child: Container(
-                              margin: EdgeInsets.only(top: responsive.hp(2)),
+                              margin: EdgeInsets.only(top: responsive.hp(3)),
                               child: Image(
                                 image:
                                     AssetImage('assets/images/logo_fupa.jpeg'),
-                                height: responsive.hp(12),
+                                height: responsive.hp(10),
                               ),
                             ),
                           ),
@@ -46,7 +46,7 @@ class LoginPage extends StatelessWidget {
                         alignment: Alignment.bottomCenter,
                         child: Image.asset(
                           'assets/images/logo_MB.png',
-                          height: responsive.hp(13),
+                          height: responsive.hp(10),
                           width: double.infinity,
                         ),
                       ))

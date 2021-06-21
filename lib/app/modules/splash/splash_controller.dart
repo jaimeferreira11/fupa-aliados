@@ -1,10 +1,12 @@
 import 'package:fupa_aliados/app/data/repositories/local/auth_repository.dart';
 import 'package:fupa_aliados/app/data/repositories/remote/server_repository.dart';
+import 'package:fupa_aliados/app/globlas_widgets/new_version_view.dart';
 import 'package:fupa_aliados/app/routes/app_routes.dart';
 import 'package:fupa_aliados/app/routes/navigator.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/get.dart';
+import 'package:package_info/package_info.dart';
 
 class SplashController extends GetxController {
   final authRepo = Get.find<AuthRepository>();
@@ -18,6 +20,16 @@ class SplashController extends GetxController {
   }
 
   _init() async {
+    final resp = await serverRepo.getVersion();
+
+    resp.fold((l) => print('Error al obtener la version'), (r) async {
+      final PackageInfo info = await PackageInfo.fromPlatform();
+      if (r > int.parse(info.buildNumber)) {
+        Get.offAll(NewVersionView());
+        return;
+      }
+    });
+
     final respuesta = await authRepo.getAuthToken();
 
     respuesta.fold(

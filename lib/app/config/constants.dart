@@ -3,4 +3,6 @@ class AppConstants {
   //static const API_URL = 'http://10.0.14.13:8080/fupapp-rest/';
 
   static const CLIENT_SECRET = 'clientAliados:secret';
+
+  static const EMAIL_ADMIN = 'appfupa@fundacionparaguaya.org.py';
 }

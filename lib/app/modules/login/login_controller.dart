@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fupa_aliados/app/data/repositories/local/auth_repository.dart';
 import 'package:fupa_aliados/app/data/repositories/remote/server_repository.dart';
-import 'package:fupa_aliados/app/globlas_widgets/yes_no_dialog.dart';
 import 'package:fupa_aliados/app/helpers/notifications/notificacion_service.dart';
 import 'package:fupa_aliados/app/helpers/notifications/notifications_keys.dart';
 import 'package:fupa_aliados/app/routes/app_routes.dart';

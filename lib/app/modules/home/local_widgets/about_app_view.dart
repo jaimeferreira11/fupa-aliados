@@ -28,7 +28,7 @@ class AboutAppView extends StatelessWidget {
                       "Desarrollada por",
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: responsive.dp(2),
+                        fontSize: responsive.dp(1.8),
                         fontWeight: FontWeight.w200,
                       ),
                       textAlign: TextAlign.center,
@@ -44,13 +44,13 @@ class AboutAppView extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: responsive.hp(1.5)),
+                    margin: EdgeInsets.only(top: responsive.hp(2)),
                     color: Colors.white,
                     child: Text(
                       "© ${anio} Fundación Paraguaya de Cooperación y Desarrollo",
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: responsive.dp(2.2),
+                        fontSize: responsive.dp(1.8),
                         fontWeight: FontWeight.w400,
                       ),
                       textAlign: TextAlign.center,
@@ -63,7 +63,7 @@ class AboutAppView extends StatelessWidget {
                       "Todos los derechos reservados",
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: responsive.dp(2.2),
+                        fontSize: responsive.dp(1.7),
                         fontWeight: FontWeight.w200,
                       ),
                       textAlign: TextAlign.center,
@@ -77,7 +77,7 @@ class AboutAppView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Container(
-                          height: responsive.hp(15),
+                          height: responsive.hp(13),
                           child: Image.asset('assets/images/burt.jpg'),
                         ),
                         Container(
@@ -85,7 +85,7 @@ class AboutAppView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Container(
-                                height: responsive.hp(7),
+                                height: responsive.hp(6),
                                 margin: EdgeInsets.only(left: responsive.wp(6)),
                                 child:
                                     Image.asset('assets/images/burt_firma.png'),
@@ -96,7 +96,7 @@ class AboutAppView extends StatelessWidget {
                                   "Martín Burt",
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: responsive.dp(2.2),
+                                    fontSize: responsive.dp(2),
                                     fontWeight: FontWeight.w200,
                                   ),
                                 ),
@@ -134,7 +134,7 @@ class AboutAppView extends StatelessWidget {
                       "DESARROLLADO POR",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: responsive.dp(2),
+                        fontSize: responsive.dp(1.8),
                         fontFamily: "Roboto",
                         fontWeight: FontWeight.w300,
                       ),
@@ -150,7 +150,7 @@ class AboutAppView extends StatelessWidget {
                       "Jaime Ferreira",
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: responsive.dp(2.3),
+                        fontSize: responsive.dp(2),
                         fontWeight: FontWeight.w300,
                       ),
                       textAlign: TextAlign.center,
@@ -167,7 +167,7 @@ class AboutAppView extends StatelessWidget {
                         text: 'Desarrollador Senior',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: responsive.dp(2),
+                          fontSize: responsive.dp(1.8),
                           fontFamily: "Roboto",
                           fontWeight: FontWeight.w100,
                         ),
@@ -188,7 +188,7 @@ class AboutAppView extends StatelessWidget {
                       "Departamento de tecnología",
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: responsive.dp(2.2),
+                        fontSize: responsive.dp(2),
                         fontWeight: FontWeight.w500,
                       ),
                       textAlign: TextAlign.center,
@@ -196,7 +196,7 @@ class AboutAppView extends StatelessWidget {
                   ),
                   Container(
                     margin: EdgeInsets.only(
-                      top: responsive.hp(2.2),
+                      top: responsive.hp(2),
                     ),
                     color: Colors.white,
                     child: MaterialButton(
@@ -217,7 +217,7 @@ class AboutAppView extends StatelessWidget {
                         "Más información",
                         style: TextStyle(
                           color: Colors.indigo,
-                          fontSize: responsive.dp(2.2),
+                          fontSize: responsive.dp(2),
                           fontFamily: "Roboto",
                           fontWeight: FontWeight.w300,
                         ),

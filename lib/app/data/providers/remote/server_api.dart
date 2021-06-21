@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:fupa_aliados/app/config/constants.dart';
 import 'package:fupa_aliados/app/config/dio_config.dart';
 import 'package:fupa_aliados/app/config/errors/failures.dart';
@@ -12,7 +12,6 @@ import 'package:fupa_aliados/app/data/models/token_model.dart';
 import 'package:fupa_aliados/app/data/models/usuario_model.dart';
 import 'package:fupa_aliados/app/data/providers/local/cache.dart';
 import 'package:get/get.dart';
-import 'package:meta/meta.dart' show required;
 
 class ServerAPI {
   final DioService _dio = Get.find<DioService>();
@@ -199,6 +198,35 @@ class ServerAPI {
     final res = await _dio.client.get(url);
     if (res.statusCode == 200) {
       return right(ProformaModel.fromJsonList(res.data['datos']));
+    }
+    return left(ServerFailure());
+  }
+
+  Future<Either<Failure, String>> sendMail(
+      String asunto, String mensaje) async {
+    final url = AppConstants.API_URL + 'public/send-mail';
+
+    final res = await _dio.client.post(url, queryParameters: {
+      "destinatario": AppConstants.EMAIL_ADMIN,
+      "mensaje": mensaje,
+      "asunto": asunto
+    });
+    if (res.statusCode == 200) {
+      return right(res.data['datos']);
+    } else {
+      return left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, int>> getVersion() async {
+    String app = "APP_ALIADOS_ANDROID";
+    if (Platform.isIOS) app = "APP_ALIADOS_IOS";
+
+    final url = AppConstants.API_URL + 'public/v2/version-app/$app';
+
+    final res = await _dio.client.get(url);
+    if (res.statusCode == 200) {
+      return right(res.data['datos']);
     }
     return left(ServerFailure());
   }

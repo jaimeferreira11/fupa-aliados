@@ -43,6 +43,7 @@ class SolicitarCreditoPage extends StatelessWidget {
                                     FloatingActionButton.extended(
                                       heroTag: 'cancel',
                                       backgroundColor: Colors.red.shade800,
+                                      
                                       onPressed: () {
                                         _.doc = "";
                                         _.reset();
@@ -50,7 +51,7 @@ class SolicitarCreditoPage extends StatelessWidget {
                                       label: Text('Cancelar',
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: responsive.dp(1.8))),
+                                              fontSize: responsive.dp(1.6))),
                                       icon: Icon(
                                         FontAwesomeIcons.times,
                                         color: Colors.white,
@@ -64,7 +65,7 @@ class SolicitarCreditoPage extends StatelessWidget {
                                       label: Text('Enviar solicitud',
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: responsive.dp(1.8))),
+                                              fontSize: responsive.dp(1.6))),
                                       icon: _.workInProgress
                                           ? Center(
                                               child:
@@ -127,7 +128,7 @@ _listWidget(BuildContext context, SolicitarCreditoController _) {
         child: Text(
           "Datos de la solicitud",
           style: TextStyle(
-              fontSize: responsive.dp(2),
+              fontSize: responsive.dp(1.8),
               color: AppColors.primaryColor,
               fontWeight: FontWeight.w500),
         ),
@@ -142,6 +143,7 @@ _listWidget(BuildContext context, SolicitarCreditoController _) {
           child: Obx(() => InputWidget(
                 label: 'Monto (Gs.)',
                 keyboardType: TextInputType.number,
+                fontSize: responsive.dp(1.8),
                 error: _.error2.value,
                 valor: _.monto,
                 onChanged: (text) {
@@ -153,7 +155,7 @@ _listWidget(BuildContext context, SolicitarCreditoController _) {
         child: Text(
           "Plazo (Dias)",
           style: TextStyle(
-              fontSize: responsive.dp(2),
+              fontSize: responsive.dp(1.8),
               color: Colors.black54,
               fontWeight: FontWeight.w400),
         ),
@@ -167,6 +169,7 @@ _listWidget(BuildContext context, SolicitarCreditoController _) {
             id: 'plazo',
             builder: (_) {
               return InputSelectWidget(
+                fontSize: responsive.dp(1.8),
                 value: _.plazo,
                 options: ['7', '14', '30'],
                 onChanged: (text) {
@@ -210,9 +213,9 @@ Widget _buildProductos(SolicitarCreditoController _, SanatorioProductoModel p) {
             child: Chip(
               backgroundColor: Colors.green[200],
               label: Text(
-                p.descripcion,
+                p.descripcion.capitalize,
                 style: TextStyle(
-                  fontSize: responsive.dp(1.7),
+                  fontSize: responsive.dp(1.5),
                   fontWeight: FontWeight.w500,
                   color: Colors.green.shade900,
                 ),
@@ -234,9 +237,9 @@ Widget _buildProductos(SolicitarCreditoController _, SanatorioProductoModel p) {
             },
             child: Chip(
               label: Text(
-                p.descripcion,
+                p.descripcion.capitalize,
                 style: TextStyle(
-                  fontSize: responsive.dp(1.6),
+                  fontSize: responsive.dp(1.5),
                   fontWeight: FontWeight.w500,
                   color: Colors.grey[700],
                 ),
