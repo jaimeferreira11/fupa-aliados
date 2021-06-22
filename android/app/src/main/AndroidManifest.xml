@@ -2,7 +2,7 @@
     package="py.org.fundacionparaguaya.fupaaliados">
    <application
         android:label="Aliados Fundación Paraguaya"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

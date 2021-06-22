@@ -48,7 +48,7 @@ class HomeView extends StatelessWidget {
               margin: EdgeInsets.only(
                   top: responsive.hp(2), bottom: responsive.hp(1.5)),
               child: Image(
-                image: AssetImage('assets/images/logo_fupa.jpeg'),
+                image: AssetImage('assets/images/logo_fp.png'),
                 height: responsive.hp(8),
               ),
             ),

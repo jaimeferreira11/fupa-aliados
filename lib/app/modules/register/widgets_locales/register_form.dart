@@ -44,7 +44,7 @@ class RegisterForm extends GetView<RegisterController> {
                 child: Container(
                   margin: EdgeInsets.only(bottom: responsive.hp(3)),
                   child: Image(
-                    image: AssetImage('assets/images/logo_fupa.jpeg'),
+                    image: AssetImage('assets/images/logo_fp.png'),
                     height: responsive.hp(8),
                   ),
                 ),

@@ -30,8 +30,8 @@ class LoginPage extends StatelessWidget {
                             child: Container(
                               margin: EdgeInsets.only(top: responsive.hp(3)),
                               child: Image(
-                                image:
-                                    AssetImage('assets/images/logo_fupa.jpeg'),
+                                image: AssetImage(
+                                    'assets/images/logo_fp_blanco.png'),
                                 height: responsive.hp(10),
                               ),
                             ),

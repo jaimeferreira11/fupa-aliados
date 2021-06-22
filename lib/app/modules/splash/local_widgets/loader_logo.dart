@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:fupa_aliados/app/helpers/responsive.dart';
 import 'package:fupa_aliados/app/theme/colors.dart';
 
 class LoaderLogo extends StatelessWidget {
@@ -9,37 +10,61 @@ class LoaderLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive.of(context);
     return Stack(
       fit: StackFit.expand,
       children: [
         Container(
           decoration: BoxDecoration(
-            color: AppColors.primaryColor,
-          ),
+              gradient: LinearGradient(
+            colors: [AppColors.primaryColor, AppColors.darkColor],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: [0.3, 0.7],
+          )),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
-              flex: 2,
               child: Container(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    Spacer(
+                      flex: 1,
+                    ),
+                    SlideInLeft(
+                        child: Center(
+                      child: Text(
+                        'Aliados',
+                        style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                            fontSize: responsive.dp(5)),
+                      ),
+                    )),
+                    SizedBox(
+                      height: responsive.hp(2),
+                    ),
                     BounceInDown(
                         delay: Duration(milliseconds: 1000),
                         child: Image(
-                          height: 200,
+                          height: responsive.hp(10),
                           image: AssetImage(
-                            'assets/images/ic_launcher.png',
+                            'assets/images/logo_fp_blanco.png',
                           ),
                         )),
-                    SizedBox(
-                      height: 50,
+                    Spacer(
+                      flex: 1,
                     ),
                     CircularProgressIndicator(
                       backgroundColor: Colors.white,
                       strokeWidth: 5,
+                    ),
+                    Spacer(
+                      flex: 4,
                     )
                   ],
                 ),
