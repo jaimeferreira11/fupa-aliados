@@ -20,6 +20,9 @@ class HomePage extends StatelessWidget {
                     actions: [
                       IconButton(
                           onPressed: () => _.launchDialogCerrarSesion(),
+                          icon: Icon(Icons.exit_to_app)),
+                      IconButton(
+                          onPressed: () => _.launchDialogCerrarSesion(),
                           icon: Icon(Icons.exit_to_app))
                     ],
                   ),
@@ -45,12 +48,11 @@ class HomeView extends StatelessWidget {
           Hero(
             tag: 'login',
             child: Container(
-              margin: EdgeInsets.only(
-                  top: responsive.hp(2), bottom: responsive.hp(1.5)),
-              child: Image(
-                image: AssetImage('assets/images/logo_fp.png'),
-                height: responsive.hp(8),
-              ),
+              margin: EdgeInsets.only(bottom: responsive.hp(1.5)),
+              // child: Image(
+              //   image: AssetImage('assets/images/logo_verde.png'),
+              //   height: responsive.hp(8),
+              // ),
             ),
           ),
 

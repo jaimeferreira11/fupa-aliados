@@ -34,26 +34,30 @@ class LoaderLogo extends StatelessWidget {
                     Spacer(
                       flex: 1,
                     ),
-                    SlideInLeft(
-                        child: Center(
-                      child: Text(
-                        'Aliados',
-                        style: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                            fontSize: responsive.dp(5)),
-                      ),
-                    )),
+                    ZoomIn(
+                        delay: Duration(milliseconds: 800),
+                        child: Hero(
+                          tag: 'login',
+                          child: Image(
+                            height: responsive.hp(15),
+                            image: AssetImage(
+                              'assets/images/logo_blanco.png',
+                            ),
+                          ),
+                        )),
                     SizedBox(
                       height: responsive.hp(2),
                     ),
-                    BounceInDown(
-                        delay: Duration(milliseconds: 1000),
-                        child: Image(
-                          height: responsive.hp(10),
-                          image: AssetImage(
-                            'assets/images/logo_fp_blanco.png',
+                    ZoomIn(
+                        delay: Duration(milliseconds: 800),
+                        child: Center(
+                          child: Text(
+                            'Aliados',
+                            style: TextStyle(
+                                fontFamily: "Candara",
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                                fontSize: responsive.dp(5)),
                           ),
                         )),
                     Spacer(
@@ -65,7 +69,18 @@ class LoaderLogo extends StatelessWidget {
                     ),
                     Spacer(
                       flex: 4,
-                    )
+                    ),
+                    BounceInUp(
+                        delay: Duration(milliseconds: 1000),
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: responsive.hp(1)),
+                          child: Image(
+                            height: responsive.hp(7),
+                            image: AssetImage(
+                              'assets/images/logo_fp_blanco.png',
+                            ),
+                          ),
+                        )),
                   ],
                 ),
               ),

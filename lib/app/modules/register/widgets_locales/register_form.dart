@@ -24,7 +24,7 @@ class RegisterForm extends GetView<RegisterController> {
           width: responsive.wp(85),
           margin: EdgeInsets.only(top: responsive.hp(4)),
           padding: EdgeInsets.symmetric(
-              vertical: responsive.hp(3), horizontal: responsive.wp(5)),
+              vertical: responsive.hp(2), horizontal: responsive.wp(5)),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20.0),
@@ -42,10 +42,10 @@ class RegisterForm extends GetView<RegisterController> {
               Hero(
                 tag: 'login',
                 child: Container(
-                  margin: EdgeInsets.only(bottom: responsive.hp(3)),
+                  margin: EdgeInsets.only(bottom: responsive.hp(2)),
                   child: Image(
-                    image: AssetImage('assets/images/logo_fp.png'),
-                    height: responsive.hp(8),
+                    image: AssetImage('assets/images/logo_verde.png'),
+                    height: responsive.hp(9),
                   ),
                 ),
               ),

@@ -28,9 +28,12 @@ class RegisterPage extends StatelessWidget {
                       Positioned.fill(
                           child: Align(
                         alignment: Alignment.bottomCenter,
-                        child: Image.asset(
-                          'assets/images/logo_MB.png',
-                          height: responsive.hp(10),
+                        child: Hero(
+                          tag: 'martin',
+                          child: Image.asset(
+                            'assets/images/logo_MB.png',
+                            height: responsive.hp(10),
+                          ),
                         ),
                       )),
                       Positioned.fill(

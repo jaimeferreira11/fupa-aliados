@@ -50,14 +50,22 @@ class DrawerView extends GetView<HomeController> {
               ),
             ),
             currentAccountPicture: CircleAvatar(
-              backgroundColor:  Colors.white,
-              child: Text(
-                Cache.instance.user.username.substring(0, 1).toUpperCase(),
-                style: TextStyle(
-                    fontSize: responsive.dp(4),
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.primaryColor),
+              backgroundColor: Colors.white,
+              child: Container(
+                padding: EdgeInsets.all(responsive.dp(1.5)),
+                child: Image(
+                  image: AssetImage('assets/images/logo_verde.png'),
+                  //height: responsive.hp(3),
+                ),
               ),
+
+              // Text(
+              //   Cache.instance.user.username.substring(0, 1).toUpperCase(),
+              //   style: TextStyle(
+              //       fontSize: responsive.dp(4),
+              //       fontWeight: FontWeight.w500,
+              //       color: AppColors.primaryColor),
+              // ),
             ),
           ),
           Column(children: drawerOptions),

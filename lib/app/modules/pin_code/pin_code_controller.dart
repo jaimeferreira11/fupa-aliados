@@ -51,8 +51,6 @@ class PinCodeController extends GetxController {
   }
 
   init() async {
-    print(Cache.instance.user.sanatorio.productos.length);
-    print(Cache.instance.user.sanatorio.productos[0].toJson());
     onTapRecognizer = TapGestureRecognizer()
       ..onTap = () {
         reenviar = true;
