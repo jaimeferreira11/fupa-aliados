@@ -22,14 +22,21 @@ class SplashController extends GetxController {
   _init() async {
     final resp = await serverRepo.getVersion();
 
-    resp.fold((l) => print('Error al obtener la version'), (r) async {
+    resp.fold((l) => verificarSesion(), (r) async {
       final PackageInfo info = await PackageInfo.fromPlatform();
+      print(r);
+      print(info.buildNumber);
       if (r > int.parse(info.buildNumber)) {
         Get.offAll(NewVersionView());
         return;
       }
+      verificarSesion();
     });
 
+    ;
+  }
+
+  Future verificarSesion() async {
     final respuesta = await authRepo.getAuthToken();
 
     respuesta.fold(

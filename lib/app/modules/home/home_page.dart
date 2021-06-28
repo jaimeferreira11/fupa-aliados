@@ -21,9 +21,6 @@ class HomePage extends StatelessWidget {
                       IconButton(
                           onPressed: () => _.launchDialogCerrarSesion(),
                           icon: Icon(Icons.exit_to_app)),
-                      IconButton(
-                          onPressed: () => _.launchDialogCerrarSesion(),
-                          icon: Icon(Icons.exit_to_app))
                     ],
                   ),
                   drawer: DrawerView(),
