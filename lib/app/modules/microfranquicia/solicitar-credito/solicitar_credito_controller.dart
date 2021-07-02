@@ -14,6 +14,7 @@ import 'package:fupa_aliados/app/routes/navigator.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/get.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class SolicitarCreditoController extends GetxController {
   final authRepo = Get.find<AuthRepository>();
@@ -41,6 +42,9 @@ class SolicitarCreditoController extends GetxController {
 
   int idsanatorioproducto;
 
+  var maskFormatter = new MaskTextInputFormatter(
+      mask: '###.###.###.###', filter: {"#": RegExp(r'[0-9]')});
+
   @override
   void onReady() {
     if (Cache.instance.user.sanatorio.productos.isNotEmpty)
@@ -51,6 +55,8 @@ class SolicitarCreditoController extends GetxController {
   }
 
   Future comprobarDisponibilidad() async {
+    prueba();
+    return;
     if (doc.isEmpty) {
       error.value = "Campo requerido";
       return;
@@ -82,6 +88,7 @@ class SolicitarCreditoController extends GetxController {
       height = responsive.hp(37);
       cliente = r;
       busquedaRealizada = true;
+
       update();
     });
   }
@@ -89,17 +96,20 @@ class SolicitarCreditoController extends GetxController {
   Future solicitarCodigoVerificacion() async {
     error2.value = "";
     if (cliente == null) return;
-    if (monto.isEmpty) {
+
+    print(maskFormatter.getUnmaskedText());
+    if (maskFormatter.getUnmaskedText().isEmpty) {
       error2.value = "Agregue el monto";
       return;
     }
+
     //  workInProgress = true;
     buscando.value = true;
     FocusScope.of(Get.context).requestFocus(FocusNode());
     update();
     final resp = await serverRepo.solicitarCodigoVerificacion(
         idpersona: cliente.persona.idpersona,
-        monto: monto,
+        monto: maskFormatter.getUnmaskedText(),
         plazo: plazo,
         cel: cliente.persona.telefono1);
     //  workInProgress = false;
@@ -119,6 +129,19 @@ class SolicitarCreditoController extends GetxController {
       pinController.proforma = proforma;
       nav.goToOff(AppRoutes.PIN_CODE);
     });
+  }
+
+  prueba() {
+    final proforma = new ProformaModel(
+        idpersona: 12345,
+        monto: double.parse("100000"),
+        cliente: cliente,
+        plazo: int.parse(plazo.trim()),
+        idsanatorioproducto: idsanatorioproducto);
+    pinController.celular = "0981227629";
+    pinController.mensaje = "El mensaje";
+    pinController.proforma = proforma;
+    nav.goToOff(AppRoutes.PIN_CODE);
   }
 
   reset() {

@@ -46,6 +46,7 @@ dependencies:
   pin_code_fields: ^6.1.0
   package_info: ^2.0.2
   open_appstore: ^1.0.2
+  mask_text_input_formatter: ^2.0.0
 
 dev_dependencies:
   flutter_test:

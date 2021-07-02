@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:focus_widget/focus_widget.dart';
 import 'package:fupa_aliados/app/theme/colors.dart';
 
@@ -16,6 +17,7 @@ class InputWidget extends StatelessWidget {
   final void Function(String text) onChanged;
   final String Function(String text) validator;
   final String error;
+  final List<TextInputFormatter> inputFormatters;
 
   InputWidget({
     Key key,
@@ -33,6 +35,7 @@ class InputWidget extends StatelessWidget {
     this.error = "",
     this.valor,
     this.maxLength,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -199,6 +202,7 @@ class InputWidget extends StatelessWidget {
           focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
           controller: inputsValuesControllers[keyInputValue],
           textCapitalization: TextCapitalization.words,
+          inputFormatters: this.inputFormatters ?? [],
           textInputAction: inputsFocusNodes.containsKey("$key")
               ? TextInputAction.next
               : TextInputAction.done,

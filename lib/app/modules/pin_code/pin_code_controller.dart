@@ -30,7 +30,7 @@ class PinCodeController extends GetxController {
   int resendingTokenPhone;
   bool reenviar = false;
 
-  TextEditingController textEditingController = TextEditingController();
+  TextEditingController textEditingController;
   String celular = "";
   String mensaje = "";
   ProformaModel proforma;
@@ -39,8 +39,8 @@ class PinCodeController extends GetxController {
 
   String hasError;
   String currentText = "";
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  final formKey = GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  var formKey;
 
   RxBool buscando = false.obs;
 
@@ -50,7 +50,15 @@ class PinCodeController extends GetxController {
     init();
   }
 
+  @override
+  void onClose() {
+    print('Close pin code');
+  }
+
   init() async {
+    print("Iniciando pin code");
+
+    formKey = GlobalKey<FormState>();
     onTapRecognizer = TapGestureRecognizer()
       ..onTap = () {
         reenviar = true;
@@ -58,6 +66,8 @@ class PinCodeController extends GetxController {
         reenviarCodigo();
       };
     errorController = StreamController<ErrorAnimationType>();
+    textEditingController = TextEditingController();
+    update();
   }
 
   reenviarCodigo() {
@@ -75,12 +85,13 @@ class PinCodeController extends GetxController {
 
     print(dial);
     if (dial == 1) {
-      nav.goToAndClean(AppRoutes.SOLICITAR_CREDITO);
+      nav.goToOff(AppRoutes.SOLICITAR_CREDITO);
     }
   }
 
   validarSolicitud() async {
     buscando.value = true;
+
     final resp = await serverRepo.enviarSolicitud(currentText, proforma);
     buscando.value = false;
 

@@ -43,7 +43,6 @@ class SolicitarCreditoPage extends StatelessWidget {
                                     FloatingActionButton.extended(
                                       heroTag: 'cancel',
                                       backgroundColor: Colors.red.shade800,
-                                      
                                       onPressed: () {
                                         _.doc = "";
                                         _.reset();
@@ -142,6 +141,7 @@ _listWidget(BuildContext context, SolicitarCreditoController _) {
               right: responsive.wp(5)),
           child: Obx(() => InputWidget(
                 label: 'Monto (Gs.)',
+                inputFormatters: [_.maskFormatter],
                 keyboardType: TextInputType.number,
                 fontSize: responsive.dp(1.8),
                 error: _.error2.value,

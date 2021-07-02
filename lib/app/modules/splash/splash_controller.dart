@@ -29,8 +29,9 @@ class SplashController extends GetxController {
       if (r > int.parse(info.buildNumber)) {
         Get.offAll(NewVersionView());
         return;
+      } else {
+        verificarSesion();
       }
-      verificarSesion();
     });
 
     ;
