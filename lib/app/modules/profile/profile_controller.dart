@@ -9,7 +9,6 @@ import 'package:fupa_aliados/app/globlas_widgets/input_widget.dart';
 import 'package:fupa_aliados/app/helpers/notifications/notificacion_service.dart';
 import 'package:fupa_aliados/app/helpers/notifications/notifications_keys.dart';
 import 'package:fupa_aliados/app/modules/home/home_controller.dart';
-import 'package:fupa_aliados/app/routes/app_routes.dart';
 import 'package:fupa_aliados/app/routes/navigator.dart';
 import 'package:fupa_aliados/app/theme/colors.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';

@@ -4,8 +4,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fupa_aliados/app/config/errors/failures.dart';
 import 'package:fupa_aliados/app/data/models/proforma_model.dart';
-import 'package:fupa_aliados/app/data/models/sanatorio_producto_model.dart';
-import 'package:fupa_aliados/app/data/providers/local/cache.dart';
 import 'package:fupa_aliados/app/data/repositories/local/auth_repository.dart';
 import 'package:fupa_aliados/app/data/repositories/remote/server_repository.dart';
 import 'package:fupa_aliados/app/globlas_widgets/yes_no_dialog.dart';
@@ -53,6 +51,7 @@ class PinCodeController extends GetxController {
   @override
   void onClose() {
     print('Close pin code');
+    this.errorController?.close();
   }
 
   init() async {

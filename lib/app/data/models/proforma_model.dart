@@ -1,5 +1,4 @@
 import 'package:fupa_aliados/app/data/models/cliente_model.dart';
-import 'package:fupa_aliados/app/data/models/sanatorio_model.dart';
 
 class ProformaModel {
   final int idproforma;

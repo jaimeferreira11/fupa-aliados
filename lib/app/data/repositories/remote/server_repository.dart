@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:fupa_aliados/app/config/errors/failures.dart';
+import 'package:fupa_aliados/app/data/models/agente_parametro_model.dart';
 import 'package:fupa_aliados/app/data/models/cliente_model.dart';
+import 'package:fupa_aliados/app/data/models/destino_solicitud_agente_model.dart';
 import 'package:fupa_aliados/app/data/models/proforma_model.dart';
 import 'package:fupa_aliados/app/data/models/token_model.dart';
 import 'package:fupa_aliados/app/data/models/usuario_model.dart';
@@ -28,6 +30,12 @@ class ServerRepository {
           String password, String newpassword) =>
       _api.cambiarPassword(password, newpassword);
 
+  Future<Either<Failure, String>> sendMail(String asunto, String mensaje) =>
+      _api.sendMail(asunto, mensaje);
+
+  Future<Either<Failure, int>> getVersion() => _api.getVersion();
+
+  // Microfranquicias
   Future<Either<Failure, ClienteModel>> verificarDisponibilidadCliente(
           String tipoDoc, String doc) =>
       _api.verificarDisponibilidadCliente(tipoDoc, doc);
@@ -48,8 +56,14 @@ class ServerRepository {
           int mes, int anio) =>
       _api.obtenerSolicitudes(mes, anio);
 
-  Future<Either<Failure, String>> sendMail(String asunto, String mensaje) =>
-      _api.sendMail(asunto, mensaje);
+  // Agentes
+  Future<Either<Failure, ClienteModel>> buscarClienteByTipoDocAndDoc(
+          String tipoDoc, String doc) =>
+      _api.buscarClienteByTipoDocAndDoc(tipoDoc, doc);
 
-  Future<Either<Failure, int>> getVersion() => _api.getVersion();
+  Future<Either<Failure, AgenteParametroModel>> obtenerParametrosAgente() =>
+      _api.obtenerParametrosAgente();
+
+  Future<Either<Failure, List<DestinoSolicitudAgenteModel>>>
+      obtenerDestinosAgente() => _api.obtenerDestinosAgente();
 }

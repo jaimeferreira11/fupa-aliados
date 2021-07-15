@@ -1,3 +1,4 @@
+import 'package:fupa_aliados/app/data/providers/local/cache.dart';
 import 'package:fupa_aliados/app/data/repositories/local/auth_repository.dart';
 import 'package:fupa_aliados/app/data/repositories/remote/server_repository.dart';
 import 'package:fupa_aliados/app/globlas_widgets/new_version_view.dart';
@@ -24,17 +25,15 @@ class SplashController extends GetxController {
 
     resp.fold((l) => verificarSesion(), (r) async {
       final PackageInfo info = await PackageInfo.fromPlatform();
-      print(r);
-      print(info.buildNumber);
+
       if (r > int.parse(info.buildNumber)) {
         Get.offAll(NewVersionView());
         return;
       } else {
+        Cache.instance.version = info.version;
         verificarSesion();
       }
     });
-
-    ;
   }
 
   Future verificarSesion() async {

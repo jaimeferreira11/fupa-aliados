@@ -12,7 +12,7 @@ class Utils {
     } else if (connectivityResult == ConnectivityResult.wifi) {
       return true;
     }
-    if (toast) return false;
+    if (!toast) return false;
 
     Get.snackbar(
       "Atención", // title
@@ -27,6 +27,7 @@ class Utils {
       backgroundColor: Colors.black38,
       duration: Duration(seconds: 3),
     );
+    return false;
   }
 
   static getFileName(String path) {

@@ -1,3 +1,4 @@
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:fupa_aliados/app/config/errors/failures.dart';
 import 'package:fupa_aliados/app/data/models/cliente_model.dart';
@@ -42,8 +43,11 @@ class SolicitarCreditoController extends GetxController {
 
   int idsanatorioproducto;
 
-  var maskFormatter = new MaskTextInputFormatter(
-      mask: '###.###.###.###', filter: {"#": RegExp(r'[0-9]')});
+  final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
+    locale: 'es-PY',
+    decimalDigits: 0,
+    symbol: '',
+  );
 
   @override
   void onReady() {
@@ -55,8 +59,6 @@ class SolicitarCreditoController extends GetxController {
   }
 
   Future comprobarDisponibilidad() async {
-    prueba();
-    return;
     if (doc.isEmpty) {
       error.value = "Campo requerido";
       return;
@@ -97,8 +99,7 @@ class SolicitarCreditoController extends GetxController {
     error2.value = "";
     if (cliente == null) return;
 
-    print(maskFormatter.getUnmaskedText());
-    if (maskFormatter.getUnmaskedText().isEmpty) {
+    if (this.monto.isEmpty) {
       error2.value = "Agregue el monto";
       return;
     }
@@ -109,7 +110,7 @@ class SolicitarCreditoController extends GetxController {
     update();
     final resp = await serverRepo.solicitarCodigoVerificacion(
         idpersona: cliente.persona.idpersona,
-        monto: maskFormatter.getUnmaskedText(),
+        monto: monto.replaceAll(".", ""),
         plazo: plazo,
         cel: cliente.persona.telefono1);
     //  workInProgress = false;
@@ -129,19 +130,6 @@ class SolicitarCreditoController extends GetxController {
       pinController.proforma = proforma;
       nav.goToOff(AppRoutes.PIN_CODE);
     });
-  }
-
-  prueba() {
-    final proforma = new ProformaModel(
-        idpersona: 12345,
-        monto: double.parse("100000"),
-        cliente: cliente,
-        plazo: int.parse(plazo.trim()),
-        idsanatorioproducto: idsanatorioproducto);
-    pinController.celular = "0981227629";
-    pinController.mensaje = "El mensaje";
-    pinController.proforma = proforma;
-    nav.goToOff(AppRoutes.PIN_CODE);
   }
 
   reset() {

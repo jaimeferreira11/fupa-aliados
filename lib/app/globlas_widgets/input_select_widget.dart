@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:focus_widget/focus_widget.dart';
+import 'package:fupa_aliados/app/helpers/responsive.dart';
 
 class InputSelectWidget extends StatelessWidget {
   final String label;
@@ -10,16 +11,18 @@ class InputSelectWidget extends StatelessWidget {
   final bool requerido;
   final void Function(String text) onChanged;
   final String Function(String text) validator;
+  final bool editable;
 
   InputSelectWidget({
     Key key,
-    this.label = 'Label',
-    this.options,
+    this.label,
+    @required this.options,
     this.value = 'Seleccione una opción',
     this.borderEnabled = true,
     this.fontSize = 18,
     this.onChanged,
     this.requerido = false,
+    this.editable = true,
     this.validator,
   }) : super(key: key);
 
@@ -43,7 +46,26 @@ class InputSelectWidget extends StatelessWidget {
   Map<String, TextEditingController> inputsValuesControllers = {};
 
   List<Widget> _getSlider(BuildContext context) {
+    final responsive = Responsive.of(context);
     var listaWidgets = <Widget>[];
+
+    if (label != null && this.label.length > 0) {
+      listaWidgets.add(
+        Container(
+          margin: EdgeInsets.only(bottom: responsive.hp(1)),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              this.label,
+              style: TextStyle(
+                  fontSize: this.fontSize,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+        ),
+      );
+    }
 
     Widget errorTextWidget = Container(
         margin: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -94,11 +116,13 @@ class InputSelectWidget extends StatelessWidget {
           ),
           isExpanded: true,
           value: value,
-          onChanged: (valor) {
-            value = valor;
-            FocusScope.of(context).requestFocus(new FocusNode());
-            this.onChanged(valor);
-          },
+          onChanged: !this.editable
+              ? null
+              : (valor) {
+                  value = valor;
+                  FocusScope.of(context).requestFocus(new FocusNode());
+                  this.onChanged(valor);
+                },
           items: options.map<DropdownMenuItem>((valor) {
             return DropdownMenuItem(
               child: Text(valor),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fupa_aliados/app/data/models/proforma_model.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';
 import 'package:fupa_aliados/app/theme/colors.dart';

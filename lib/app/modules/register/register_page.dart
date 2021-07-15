@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';
-import 'package:fupa_aliados/app/modules/login/widgets_locales/login_form.dart';
 import 'package:fupa_aliados/app/modules/register/widgets_locales/register_form.dart';
-import 'package:fupa_aliados/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 import 'register_controller.dart';

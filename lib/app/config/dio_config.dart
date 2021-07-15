@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:fupa_aliados/app/data/providers/local/cache.dart';
-import 'package:logger/logger.dart';
 
 import 'constants.dart';
 
@@ -24,7 +23,7 @@ class DioService {
         onRequest: (RequestOptions options) async {
           final path = options.path;
           print(path);
-          final log = Logger();
+
           if (path.contains('oauth/token')) {
             final encode = base64.encode(
               utf8.encode(AppConstants.CLIENT_SECRET),

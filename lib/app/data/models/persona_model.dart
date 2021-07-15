@@ -22,6 +22,7 @@ class PersonaModel {
     this.codtipopersona,
     this.direccion,
     this.email,
+    this.tipopersona,
   });
 
   int idpersona;
@@ -33,8 +34,9 @@ class PersonaModel {
   String telefono2;
   dynamic fechanaciemiento;
   int codtipopersona;
-  dynamic direccion;
-  dynamic email;
+  String direccion;
+  String email;
+  String tipopersona;
 
   factory PersonaModel.fromJson(Map<String, dynamic> json) => PersonaModel(
         idpersona: json["idpersona"],
@@ -48,6 +50,7 @@ class PersonaModel {
         codtipopersona: json["codtipopersona"],
         direccion: json["direccion"],
         email: json["email"],
+        tipopersona: json["tipopersona"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -62,5 +65,6 @@ class PersonaModel {
         "codtipopersona": codtipopersona,
         "direccion": direccion,
         "email": email,
+        "tipopersona": tipopersona,
       };
 }

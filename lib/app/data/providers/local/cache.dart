@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:fupa_aliados/app/data/models/agente_parametro_model.dart';
+import 'package:fupa_aliados/app/data/models/destino_solicitud_agente_model.dart';
 import 'package:fupa_aliados/app/data/models/usuario_model.dart';
 import 'package:logger/logger.dart';
 
@@ -10,13 +12,15 @@ class Cache {
 
   String token;
   UsuarioModel user;
-
+  String version;
+  AgenteParametroModel agenteParametro;
+  List<DestinoSolicitudAgenteModel> agenteDestinos;
 
   Completer _completer;
 
   final log = Logger();
 
-  _complete() {
+  complete() {
     if (this._completer != null && !this._completer.isCompleted) {
       this._completer.complete();
     }

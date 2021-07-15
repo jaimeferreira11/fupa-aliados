@@ -69,6 +69,13 @@ class DrawerView extends GetView<HomeController> {
             ),
           ),
           Column(children: drawerOptions),
+          Divider(),
+          Container(
+              child: Center(
+                  child: Text(
+            'v${Cache.instance.version}',
+            style: TextStyle(color: Colors.black54),
+          )))
         ],
       ),
     );

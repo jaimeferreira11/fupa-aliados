@@ -6,7 +6,7 @@ import 'package:fupa_aliados/app/theme/colors.dart';
 import 'package:intl/intl.dart';
 
 class AboutAppView extends StatelessWidget {
-  var anio = DateFormat('yyyy').format(DateTime.now());
+  final anio = DateFormat('yyyy').format(DateTime.now());
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
@@ -47,7 +47,7 @@ class AboutAppView extends StatelessWidget {
                     margin: EdgeInsets.only(top: responsive.hp(2)),
                     color: Colors.white,
                     child: Text(
-                      "© ${anio} Fundación Paraguaya de Cooperación y Desarrollo",
+                      "© $anio Fundación Paraguaya de Cooperación y Desarrollo",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: responsive.dp(1.8),

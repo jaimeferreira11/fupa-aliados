@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:focus_widget/focus_widget.dart';
+import 'package:fupa_aliados/app/helpers/responsive.dart';
 import 'package:fupa_aliados/app/theme/colors.dart';
 
 class InputWidget extends StatelessWidget {
@@ -18,25 +19,29 @@ class InputWidget extends StatelessWidget {
   final String Function(String text) validator;
   final String error;
   final List<TextInputFormatter> inputFormatters;
+  final String titulo;
+  final bool editable;
 
-  InputWidget({
-    Key key,
-    this.label = 'Label',
-    this.placeHolder = 'Escriba aquí',
-    this.tipo = 'text',
-    this.options,
-    this.keyboardType = TextInputType.text,
-    this.obscureText = false,
-    this.borderEnabled = true,
-    this.icon,
-    this.fontSize = 18,
-    this.onChanged,
-    this.validator,
-    this.error = "",
-    this.valor,
-    this.maxLength,
-    this.inputFormatters,
-  }) : super(key: key);
+  InputWidget(
+      {Key key,
+      this.label = 'Label',
+      this.placeHolder = 'Escriba aquí',
+      this.tipo = 'text',
+      this.options,
+      this.keyboardType = TextInputType.text,
+      this.obscureText = false,
+      this.borderEnabled = true,
+      this.icon,
+      this.fontSize = 18,
+      this.onChanged,
+      this.validator,
+      this.error = "",
+      this.valor,
+      this.maxLength,
+      this.inputFormatters,
+      this.editable = true,
+      this.titulo})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +64,7 @@ class InputWidget extends StatelessWidget {
   Map<String, TextEditingController> inputsValuesControllers = {};
 
   List<Widget> _getSlider(BuildContext context) {
+    final responsive = Responsive.of(context);
     var listaWidgets = <Widget>[];
     var dias;
     var meses;
@@ -148,6 +154,24 @@ class InputWidget extends StatelessWidget {
       "2010",
     ];
 
+    if (titulo != null && this.titulo.length > 0) {
+      listaWidgets.add(
+        Container(
+          margin: EdgeInsets.only(bottom: responsive.hp(1)),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              this.titulo,
+              style: TextStyle(
+                  fontSize: this.fontSize,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+        ),
+      );
+    }
+
     switch (tipo) {
       case "text":
         Widget errorTextWidget = Container(
@@ -183,6 +207,7 @@ class InputWidget extends StatelessWidget {
         inputsValuesControllers[keyInputValue].text = valor;
         listaWidgets.add(Container(
             child: TextFormField(
+          enabled: this.editable,
           onFieldSubmitted: (value) {
             FocusScope.of(context).unfocus();
             if (inputsFocusNodes.containsKey("$key")) {
@@ -236,6 +261,22 @@ class InputWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(20.0),
               borderSide: BorderSide(
                 color: this.error.isEmpty ? Colors.grey : Colors.red,
+              ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+              borderSide: BorderSide(
+                color: Colors.red,
+              ),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+              borderSide: BorderSide(color: Colors.blueGrey),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+              borderSide: BorderSide(
+                color: Colors.red,
               ),
             ),
             focusedBorder: OutlineInputBorder(
@@ -321,7 +362,7 @@ class InputWidget extends StatelessWidget {
                 )));
         listaWidgets.add(this.validator == null ? SizedBox() : errorTextWidget);
         String keyInputValue = "$key";
-        List<Widget> radioList = List();
+        List<Widget> radioList = [];
         for (var i = 0; i < options.length; i++) {
           bool existeValor = inputsValues.containsKey(keyInputValue);
           bool existeNodo = inputsFocusNodes.containsKey(keyInputValue);
@@ -388,7 +429,7 @@ class InputWidget extends StatelessWidget {
                 )));
         listaWidgets.add(this.validator == null ? SizedBox() : errorTextWidget);
         String keyInputValue = "$key";
-        List<Widget> checkBoxList = List();
+        List<Widget> checkBoxList = [];
         Map<String, bool> defaultValues = Map();
         for (var i = 0; i < options.length; i++) {
           defaultValues[options[i]] = false;

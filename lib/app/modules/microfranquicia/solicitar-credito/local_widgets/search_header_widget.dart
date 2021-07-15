@@ -69,7 +69,6 @@ class _SearchHeaderBackground extends StatelessWidget {
                               return InputSelectWidget(
                                 value: _.tipodoc,
                                 fontSize: responsive.dp(1.8),
-                                label: 'Tipo documento',
                                 options: ['CI', 'RUC', 'DNI', 'PASS'],
                                 onChanged: (text) {
                                   print(text);

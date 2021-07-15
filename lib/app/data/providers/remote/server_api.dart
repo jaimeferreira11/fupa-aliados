@@ -5,7 +5,9 @@ import 'package:dartz/dartz.dart';
 import 'package:fupa_aliados/app/config/constants.dart';
 import 'package:fupa_aliados/app/config/dio_config.dart';
 import 'package:fupa_aliados/app/config/errors/failures.dart';
+import 'package:fupa_aliados/app/data/models/agente_parametro_model.dart';
 import 'package:fupa_aliados/app/data/models/cliente_model.dart';
+import 'package:fupa_aliados/app/data/models/destino_solicitud_agente_model.dart';
 import 'package:fupa_aliados/app/data/models/proforma_model.dart';
 import 'package:fupa_aliados/app/data/models/respuesta_model.dart';
 import 'package:fupa_aliados/app/data/models/token_model.dart';
@@ -229,5 +231,63 @@ class ServerAPI {
       return right(res.data['datos']);
     }
     return left(ServerFailure());
+  }
+
+  // Agentes
+  Future<Either<Failure, ClienteModel>> buscarClienteByTipoDocAndDoc(
+      String tipoDoc, String doc) async {
+    final url = 'private/cliente/byDoc/$doc/$tipoDoc';
+
+    final res = await _dio.client.get(url);
+    if (res.statusCode == 200) {
+      print(res.data);
+      final data = RespuestaModel.fromJson(res.data);
+
+      if (data.estado.toUpperCase() == 'OK') {
+        return right(ClienteModel.fromJson(data.datos));
+      } else {
+        return left(NoDataFailure(mensaje: data.error));
+      }
+    } else {
+      return left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, AgenteParametroModel>>
+      obtenerParametrosAgente() async {
+    final url = 'private/agente/parametros';
+
+    final res = await _dio.client.get(url);
+    if (res.statusCode == 200) {
+      final data = RespuestaModel.fromJson(res.data);
+
+      if (data.estado.toUpperCase() == 'OK') {
+        print(data.datos);
+        return right(AgenteParametroModel.fromMap(data.datos));
+      } else {
+        return left(NoDataFailure(mensaje: data.error));
+      }
+    } else {
+      return left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, List<DestinoSolicitudAgenteModel>>>
+      obtenerDestinosAgente() async {
+    final url = 'private/agente/destinos';
+
+    final res = await _dio.client.get(url);
+    if (res.statusCode == 200) {
+      final data = RespuestaModel.fromJson(res.data);
+
+      if (data.estado.toUpperCase() == 'OK') {
+        print(data.datos);
+        return right(DestinoSolicitudAgenteModel.fromJsonList(data.datos));
+      } else {
+        return left(NoDataFailure(mensaje: data.error));
+      }
+    } else {
+      return left(ServerFailure());
+    }
   }
 }

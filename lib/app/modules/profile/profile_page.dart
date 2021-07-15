@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fupa_aliados/app/data/providers/local/cache.dart';
 import 'package:fupa_aliados/app/globlas_widgets/custom_painter_widget.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';

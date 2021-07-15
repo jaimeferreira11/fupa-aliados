@@ -4,7 +4,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fupa_aliados/app/globlas_widgets/buscando_progress_w.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';
 import 'package:fupa_aliados/app/modules/pin_code/pin_code_controller.dart';
-import 'package:fupa_aliados/app/routes/app_routes.dart';
 import 'package:fupa_aliados/app/theme/colors.dart';
 import 'package:fupa_aliados/app/theme/fonts.dart';
 import 'package:get/get.dart';

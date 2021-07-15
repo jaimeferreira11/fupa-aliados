@@ -212,11 +212,11 @@ class _StackDialogSiNo extends StatelessWidget {
         Container(
           padding: EdgeInsets.only(
             left: 20,
-            top: 35.0,
+            top: 40.0,
             right: 20,
             bottom: 20.0,
           ),
-          margin: EdgeInsets.only(top: 45.0),
+          margin: EdgeInsets.only(top: 50.0),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: Colors.white,

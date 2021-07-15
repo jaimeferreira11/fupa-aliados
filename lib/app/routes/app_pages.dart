@@ -1,3 +1,5 @@
+import 'package:fupa_aliados/app/modules/agente/nueva-solicitud/nueva_solicitud_binding.dart';
+import 'package:fupa_aliados/app/modules/agente/nueva-solicitud/nueva_solicitud_page.dart';
 import 'package:fupa_aliados/app/modules/home/home_binding.dart';
 import 'package:fupa_aliados/app/modules/home/home_page.dart';
 import 'package:fupa_aliados/app/modules/login/login_binding.dart';
@@ -44,5 +46,9 @@ class AppPage {
         name: AppRoutes.REPORTE_TOTALES,
         page: () => ReporteTotalesPage(),
         binding: ReporteTotalesBinding()),
+    GetPage(
+        name: AppRoutes.NUEVA_SOLICITUD,
+        page: () => NuevaSolcitudPage(),
+        binding: NuevaSolicitudBinding()),
   ];
 }

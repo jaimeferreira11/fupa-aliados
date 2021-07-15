@@ -89,7 +89,7 @@ class _Painter2 extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final lapiz2 = Paint();
-    var rect = Offset(5, 5) & size;
+    // var rect = Offset(5, 5) & size;
 
     lapiz2.color = AppColors.secondaryColor;
     lapiz2.style = PaintingStyle.fill;
@@ -123,7 +123,7 @@ class _Painter3 extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final lapiz2 = Paint();
-    var rect = Offset(5, 5) & size;
+    //var rect = Offset(5, 5) & size;
 
     lapiz2.color = AppColors.primaryColor;
     lapiz2.style = PaintingStyle.fill;

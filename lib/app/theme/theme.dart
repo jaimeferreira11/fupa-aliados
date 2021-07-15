@@ -14,6 +14,7 @@ ThemeData buildThemeData() {
     inputDecorationTheme: InputDecorationTheme(
         focusColor: AppColors.inputColor,
         focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.0),
             borderSide: BorderSide(color: AppColors.inputColor)),
         labelStyle: TextStyle(color: Colors.black87)),
     textButtonTheme: TextButtonThemeData(

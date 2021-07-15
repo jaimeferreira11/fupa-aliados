@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fupa_aliados/app/data/models/sanatorio_producto_model.dart';
@@ -141,13 +142,20 @@ _listWidget(BuildContext context, SolicitarCreditoController _) {
               right: responsive.wp(5)),
           child: Obx(() => InputWidget(
                 label: 'Monto (Gs.)',
-                inputFormatters: [_.maskFormatter],
+                inputFormatters: [
+                  CurrencyTextInputFormatter(
+                    locale: 'es-PY',
+                    decimalDigits: 0,
+                    symbol: '',
+                  ),
+                ],
                 keyboardType: TextInputType.number,
                 fontSize: responsive.dp(1.8),
                 error: _.error2.value,
                 valor: _.monto,
                 onChanged: (text) {
-                  _.monto = text;
+                  _.monto = text.replaceAll(".", "");
+                  print(_.monto);
                 },
               ))),
       Container(

@@ -74,7 +74,7 @@ class NewVersionView extends StatelessWidget {
                   ),
                   onPressed: () async {
                     OpenAppstore.launch(
-                        androidAppId: "py.org.fundacionparaguaya.aliados",
+                        androidAppId: "py.org.fundacionparaguaya.fupaaliados",
                         iOSAppId: "1573264570");
                   },
                   child: Container(
