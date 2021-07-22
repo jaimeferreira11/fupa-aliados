@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:fupa_aliados/app/config/errors/failures.dart';
 import 'package:fupa_aliados/app/data/models/cliente_model.dart';
 import 'package:fupa_aliados/app/data/models/persona_model.dart';
 import 'package:fupa_aliados/app/data/models/solicitud_agente_model.dart';
@@ -11,6 +12,7 @@ import 'package:fupa_aliados/app/data/repositories/local/auth_repository.dart';
 import 'package:fupa_aliados/app/data/repositories/remote/server_repository.dart';
 import 'package:fupa_aliados/app/globlas_widgets/yes_no_dialog.dart';
 import 'package:fupa_aliados/app/helpers/notifications/notificacion_service.dart';
+import 'package:fupa_aliados/app/routes/app_routes.dart';
 import 'package:fupa_aliados/app/routes/navigator.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/route_manager.dart';
@@ -107,13 +109,106 @@ class NuevaSolicitudController extends GetxController {
     final resp =
         await serverRepo.buscarClienteByTipoDocAndDoc(this.tipodoc, this.doc);
     this.buscando.value = false;
-    this.agente = new SolicitudAgenteModel();
+    this.agente = new SolicitudAgenteModel(
+        otrosingresos: '0',
+        tipovivienda: 'PROPIA',
+        destino: Cache.instance.agenteDestinos.first.descripcion);
     resp.fold((l) {
-      this.agente.cliente = new ClienteModel(persona: new PersonaModel());
+      this.agente.cliente = new ClienteModel(
+          idcliente: 0,
+          persona: new PersonaModel(nrodoc: this.doc, estado: true),
+          estado: true);
     }, (r) {
       this.agente.cliente = r;
     });
     update();
+  }
+
+  onComplete() async {
+    print(this.agente.toJson());
+    final dialog = await DialogoSiNo().abrirDialogoSiNo(
+        "¿Enviar solicitud?", "Recuerda que debes tener conexión a internet");
+
+    if (dialog == 1) {
+      buscando.value = true;
+      this.agente.referencia1 =
+          '${this.agente.referencia1} - ${this.agente.telefonoReferencia1}';
+      this.agente.referencia2 =
+          '${this.agente.referencia2} - ${this.agente.telefonoReferencia2}';
+
+      final resp = await serverRepo.enviarSolicitudAgente(agente);
+
+      resp.fold((l) async {
+        this.buscando.value = false;
+        if (l is CustomFailure) {
+          await DialogoSiNo().abrirDialogoError(l.mensaje);
+        } else {
+          await DialogoSiNo().abrirDialogoError("Error interno");
+        }
+      }, (r) async {
+        await subirArchivos(r);
+      });
+    }
+  }
+
+  subirArchivos(int idsolicitud) async {
+    int cont = 0;
+
+    await Future.forEach(this.cedulas, (ci) async {
+      print('Subiendo cedula ... ${cont + 1}');
+
+      print('Esperando 0.2 segundos .. ');
+      await Future.delayed(Duration(milliseconds: 200), () async {
+        final bytes = await ci.readAsBytes();
+        final resp = await serverRepo.subirArchivosAgente(
+            bytes, ci.path, idsolicitud, "CEDULA");
+        resp.fold((l) {
+          noti.mostrarInternalError(mensaje: "Intente mas tarde");
+          return;
+        }, (r) {
+          cont++;
+        });
+      });
+    });
+
+    await Future.forEach(this.inforconf, (inf) async {
+      print('Subiendo inforconf ... ${cont + 1}');
+
+      print('Esperando 0.2 segundos .. ');
+      await Future.delayed(Duration(milliseconds: 200), () async {
+        final bytes = await inf.readAsBytes();
+
+        final resp = await serverRepo.subirArchivosAgente(
+            bytes, inf.path, idsolicitud, "AUTORIZACION INFORCONF");
+        resp.fold((l) {
+          noti.mostrarInternalError(mensaje: "Intente mas tarde");
+          return;
+        }, (r) => cont++);
+      });
+    });
+
+    print('Esperando 0.2 segundos .. ');
+    await Future.delayed(Duration(milliseconds: 200), () async {
+      final bytes = await fotoCliente.readAsBytes();
+
+      final resp = await serverRepo.subirArchivosAgente(
+          bytes, fotoCliente.path, idsolicitud, "FOTO-CLIENTE");
+      resp.fold((l) {
+        noti.mostrarInternalError(mensaje: "Intente mas tarde");
+        return;
+      }, (r) => cont++);
+    });
+
+    print('Total: $cont');
+    this.buscando.value = false;
+    noti.mostrarSuccess(
+        position: SnackPosition.BOTTOM,
+        mensaje: "$cont archivos subidos",
+        titulo: "Subida exitosa");
+
+    await DialogoSiNo()
+        .abrirDialogoSucccess("Solciitud nro. 000$idsolicitud enviado");
+    nav.goToAndClean(AppRoutes.HOME);
   }
 
   Future<int> dialogSelectOrigen() async {

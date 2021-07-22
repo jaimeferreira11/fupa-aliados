@@ -165,11 +165,11 @@ class Step6View extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            FontAwesomeIcons.fileInvoiceDollar,
+                            FontAwesomeIcons.fileInvoice,
                             color: Colors.white,
                           ),
                           Text(
-                            '  ADJUNTAR INFORCONF',
+                            '  ADJUNTAR AUTOR. INFORCONF',
                             style: AppFonts.secondaryFont.copyWith(
                                 letterSpacing: 1.5,
                                 color: Colors.white,

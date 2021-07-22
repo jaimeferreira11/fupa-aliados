@@ -2,27 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:fupa_aliados/app/globlas_widgets/buscando_progress_w.dart';
 import 'package:fupa_aliados/app/globlas_widgets/input_select_widget.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';
+import 'package:fupa_aliados/app/modules/agente/reporte-totales/reporte_agente_controller.dart';
 import 'package:fupa_aliados/app/theme/colors.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:intl/intl.dart';
 import 'dart:math' as math;
 
 import 'local_widgets/card_detalle_widget.dart';
-import 'reporte_totales_controller.dart';
 
-class ReporteTotalesPage extends StatelessWidget {
-  const ReporteTotalesPage({Key key}) : super(key: key);
+class ReporteAgentePage extends StatelessWidget {
+  const ReporteAgentePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: GetBuilder<ReporteTotalesController>(
+      child: GetBuilder<ReporteAgenteController>(
           builder: (_) => SafeArea(
                 child: Stack(
                   children: [
                     Scaffold(
                       appBar: AppBar(title: Text('Reporte totales')),
-                      body: Container(
+                      body: RefreshIndicator(
+                        onRefresh: _.refresh,
                         child: Column(children: [
                           _HeaderBackground(),
                           Obx(() => Visibility(
@@ -46,7 +47,7 @@ class _Detalles extends StatelessWidget {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
 
-    return GetBuilder<ReporteTotalesController>(
+    return GetBuilder<ReporteAgenteController>(
       id: "detalles",
       initState: (_) {},
       builder: (_) {
@@ -79,7 +80,7 @@ class _Detalles extends StatelessWidget {
                         return Container(
                           margin: EdgeInsets.only(top: responsive.hp(1)),
                           child: CardDetalleWidget(
-                            proforma: _.list[i],
+                            solicitud: _.list[i],
                           ),
                         );
                       },
@@ -97,7 +98,7 @@ class _Totales extends StatelessWidget {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
 
-    return GetBuilder<ReporteTotalesController>(
+    return GetBuilder<ReporteAgenteController>(
       initState: (_) {},
       id: "totales",
       builder: (_) {
@@ -173,7 +174,7 @@ class _HeaderBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
-    return GetBuilder<ReporteTotalesController>(
+    return GetBuilder<ReporteAgenteController>(
       builder: (_) {
         return Container(
           width: double.infinity,
@@ -210,7 +211,7 @@ class _HeaderBackground extends StatelessWidget {
                     Container(
                         width: responsive.wp(40),
                         margin: EdgeInsets.only(left: responsive.wp(2)),
-                        child: GetBuilder<ReporteTotalesController>(
+                        child: GetBuilder<ReporteAgenteController>(
                           builder: (_) {
                             return InputSelectWidget(
                               fontSize: responsive.dp(1.8),
@@ -241,7 +242,7 @@ class _HeaderBackground extends StatelessWidget {
                     Container(
                         width: responsive.wp(40),
                         margin: EdgeInsets.only(right: responsive.wp(2)),
-                        child: GetBuilder<ReporteTotalesController>(
+                        child: GetBuilder<ReporteAgenteController>(
                           builder: (_) {
                             return InputSelectWidget(
                               fontSize: responsive.dp(1.8),

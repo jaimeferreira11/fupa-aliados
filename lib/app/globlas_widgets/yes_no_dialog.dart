@@ -590,10 +590,14 @@ class _FormularioError extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(
+            height: 10,
+          ),
           Text(
             titulo,
+            textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 22,
+                fontSize: 18,
                 color: Colors.red.shade700,
                 fontWeight: FontWeight.w500),
           ),
@@ -605,7 +609,7 @@ class _FormularioError extends StatelessWidget {
             height: 20,
           ),
           Text(
-            mensaje,
+            mensaje ?? '',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
           ),
           SizedBox(

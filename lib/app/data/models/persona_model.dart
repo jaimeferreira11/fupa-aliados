@@ -32,7 +32,7 @@ class PersonaModel {
   dynamic estado;
   String telefono1;
   String telefono2;
-  dynamic fechanaciemiento;
+  String fechanaciemiento;
   int codtipopersona;
   String direccion;
   String email;

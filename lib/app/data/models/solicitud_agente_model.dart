@@ -4,7 +4,6 @@
 
 import 'package:fupa_aliados/app/data/models/adjunto_solicitud_agente_model.dart';
 import 'package:fupa_aliados/app/data/models/cliente_model.dart';
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 import 'estado_solicitud_agente_model.dart';
@@ -63,13 +62,15 @@ class SolicitudAgenteModel {
   String otrosingresos;
   String activos;
   String referencia1;
+  String telefonoReferencia1;
   String comentario1;
   String referencia2;
+  String telefonoReferencia2;
   dynamic comentario2;
   EstadosolicitudagenteModel estadosolicitudagente;
-  int fechasolicitud;
-  int fechaaprobacion;
-  int fechaconfirmacion;
+  String fechasolicitud;
+  String fechaaprobacion;
+  String fechaconfirmacion;
   String fecharechazo;
   String motivorechazo;
   String observaciones;
@@ -141,7 +142,9 @@ class SolicitudAgenteModel {
         "comentario1": comentario1,
         "referencia2": referencia2,
         "comentario2": comentario2,
-        "estadosolicitudagente": estadosolicitudagente.toMap(),
+        "estadosolicitudagente": estadosolicitudagente == null
+            ? null
+            : estadosolicitudagente.toJson(),
         "fechasolicitud": fechasolicitud,
         "fechaaprobacion": fechaaprobacion,
         "fechaconfirmacion": fechaconfirmacion,
@@ -149,6 +152,20 @@ class SolicitudAgenteModel {
         "motivorechazo": motivorechazo,
         "observaciones": observaciones,
         "destino": destino,
-        "adjuntos": List<dynamic>.from(adjuntos.map((x) => x.toMap())),
+        "adjuntos": adjuntos == null
+            ? null
+            : List<dynamic>.from(adjuntos.map((x) => x.toMap())),
       };
+
+  static List<SolicitudAgenteModel> fromJsonList(List<dynamic> jsonList) {
+    if (jsonList == null) return [];
+
+    List<SolicitudAgenteModel> list = [];
+
+    for (var item in jsonList) {
+      final p = SolicitudAgenteModel.fromMap(item);
+      list.add(p);
+    }
+    return list;
+  }
 }

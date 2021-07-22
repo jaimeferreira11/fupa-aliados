@@ -18,10 +18,10 @@ class Step4View extends StatelessWidget {
               shrinkWrap: true,
               children: [
                 InputSelectWidget(
-                  value: _.agente.tipovivienda ?? "FISICA",
+                  value: _.agente.tipovivienda ?? "PROPIA",
                   fontSize: responsive.dp(1.8),
                   label: 'Tipo vivienda',
-                  options: ['FISICA', 'JURIDICA'],
+                  options: ['PROPIA', 'ALQUILADA', 'FAMILIAR'],
                   onChanged: (text) {
                     print(text);
                     _.agente.tipovivienda = text;
@@ -73,9 +73,9 @@ class Step4View extends StatelessWidget {
                   label: 'Nombre y apellido',
                   fontSize: responsive.dp(1.8),
                   // error: _.error2.value,
-                  valor: _.agente.profesion ?? '',
+                  valor: _.agente.referencia1 ?? '',
                   onChanged: (text) {
-                    _.agente.profesion = text;
+                    _.agente.referencia1 = text;
                   },
                   validator: (value) {
                     if (value == null || value.length == 0)
@@ -88,9 +88,9 @@ class Step4View extends StatelessWidget {
                   label: 'Telefono/Celular',
                   fontSize: responsive.dp(1.8),
                   // error: _.error2.value,
-                  valor: _.agente.profesion ?? '',
+                  valor: _.agente.telefonoReferencia1 ?? '',
                   onChanged: (text) {
-                    _.agente.profesion = text;
+                    _.agente.telefonoReferencia1 = text;
                   },
                   validator: (value) {
                     if (value == null || value.length == 0)
@@ -111,9 +111,9 @@ class Step4View extends StatelessWidget {
                   label: 'Nombre y apellido',
                   fontSize: responsive.dp(1.8),
                   // error: _.error2.value,
-                  valor: _.agente.profesion ?? '',
+                  valor: _.agente.referencia2 ?? '',
                   onChanged: (text) {
-                    _.agente.profesion = text;
+                    _.agente.referencia2 = text;
                   },
                   validator: (value) {
                     if (value == null || value.length == 0)
@@ -126,9 +126,9 @@ class Step4View extends StatelessWidget {
                   label: 'Telefono/Celular',
                   fontSize: responsive.dp(1.8),
                   // error: _.error2.value,
-                  valor: _.agente.profesion ?? '',
+                  valor: _.agente.telefonoReferencia2 ?? '',
                   onChanged: (text) {
-                    _.agente.profesion = text;
+                    _.agente.telefonoReferencia2 = text;
                   },
                   validator: (value) {
                     if (value == null || value.length == 0)

@@ -10,4 +10,6 @@ class AppRoutes {
   static const REPORTE_TOTALES = 'reporte-totales';
   // Agente
   static const NUEVA_SOLICITUD = 'nueva-solicitud';
+  static const REPORTE_AGENTE = 'reporte-agente';
+  static const SOLICITUDES_AGENTE = 'solicitudes-agente';
 }

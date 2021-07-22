@@ -1,9 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:dartz/dartz.dart';
 import 'package:fupa_aliados/app/config/errors/failures.dart';
 import 'package:fupa_aliados/app/data/models/agente_parametro_model.dart';
 import 'package:fupa_aliados/app/data/models/cliente_model.dart';
 import 'package:fupa_aliados/app/data/models/destino_solicitud_agente_model.dart';
 import 'package:fupa_aliados/app/data/models/proforma_model.dart';
+import 'package:fupa_aliados/app/data/models/solicitud_agente_model.dart';
 import 'package:fupa_aliados/app/data/models/token_model.dart';
 import 'package:fupa_aliados/app/data/models/usuario_model.dart';
 import 'package:fupa_aliados/app/data/providers/remote/server_api.dart';
@@ -66,4 +69,25 @@ class ServerRepository {
 
   Future<Either<Failure, List<DestinoSolicitudAgenteModel>>>
       obtenerDestinosAgente() => _api.obtenerDestinosAgente();
+
+  Future<Either<Failure, bool>> subirArchivosAgente(
+          Uint8List bytes, String filePath, int idsolicitud, String tipo) =>
+      _api.subirArchivosAgente(bytes, filePath, idsolicitud, tipo);
+
+  Future<Either<Failure, int>> enviarSolicitudAgente(
+          SolicitudAgenteModel solicitud) =>
+      _api.enviarSolicitudAgente(solicitud);
+
+  Future<Either<Failure, List<SolicitudAgenteModel>>> obtenerReporteAgente(
+          int mes, int anio) =>
+      _api.obtenerReporteAgente(mes, anio);
+
+  Future<Either<Failure, List<SolicitudAgenteModel>>>
+      solicitudesPendientesAgente() => _api.solicitudesPendientesAgente();
+
+  Future<Either<Failure, List<SolicitudAgenteModel>>>
+      solicitudesAprobadosAgente() => _api.solicitudesAprobadosAgente();
+
+  Future<Either<Failure, List<SolicitudAgenteModel>>>
+      solicitudesRechazadosAgente() => _api.solicitudesRechazadosAgente();
 }

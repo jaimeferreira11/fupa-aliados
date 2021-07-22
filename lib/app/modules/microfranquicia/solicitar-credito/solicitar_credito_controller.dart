@@ -15,7 +15,6 @@ import 'package:fupa_aliados/app/routes/navigator.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/get.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class SolicitarCreditoController extends GetxController {
   final authRepo = Get.find<AuthRepository>();
@@ -40,6 +39,7 @@ class SolicitarCreditoController extends GetxController {
   String monto = "";
   String plazo = '7';
   bool busquedaRealizada = false;
+  String montoAux = "";
 
   int idsanatorioproducto;
 
@@ -104,13 +104,18 @@ class SolicitarCreditoController extends GetxController {
       return;
     }
 
+    if (double.parse(this.monto.trim().replaceAll(".", "")) < 10000) {
+      error2.value = "Monto invalido";
+      return;
+    }
+
     //  workInProgress = true;
     buscando.value = true;
     FocusScope.of(Get.context).requestFocus(FocusNode());
     update();
     final resp = await serverRepo.solicitarCodigoVerificacion(
         idpersona: cliente.persona.idpersona,
-        monto: monto.replaceAll(".", ""),
+        monto: monto.trim().replaceAll(".", ""),
         plazo: plazo,
         cel: cliente.persona.telefono1);
     //  workInProgress = false;
@@ -121,7 +126,7 @@ class SolicitarCreditoController extends GetxController {
     }, (r) {
       final proforma = new ProformaModel(
           idpersona: cliente.persona.idpersona,
-          monto: double.parse(monto.trim()),
+          monto: double.parse(monto.trim().replaceAll(".", "")),
           cliente: cliente,
           plazo: int.parse(plazo.trim()),
           idsanatorioproducto: idsanatorioproducto);

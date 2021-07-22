@@ -45,18 +45,18 @@ class HomeMenuesView extends StatelessWidget {
         TableRow(children: [
           MenuButtonWidget(
               vertical: false,
-              icon: FontAwesomeIcons.folder,
+              icon: FontAwesomeIcons.externalLinkAlt,
               text: 'Solicitudes realizadas',
               descripcion: "Últimas solicitudes realizadas",
-              route: AppRoutes.SOLICITAR_CREDITO),
+              route: AppRoutes.SOLICITUDES_AGENTE),
         ]),
         TableRow(children: [
           MenuButtonWidget(
               vertical: false,
               icon: FontAwesomeIcons.check,
-              text: 'Operaciones confirmadas',
+              text: 'Reporte totales',
               descripcion: "Operaciones realizadas con éxito",
-              route: AppRoutes.REPORTE_TOTALES),
+              route: AppRoutes.REPORTE_AGENTE),
         ])
       ],
     );

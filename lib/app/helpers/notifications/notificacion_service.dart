@@ -46,29 +46,61 @@ class NotificationService {
 
   void mostrarInternalError(
       {@required String mensaje, SnackPosition position = SnackPosition.TOP}) {
-    Get.snackbar(
-      '',
-      '',
-      snackPosition: position,
-      titleText: Text(
-        "Ocurrio un error interno",
-        style: TextStyle(
-          fontSize: 16,
-          color: Colors.white,
+    Get.snackbar('', '',
+        snackPosition: position,
+        titleText: Text(
+          "Ocurrio un error interno",
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.white,
+          ),
         ),
-      ),
-      messageText: Text(
-        mensaje,
-        style: TextStyle(
-          fontSize: 15,
-          color: Colors.white,
+        messageText: Text(
+          mensaje,
+          style: TextStyle(
+            fontSize: 15,
+            color: Colors.white,
+          ),
         ),
-      ),
-      colorText: Colors.white,
-      backgroundColor: coloresSnack[NotiKey.ERROR],
-      duration: Duration(
-        milliseconds: 2500,
-      ),
-    );
+        colorText: Colors.white,
+        backgroundColor: coloresSnack[NotiKey.ERROR],
+        duration: Duration(
+          milliseconds: 2500,
+        ),
+        icon: Icon(
+          FontAwesomeIcons.exclamationCircle,
+          color: Colors.white,
+        ));
+  }
+
+  void mostrarSuccess(
+      {String titulo = "Proceso exitoso",
+      @required String mensaje,
+      SnackPosition position = SnackPosition.TOP}) {
+    Get.snackbar('', '',
+        snackPosition: position,
+        titleText: Text(
+          titulo,
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.white,
+          ),
+        ),
+        messageText: Text(
+          mensaje,
+          style: TextStyle(
+            fontSize: 15,
+            color: Colors.white,
+          ),
+        ),
+        colorText: Colors.white,
+        backgroundColor: coloresSnack[NotiKey.SUCCESS],
+        duration: Duration(
+          milliseconds: 2500,
+        ),
+        icon: Icon(
+          FontAwesomeIcons.checkCircle,
+          color: Colors.white,
+        ));
   }
 }

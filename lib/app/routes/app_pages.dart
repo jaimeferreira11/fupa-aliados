@@ -1,5 +1,9 @@
 import 'package:fupa_aliados/app/modules/agente/nueva-solicitud/nueva_solicitud_binding.dart';
 import 'package:fupa_aliados/app/modules/agente/nueva-solicitud/nueva_solicitud_page.dart';
+import 'package:fupa_aliados/app/modules/agente/reporte-totales/reporte_agente_binding.dart';
+import 'package:fupa_aliados/app/modules/agente/reporte-totales/reporte_agente_page.dart';
+import 'package:fupa_aliados/app/modules/agente/solicitudes-realizadas/solicitudes_agente_binding.dart';
+import 'package:fupa_aliados/app/modules/agente/solicitudes-realizadas/solicitudes_agente_page.dart';
 import 'package:fupa_aliados/app/modules/home/home_binding.dart';
 import 'package:fupa_aliados/app/modules/home/home_page.dart';
 import 'package:fupa_aliados/app/modules/login/login_binding.dart';
@@ -50,5 +54,13 @@ class AppPage {
         name: AppRoutes.NUEVA_SOLICITUD,
         page: () => NuevaSolcitudPage(),
         binding: NuevaSolicitudBinding()),
+    GetPage(
+        name: AppRoutes.REPORTE_AGENTE,
+        page: () => ReporteAgentePage(),
+        binding: ReporteAgenteBinding()),
+    GetPage(
+        name: AppRoutes.SOLICITUDES_AGENTE,
+        page: () => SolicitudesAgentePage(),
+        binding: SolicitudesAgenteBinding()),
   ];
 }

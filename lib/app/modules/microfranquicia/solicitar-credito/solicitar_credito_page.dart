@@ -1,5 +1,4 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fupa_aliados/app/data/models/sanatorio_producto_model.dart';
@@ -14,6 +13,7 @@ import 'package:fupa_aliados/app/modules/microfranquicia/solicitar-credito/solic
 import 'package:fupa_aliados/app/theme/colors.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:intl/intl.dart';
 
 class SolicitarCreditoPage extends StatelessWidget {
   const SolicitarCreditoPage({Key key}) : super(key: key);
@@ -137,27 +137,36 @@ _listWidget(BuildContext context, SolicitarCreditoController _) {
       Container(
           margin: EdgeInsets.only(
               top: responsive.hp(2),
-              bottom: responsive.hp(1),
               left: responsive.wp(5),
               right: responsive.wp(5)),
           child: Obx(() => InputWidget(
                 label: 'Monto (Gs.)',
-                inputFormatters: [
-                  CurrencyTextInputFormatter(
-                    locale: 'es-PY',
-                    decimalDigits: 0,
-                    symbol: '',
-                  ),
-                ],
                 keyboardType: TextInputType.number,
                 fontSize: responsive.dp(1.8),
                 error: _.error2.value,
                 valor: _.monto,
                 onChanged: (text) {
                   _.monto = text.replaceAll(".", "");
+                  _.montoAux = text;
+                  _.update(['monto-aux']);
                   print(_.monto);
                 },
               ))),
+      GetBuilder<SolicitarCreditoController>(
+          id: 'monto-aux',
+          builder: (_) => Container(
+                margin: EdgeInsets.only(right: responsive.wp(10)),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    _.montoAux.length == 0
+                        ? ''
+                        : 'G. ${NumberFormat("###,###", "es_ES").format(int.parse(_.montoAux))}',
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic, color: Colors.green),
+                  ),
+                ),
+              )),
       Container(
         margin: EdgeInsets.only(left: responsive.wp(10)),
         child: Text(

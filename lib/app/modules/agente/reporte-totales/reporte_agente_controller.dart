@@ -1,4 +1,4 @@
-import 'package:fupa_aliados/app/data/models/proforma_model.dart';
+import 'package:fupa_aliados/app/data/models/solicitud_agente_model.dart';
 import 'package:fupa_aliados/app/data/repositories/local/auth_repository.dart';
 import 'package:fupa_aliados/app/data/repositories/remote/server_repository.dart';
 import 'package:fupa_aliados/app/helpers/notifications/notificacion_service.dart';
@@ -9,7 +9,7 @@ import 'package:get/route_manager.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class ReporteTotalesController extends GetxController {
+class ReporteAgenteController extends GetxController {
   final authRepo = Get.find<AuthRepository>();
   final serverRepo = Get.find<ServerRepository>();
   final nav = Get.find<NavigatorController>();
@@ -19,7 +19,7 @@ class ReporteTotalesController extends GetxController {
   RxBool buscando = false.obs;
   String mes;
   String anio;
-  List<ProformaModel> list = [];
+  List<SolicitudAgenteModel> list = [];
   double total = 0;
   int cantidad = 0;
   var numberFormat = new NumberFormat("###,###", "es_ES");
@@ -30,10 +30,10 @@ class ReporteTotalesController extends GetxController {
     _init();
   }
 
-  _init() async {
+  _init() {
     anio = DateFormat('y').format(DateTime.now());
     mes = DateFormat('MMMM', 'es_US').format(DateTime.now());
-    await obtenerReporte();
+    obtenerReporte();
   }
 
   List<String> generateListofMonths() {
@@ -56,6 +56,11 @@ class ReporteTotalesController extends GetxController {
     return list;
   }
 
+  Future<Null> refresh() async {
+    await this.obtenerReporte();
+    return null;
+  }
+
   Future<void> obtenerReporte() async {
     buscando.value = true;
     list = [];
@@ -67,7 +72,7 @@ class ReporteTotalesController extends GetxController {
 
     var mesNumber = DateFormat('M', 'es_US').format(auxDate);
 
-    final resp = await serverRepo.obtenerSolicitudes(
+    final resp = await serverRepo.obtenerReporteAgente(
         int.parse(mesNumber), int.parse(anio));
 
     resp.fold((l) {

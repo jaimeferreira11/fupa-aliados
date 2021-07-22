@@ -49,7 +49,7 @@ class _BuildMainStepper extends StatelessWidget {
       builder: (_) => GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: CustomStepper(
-          onCompleted: () {},
+          onCompleted: _.onComplete,
           onNext: _.onNext,
           onBack: (currentStep) {
             print('Back to $currentStep');
@@ -60,7 +60,6 @@ class _BuildMainStepper extends StatelessWidget {
                 subtitle: "Ingrese el tipo y número de documento del cliente",
                 content: Step1View(),
                 validation: () {
-                  print(_.form1Key.currentState.validate());
                   if (!_.form1Key.currentState.validate()) {
                     return 'Favor, complete los campos';
                   }
@@ -71,10 +70,9 @@ class _BuildMainStepper extends StatelessWidget {
                 subtitle: "Información personal del cliente",
                 content: Step2View(),
                 validation: () {
-                  /* print(_.form4Key.currentState.validate());
-                  if (!_.form4Key.currentState.validate()) {
+                  if (!_.form2Key.currentState.validate()) {
                     return 'Favor, complete los campos';
-                  } */
+                  }
                   return null;
                 }),
             CoolStep(
@@ -82,10 +80,9 @@ class _BuildMainStepper extends StatelessWidget {
                 subtitle: "Ingrese los datos económicos del cliente",
                 content: Step3View(),
                 validation: () {
-                  /* print(_.form4Key.currentState.validate());
-                  if (!_.form4Key.currentState.validate()) {
+                  if (!_.form3Key.currentState.validate()) {
                     return 'Favor, complete los campos';
-                  } */
+                  }
                   return null;
                 }),
             CoolStep(
@@ -94,22 +91,21 @@ class _BuildMainStepper extends StatelessWidget {
                     "Ingrese otros datos de vida y residencia del cliente",
                 content: Step4View(),
                 validation: () {
-                  /* print(_.form4Key.currentState.validate());
                   if (!_.form4Key.currentState.validate()) {
                     return 'Favor, complete los campos';
-                  } */
+                  }
                   return null;
                 }),
             CoolStep(
                 title: "Datos de la solicitud",
-                subtitle:
-                    "Monto entre G. ${_.numberFormat.format(Cache.instance.agenteParametro.montomin)} y G. ${_.numberFormat.format(Cache.instance.agenteParametro.montomax)} y plazo entre ${_.numberFormat.format(Cache.instance.agenteParametro.cuotasmin)} a ${_.numberFormat.format(Cache.instance.agenteParametro.cuotasmax)} cuotas.",
+                subtitle: Cache.instance.agenteParametro == null
+                    ? ''
+                    : "Monto entre G. ${_.numberFormat.format(Cache.instance.agenteParametro.montomin)} y G. ${_.numberFormat.format(Cache.instance.agenteParametro.montomax)} y plazo entre ${_.numberFormat.format(Cache.instance.agenteParametro.cuotasmin)} a ${_.numberFormat.format(Cache.instance.agenteParametro.cuotasmax)} cuotas.",
                 content: Step5View(),
                 validation: () {
-                  /* print(_.form4Key.currentState.validate());
-                  if (!_.form4Key.currentState.validate()) {
+                  if (!_.form5Key.currentState.validate()) {
                     return 'Favor, complete los campos';
-                  } */
+                  }
                   return null;
                 }),
             CoolStep(
@@ -117,20 +113,20 @@ class _BuildMainStepper extends StatelessWidget {
                 subtitle:
                     "Adjunte ambos lados del documento de identidad del cliente junto con el reporte de inforconf.",
                 content: Step6View(),
-                validation: () {}),
+                validation: () {
+                  if (_.cedulas.length < 2) {
+                    return 'Adjuntá la cedula del cliente';
+                  }
+                  if (_.inforconf.length == 0) {
+                    return 'Adjuntá la autorizacion de Inforconf firmada';
+                  }
+                  if (_.fotoCliente == null) {
+                    return 'Adjuntá la foto del cliente';
+                  }
+                  return null;
+                }),
           ],
         ),
-        /*  CoolStepper(
-                showErrorSnackbar: true,
-                config: CoolStepperConfig(
-                    backText: 'ATRAS',
-                    nextText: 'SIGUIENTE',
-                    stepText: "Paso",
-                    ofText: 'de',
-                    finalText: "FINALIZAR"),
-                steps: [
-                  
-                onCompleted: () {}), */
       ),
     );
   }

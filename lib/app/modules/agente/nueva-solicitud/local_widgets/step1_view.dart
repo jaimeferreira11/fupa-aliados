@@ -1,4 +1,3 @@
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:fupa_aliados/app/globlas_widgets/input_select_widget.dart';
 import 'package:fupa_aliados/app/globlas_widgets/input_widget.dart';

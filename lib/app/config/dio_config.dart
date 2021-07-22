@@ -42,6 +42,8 @@ class DioService {
               'Authorization': 'Bearer ${Cache.instance.token}',
               'Content-type': 'application/x-www-form-urlencoded'
             };
+            options.contentType = Headers.jsonContentType;
+            options.responseType = ResponseType.json;
             return options;
           }
         },
