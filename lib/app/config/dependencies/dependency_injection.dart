@@ -5,6 +5,7 @@ import 'package:fupa_aliados/app/helpers/logger/logger_service.dart';
 import 'package:fupa_aliados/app/helpers/notifications/notificacion_service.dart';
 import 'package:fupa_aliados/app/routes/navigator.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../dio_config.dart';
 
@@ -16,6 +17,11 @@ class DependecyInjection {
       fenix: true,
     );
 
+    //  --------- Shared Preferences
+
+    final shared = await SharedPreferences.getInstance();
+    Get.put<SharedPreferences>(shared);
+
     // --------- Modulos
 
     //  --------- --------- profile
@@ -23,7 +29,9 @@ class DependecyInjection {
 
     // repositorios
     Get.lazyPut<ServerRepository>(() => ServerRepository(), fenix: true);
-    Get.lazyPut<AuthRepository>(() => AuthRepository(), fenix: true);
+    Get.lazyPut<AuthRepository>(
+        () => AuthRepository(Get.find<SharedPreferences>()),
+        fenix: true);
 
     // providers
     Get.lazyPut<ServerAPI>(() => ServerAPI(), fenix: true);

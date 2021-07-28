@@ -4,6 +4,7 @@ import 'package:focus_widget/focus_widget.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';
 import 'package:fupa_aliados/app/theme/colors.dart';
 
+// ignore: must_be_immutable
 class InputWidget extends StatelessWidget {
   final String label;
   final String placeHolder;
