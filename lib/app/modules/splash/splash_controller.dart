@@ -26,7 +26,10 @@ class SplashController extends GetxController {
     resp.fold((l) => verificarSesion(), (r) async {
       final PackageInfo info = await PackageInfo.fromPlatform();
 
-      if (r > int.parse(info.buildNumber)) {
+      final localVersion = int.parse(info.buildNumber);
+      print('version en el server: $r');
+      print('version local: $localVersion');
+      if (r > localVersion) {
         Get.offAll(NewVersionView());
         return;
       } else {

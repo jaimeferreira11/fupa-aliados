@@ -522,7 +522,7 @@ class _FormularioSuccess extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: 150, maxHeight: 180),
+      constraints: BoxConstraints(minHeight: 150, maxHeight: 220),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -531,7 +531,7 @@ class _FormularioSuccess extends StatelessWidget {
             titulo,
             style: TextStyle(
                 color: Colors.green.shade700,
-                fontSize: 22,
+                fontSize: 18,
                 fontWeight: FontWeight.w500),
           ),
           SizedBox(
@@ -539,14 +539,14 @@ class _FormularioSuccess extends StatelessWidget {
           ),
           lineSeparator(),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
           Text(
             mensaje,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
           ),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -585,7 +585,7 @@ class _FormularioError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: 150, maxHeight: 180),
+      constraints: BoxConstraints(minHeight: 150, maxHeight: 240),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -606,14 +606,14 @@ class _FormularioError extends StatelessWidget {
           ),
           lineSeparator(),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
           Text(
             mensaje ?? '',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
           ),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,

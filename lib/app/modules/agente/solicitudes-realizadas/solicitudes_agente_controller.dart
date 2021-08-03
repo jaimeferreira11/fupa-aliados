@@ -6,7 +6,6 @@ import 'package:fupa_aliados/app/data/models/solicitud_agente_model.dart';
 import 'package:fupa_aliados/app/data/repositories/local/auth_repository.dart';
 import 'package:fupa_aliados/app/data/repositories/remote/server_repository.dart';
 import 'package:fupa_aliados/app/helpers/notifications/notificacion_service.dart';
-import 'package:fupa_aliados/app/helpers/notifications/notifications_keys.dart';
 import 'package:fupa_aliados/app/routes/navigator.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/route_manager.dart';

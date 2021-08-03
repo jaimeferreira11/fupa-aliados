@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fupa_aliados/app/globlas_widgets/buscando_progress_w.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';
-import 'package:fupa_aliados/app/modules/pin_code/pin_code_controller.dart';
+import 'package:fupa_aliados/app/modules/microfranquicia/solicitar-credito/solicitar_credito_controller.dart';
 import 'package:fupa_aliados/app/theme/colors.dart';
 import 'package:fupa_aliados/app/theme/fonts.dart';
 import 'package:get/get.dart';
@@ -16,10 +16,11 @@ class PinCodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
-    return GetBuilder<PinCodeController>(
+    return GetBuilder<SolicitarCreditoController>(
+      id: 'pin',
       builder: (_) => WillPopScope(
         onWillPop: () async {
-          await _.atras();
+          await _.atrasPinController();
           return true;
         },
         child: Stack(
@@ -134,6 +135,7 @@ class PinCodePage extends StatelessWidget {
 
                                   onCompleted: (v) {
                                     print("Completed");
+                                    _.validarSolicitud();
                                   },
                                   // onTap: () {
                                   //   print("Pressed");
@@ -142,7 +144,7 @@ class PinCodePage extends StatelessWidget {
                                     print(value);
 
                                     _.currentText = value;
-                                    _.update();
+                                    _.update(['pin']);
                                   },
                                   beforeTextPaste: (text) {
                                     print("Allowing to paste $text");
@@ -219,7 +221,7 @@ class PinCodePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30),
                           child: Icon(Icons.arrow_back),
                           onPressed: () async {
-                            await _.atras();
+                            await _.atrasPinController();
                             return true;
                           },
                         ),
@@ -236,7 +238,7 @@ class PinCodePage extends StatelessWidget {
     );
   }
 
-  Widget widgetBoton(PinCodeController _) {
+  Widget widgetBoton(SolicitarCreditoController _) {
     var textStyleLightButton = AppFonts.secondaryFont.copyWith(
       color: Colors.white,
       fontWeight: FontWeight.w700,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:focus_widget/focus_widget.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';
 
+// ignore: must_be_immutable
 class InputSelectWidget extends StatelessWidget {
   final String label;
   final List<String> options;

@@ -1,4 +1,5 @@
-import 'dart:async';
+import 'package:get/get.dart';
+/* import 'dart:async';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -11,13 +12,11 @@ import 'package:fupa_aliados/app/helpers/notifications/notificacion_service.dart
 import 'package:fupa_aliados/app/helpers/notifications/notifications_keys.dart';
 import 'package:fupa_aliados/app/routes/app_routes.dart';
 import 'package:fupa_aliados/app/routes/navigator.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/route_manager.dart';
-import 'package:get/get.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:pin_code_fields/pin_code_fields.dart'; */
 
 class PinCodeController extends GetxController {
-  final authRepo = Get.find<AuthRepository>();
+  /* final authRepo = Get.find<AuthRepository>();
   final serverRepo = Get.find<ServerRepository>();
   final nav = Get.find<NavigatorController>();
   final noti = Get.find<NotificationService>();
@@ -107,5 +106,5 @@ class PinCodeController extends GetxController {
       await DialogoSiNo().abrirDialogoSucccess(r);
       nav.goToAndClean(AppRoutes.SOLICITAR_CREDITO);
     });
-  }
+  } */
 }

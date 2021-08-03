@@ -32,7 +32,6 @@ class AuthRepository {
     try {
       // final jsonString = await _storage.read(key: CACHED_TOKEN);
       final jsonString = sharedPreferences.getString(CACHED_TOKEN);
-      print(jsonString);
       if (jsonString == null) throw CacheException();
       TokenModel result = TokenModel.fromJson(json.decode(jsonString));
       Cache.instance.token = result.accessToken;

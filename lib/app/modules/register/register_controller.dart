@@ -28,20 +28,14 @@ class RegisterController extends GetxController {
     ),
     'correo': FormControl(
       value: '',
-      validators: [Validators.email],
+      validators: [Validators.required, Validators.email],
     ),
     'password': FormControl(
       value: '',
       validators: [
         Validators.required,
       ],
-    ),
-    'contacto': FormControl(
-      value: '',
-      validators: [
-        Validators.required,
-      ],
-    ),
+    )
   });
 
   final FormGroup recuperarPasswordForm = FormGroup({
@@ -54,7 +48,6 @@ class RegisterController extends GetxController {
   String get username => this.loginForm.control('user').value;
   String get password => this.loginForm.control('password').value;
   String get correo => this.loginForm.control('correo').value;
-  String get contacto => this.loginForm.control('contacto').value;
 
   //String correo;
 
@@ -62,8 +55,7 @@ class RegisterController extends GetxController {
     String mensaje =
         "Un usuario quiere registrarse a la aplicación <b>Aliados FP</b>: <br><br>";
     mensaje += "<b>Nombre:</b> " + username;
-    if (correo != null) mensaje += "<br><b>Correo:</b> " + correo;
-    mensaje += "<br><b>Contacto:</b> " + contacto;
+    mensaje += "<br><b>Correo:</b> " + correo;
 
     _ignore.value = true;
     await serverRepo.sendMail("Aliados FP - Intento de registro", mensaje);

@@ -5,7 +5,6 @@ import 'package:fupa_aliados/app/globlas_widgets/buscando_progress_w.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';
 import 'package:fupa_aliados/app/theme/colors.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'dart:math' as math;
 
 import 'local_widgets/card_detalle_widget.dart';
 import 'solicitudes_agente_controller.dart';
@@ -210,62 +209,5 @@ class _Cabecera extends StatelessWidget {
                 ))
           ]),
         ));
-  }
-}
-
-class _Header extends StatelessWidget {
-  const _Header({
-    Key key,
-    @required this.titulo,
-  }) : super(key: key);
-
-  final String titulo;
-
-  @override
-  Widget build(BuildContext context) {
-    final responsive = Responsive.of(context);
-    return Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          color: AppColors.secondaryColor,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        width: double.infinity,
-        padding: EdgeInsets.symmetric(vertical: responsive.hp(1)),
-        child: Text(
-          titulo,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: responsive.dp(2),
-              color: Colors.white,
-              fontWeight: FontWeight.w500),
-        ));
-  }
-}
-
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  _SliverAppBarDelegate({
-    @required this.minHeight,
-    @required this.maxHeight,
-    @required this.child,
-  });
-  final double minHeight;
-  final double maxHeight;
-  final Widget child;
-  @override
-  double get minExtent => minHeight;
-  @override
-  double get maxExtent => math.max(maxHeight, minHeight);
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return new SizedBox.expand(child: child);
-  }
-
-  @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return maxHeight != oldDelegate.maxHeight ||
-        minHeight != oldDelegate.minHeight ||
-        child != oldDelegate.child;
   }
 }

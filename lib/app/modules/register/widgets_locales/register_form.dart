@@ -83,17 +83,6 @@ class RegisterForm extends GetView<RegisterController> {
               ),
               SizedBox(height: responsive.hp(2)),
               Container(
-                child: _InputWidget(
-                  controlName: 'contacto',
-                  hintText: 'Contacto',
-                  icon: FontAwesomeIcons.mobileAlt,
-                  validationMessageRequired: 'Este campo es obligatorio',
-                  suffixIcon: false,
-                  obscureText: false,
-                ),
-              ),
-              SizedBox(height: responsive.hp(2)),
-              Container(
                 child: Obx(
                   () => _InputWidget(
                     controlName: 'password',
