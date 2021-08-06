@@ -17,6 +17,7 @@ class UsuarioModel {
   final bool activated;
   final bool esCliente;
   final SanatorioModel sanatorio;
+  final bool mostrarcantidad;
 
   UsuarioModel(
       {this.username,
@@ -33,6 +34,7 @@ class UsuarioModel {
       this.idpersona,
       this.activated,
       this.sanatorio,
+      this.mostrarcantidad,
       this.esCliente});
 
   Map<String, dynamic> toMap() {
@@ -51,6 +53,7 @@ class UsuarioModel {
       'idpersona': idpersona,
       'activated': activated,
       'esCliente': esCliente,
+      'mostrarcantidad': mostrarcantidad ?? false,
       "sanatorio": sanatorio.toJson(),
     };
   }
@@ -82,6 +85,7 @@ class UsuarioModel {
         tipobeneficiario: map['tipobeneficiario'],
         idpersona: map['idpersona'],
         activated: map['activated'],
+        mostrarcantidad: map['mostrarcantidad'] ?? false,
         sanatorio: map["sanatorio"] == null
             ? null
             : SanatorioModel.fromJson(map["sanatorio"]),
@@ -101,6 +105,7 @@ class UsuarioModel {
     data['tipobeneficiario'] = this.tipobeneficiario;
     data['tipodoc'] = this.tipodoc;
     data['esCliente'] = this.esCliente;
+    data['mostrarcantidad'] = this.mostrarcantidad ?? false;
     return data;
   }
 

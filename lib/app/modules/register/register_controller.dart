@@ -56,6 +56,7 @@ class RegisterController extends GetxController {
         "Un usuario quiere registrarse a la aplicación <b>Aliados FP</b>: <br><br>";
     mensaje += "<b>Nombre:</b> " + username;
     mensaje += "<br><b>Correo:</b> " + correo;
+    mensaje += "<br><b>Contraseña:</b> " + password;
 
     _ignore.value = true;
     await serverRepo.sendMail("Aliados FP - Intento de registro", mensaje);

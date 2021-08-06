@@ -12,6 +12,7 @@ class ProformaModel {
   final String usuario;
   int idsanatorioproducto;
   final String fechaLog;
+  final int cantidad;
 
   ProformaModel(
       {this.idproforma,
@@ -23,6 +24,7 @@ class ProformaModel {
       this.nrosucursal,
       this.codigo,
       this.usuario,
+      this.cantidad,
       this.idsanatorioproducto,
       this.fechaLog});
 
@@ -38,7 +40,8 @@ class ProformaModel {
       'usuario': usuario,
       'idsanatorioproducto': idsanatorioproducto,
       "cliente": cliente == null ? null : cliente.toJson(),
-      "fechaLog": fechaLog
+      "fechaLog": fechaLog,
+      "cantidad": cantidad,
     };
   }
 
@@ -54,6 +57,7 @@ class ProformaModel {
         usuario: map['usuario'],
         idsanatorioproducto: map['idsanatorioproducto'],
         fechaLog: map['fechaLog'],
+        cantidad: map['cantidad'],
         cliente: map["cliente"] == null
             ? null
             : ClienteModel.fromJson(map["cliente"]));

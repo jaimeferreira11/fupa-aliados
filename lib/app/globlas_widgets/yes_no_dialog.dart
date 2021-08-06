@@ -585,7 +585,7 @@ class _FormularioError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: 150, maxHeight: 240),
+      constraints: BoxConstraints(minHeight: 150, maxHeight: 250),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -596,6 +596,8 @@ class _FormularioError extends StatelessWidget {
           Text(
             titulo,
             textAlign: TextAlign.center,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
                 fontSize: 18,
                 color: Colors.red.shade700,

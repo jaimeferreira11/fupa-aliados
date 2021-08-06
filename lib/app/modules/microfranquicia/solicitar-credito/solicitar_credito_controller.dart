@@ -41,8 +41,10 @@ class SolicitarCreditoController extends GetxController {
   String tipodoc = 'CI';
 
   RxString error2 = "".obs;
+  RxString error3 = "".obs;
   String monto = "";
   String plazo = '7';
+  String cantidad;
   bool busquedaRealizada = false;
   String montoAux = "";
 
@@ -148,17 +150,27 @@ class SolicitarCreditoController extends GetxController {
 
   Future solicitarCodigoVerificacion() async {
     error2.value = "";
+    error3.value = "";
+
+    bool isOK = true;
     if (cliente == null) return;
 
     if (this.monto.isEmpty) {
       error2.value = "Agregue el monto";
-      return;
+      isOK = false;
+    } else if (double.parse(this.monto.trim().replaceAll(".", "")) < 10000) {
+      error2.value = "Monto invalido";
+      isOK = false;
     }
 
-    if (double.parse(this.monto.trim().replaceAll(".", "")) < 10000) {
-      error2.value = "Monto invalido";
-      return;
+    if (Cache.instance.user.mostrarcantidad) {
+      if (this.cantidad == null || this.cantidad.isEmpty) {
+        error3.value = "Agregue la cantidad";
+        isOK = false;
+      }
     }
+
+    if (!isOK) return;
 
     //  workInProgress = true;
     buscando.value = true;
@@ -179,6 +191,7 @@ class SolicitarCreditoController extends GetxController {
           idpersona: cliente.persona.idpersona,
           monto: double.parse(monto.trim().replaceAll(".", "")),
           cliente: cliente,
+          cantidad: this.cantidad == null ? null : int.parse(cantidad),
           plazo: int.parse(plazo.trim()),
           idsanatorioproducto: idsanatorioproducto);
       this.celular = cliente.persona.telefono1;

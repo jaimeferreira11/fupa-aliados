@@ -136,7 +136,7 @@ _listWidget(BuildContext context, SolicitarCreditoController _) {
       lineSeparator(),
       Container(
           margin: EdgeInsets.only(
-              top: responsive.hp(2),
+              top: responsive.hp(1),
               left: responsive.wp(5),
               right: responsive.wp(5)),
           child: Obx(() => InputWidget(
@@ -168,25 +168,14 @@ _listWidget(BuildContext context, SolicitarCreditoController _) {
                 ),
               )),
       Container(
-        margin: EdgeInsets.only(left: responsive.wp(10)),
-        child: Text(
-          "Plazo (Dias)",
-          style: TextStyle(
-              fontSize: responsive.dp(1.8),
-              color: Colors.black54,
-              fontWeight: FontWeight.w400),
-        ),
-      ),
-      Container(
-          margin: EdgeInsets.only(
-              left: responsive.wp(5),
-              right: responsive.wp(5),
-              bottom: responsive.hp(1)),
+          margin:
+              EdgeInsets.only(left: responsive.wp(5), right: responsive.wp(5)),
           child: GetBuilder<SolicitarCreditoController>(
             id: 'plazo',
             builder: (_) {
               return InputSelectWidget(
                 fontSize: responsive.dp(1.8),
+                label: 'Plazo (Dias)',
                 value: _.plazo,
                 options: ['7', '14', '30'],
                 onChanged: (text) {
@@ -196,6 +185,25 @@ _listWidget(BuildContext context, SolicitarCreditoController _) {
               );
             },
           )),
+      Visibility(
+        visible: Cache.instance.user.mostrarcantidad,
+        child: Obx(() => Container(
+            margin: EdgeInsets.only(
+                top: responsive.hp(1),
+                left: responsive.wp(5),
+                bottom: responsive.hp(1),
+                right: responsive.wp(5)),
+            child: InputWidget(
+              label: 'Cantidad productos vendidos',
+              keyboardType: TextInputType.number,
+              error: _.error3.value,
+              fontSize: responsive.dp(1.8),
+              valor: _.cantidad,
+              onChanged: (text) {
+                _.cantidad = text;
+              },
+            ))),
+      ),
       Visibility(
         visible: Cache.instance.user.sanatorio.productos.isNotEmpty,
         child: Container(
