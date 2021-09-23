@@ -225,7 +225,7 @@ class InputWidget extends StatelessWidget {
           },
           validator: this.validator,
           maxLength: maxLength,
-          focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
+          //focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
           controller: inputsValuesControllers[keyInputValue],
           textCapitalization: TextCapitalization.words,
           inputFormatters: this.inputFormatters ?? [],

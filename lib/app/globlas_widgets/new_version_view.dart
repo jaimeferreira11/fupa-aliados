@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fupa_aliados/app/helpers/responsive.dart';
 import 'package:fupa_aliados/app/theme/colors.dart';
 import 'package:fupa_aliados/app/theme/fonts.dart';
-import 'package:open_appstore/open_appstore.dart';
+import 'package:open_store/open_store.dart';
 
 class NewVersionView extends StatelessWidget {
   @override
@@ -73,9 +73,11 @@ class NewVersionView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   onPressed: () async {
-                    OpenAppstore.launch(
-                        androidAppId: "py.org.fundacionparaguaya.fupaaliados",
-                        iOSAppId: "1573264570");
+                    OpenStore.instance.open(
+                      appStoreId: '1573264570', // AppStore id of your app
+                      androidAppBundleId:
+                          'py.org.fundacionparaguaya.fupaaliados', // Android app bundle package name
+                    );
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.5,
