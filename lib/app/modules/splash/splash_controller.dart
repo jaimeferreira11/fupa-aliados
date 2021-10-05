@@ -54,6 +54,7 @@ class SplashController extends GetxController {
         () async {
           final resSession = await serverRepo.verfificarSession();
           resSession.fold((l) {
+            print('No tiene session');
             authRepo.deleteAuthToken();
             authRepo.deleteUsuario();
             nav.goToOff(AppRoutes.LOGIN);
@@ -62,6 +63,8 @@ class SplashController extends GetxController {
               nav.goToOff(AppRoutes.LOGIN);
               return;
             }
+            print("Tiene session activa");
+
             await authRepo.setUsuario(r);
 
             nav.goToAndClean(AppRoutes.HOME);

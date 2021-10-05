@@ -256,7 +256,8 @@ class NuevaSolicitudController extends GetxController {
   adjuntarCI(int origen) async {
     print('origen: $origen');
     if (origen == 1) {
-      File pickedFile = await ImagePicker.pickImage(source: ImageSource.camera);
+      File pickedFile = await ImagePicker.pickImage(
+          source: ImageSource.camera, imageQuality: 25);
 
       if (pickedFile != null) {
         this.cedulas.add(pickedFile);
@@ -286,7 +287,8 @@ class NuevaSolicitudController extends GetxController {
   adjuntarInforconf(int origen) async {
     print('origen: $origen');
     if (origen == 1) {
-      File pickedFile = await ImagePicker.pickImage(source: ImageSource.camera);
+      File pickedFile = await ImagePicker.pickImage(
+          source: ImageSource.camera, imageQuality: 25);
 
       if (pickedFile != null) {
         this.inforconf.add(pickedFile);
@@ -314,7 +316,8 @@ class NuevaSolicitudController extends GetxController {
   adjuntarFotoCliente(int origen) async {
     print('origen: $origen');
     if (origen == 1) {
-      File pickedFile = await ImagePicker.pickImage(source: ImageSource.camera);
+      File pickedFile = await ImagePicker.pickImage(
+          source: ImageSource.camera, imageQuality: 25);
 
       if (pickedFile != null) {
         this.fotoCliente = pickedFile;

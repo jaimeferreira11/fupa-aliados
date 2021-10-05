@@ -22,6 +22,7 @@ class InputWidget extends StatelessWidget {
   final List<TextInputFormatter> inputFormatters;
   final String titulo;
   final bool editable;
+  final FocusNode focusNode;
 
   InputWidget(
       {Key key,
@@ -38,6 +39,7 @@ class InputWidget extends StatelessWidget {
       this.validator,
       this.error = "",
       this.valor,
+      this.focusNode,
       this.maxLength,
       this.inputFormatters,
       this.editable = true,
@@ -219,6 +221,7 @@ class InputWidget extends StatelessWidget {
               print("key siguiente inexistente $key");
             }
           },
+          focusNode: focusNode ?? FocusNode(),
           onChanged: (valor) {
             inputsValues[keyInputValue] = valor;
             this.onChanged(valor);

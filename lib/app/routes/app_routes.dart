@@ -12,4 +12,9 @@ class AppRoutes {
   static const NUEVA_SOLICITUD = '/nueva-solicitud';
   static const REPORTE_AGENTE = '/reporte-agente';
   static const SOLICITUDES_AGENTE = '/solicitudes-agente';
+
+  // Seguros
+  static const NUEVA_SOLICITUD_SEGUROS = '/nueva-solicitud-seguros';
+  static const REPORTE_SEGUROS = '/reporte-seguros';
+  static const SOLICITUDES_SEGUROS = '/solicitudes-seguros';
 }

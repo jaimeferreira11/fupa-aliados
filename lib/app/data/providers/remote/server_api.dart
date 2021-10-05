@@ -9,9 +9,11 @@ import 'package:fupa_aliados/app/config/errors/failures.dart';
 import 'package:fupa_aliados/app/data/models/agente_parametro_model.dart';
 import 'package:fupa_aliados/app/data/models/cliente_model.dart';
 import 'package:fupa_aliados/app/data/models/destino_solicitud_agente_model.dart';
+import 'package:fupa_aliados/app/data/models/persona_model.dart';
 import 'package:fupa_aliados/app/data/models/proforma_model.dart';
 import 'package:fupa_aliados/app/data/models/respuesta_model.dart';
 import 'package:fupa_aliados/app/data/models/solicitud_agente_model.dart';
+import 'package:fupa_aliados/app/data/models/solicitud_seguro_model.dart';
 import 'package:fupa_aliados/app/data/models/token_model.dart';
 import 'package:fupa_aliados/app/data/models/usuario_model.dart';
 import 'package:fupa_aliados/app/data/providers/local/cache.dart';
@@ -378,5 +380,133 @@ class ServerAPI {
       return right(SolicitudAgenteModel.fromJsonList(res.data['datos']));
     }
     return left(ServerFailure());
+  }
+
+  // Seguros
+  Future<Either<Failure, bool>> subirArchivosSeguros(Uint8List bytes,
+      String filePath, int idsolicitud, String tipo, String campo) async {
+    final url = AppConstants.API_URL + 'private/agente-seguros/subir-archivo';
+
+    dio.FormData formData = dio.FormData.fromMap({
+      'file': dio.MultipartFile.fromBytes(bytes, filename: basename(filePath)),
+      'idsolicitud': idsolicitud,
+      'campo': campo,
+      'tipo': tipo
+    });
+
+    final res = await _dio.client.post(url, data: formData);
+    if (res.statusCode == 200) {
+      return right(true);
+    } else {
+      return left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, int>> enviarSolicitudSeguros(
+      SolicitudSeguroModel solicitud) async {
+    try {
+      final url =
+          AppConstants.API_URL + 'private/agente-seguros/enviar-solicitud';
+
+      final res = await _dio.client.post(url, data: solicitud.toMap());
+      if (res.statusCode == 200) {
+        print(res);
+        if (res.data['estado'].toUpperCase() == 'OK') {
+          return right(res.data['datos']);
+        } else {
+          return left(CustomFailure(mensaje: res.data['error']));
+        }
+      } else {
+        return left(ServerFailure(mensaje: res.data['error']));
+      }
+    } catch (e) {
+      print(e);
+      return left(ServerFailure(mensaje: 'Erro interno'));
+    }
+  }
+
+  Future<Either<Failure, List<SolicitudSeguroModel>>> obtenerReporteSeguros(
+      int mes, int anio) async {
+    final url =
+        AppConstants.API_URL + 'private/agente-seguros/confirmados/$mes/$anio';
+
+    final res = await _dio.client.get(url);
+    if (res.statusCode == 200) {
+      return right(SolicitudSeguroModel.fromJsonList(res.data['datos']));
+    }
+    return left(ServerFailure());
+  }
+
+  Future<Either<Failure, List<SolicitudSeguroModel>>>
+      solicitudesPendientesSeguros() async {
+    final url = 'private/agente-seguros/solicitudes/pendientes';
+
+    final res = await _dio.client.get(url);
+    if (res.statusCode == 200) {
+      return right(SolicitudSeguroModel.fromJsonList(res.data['datos']));
+    }
+    return left(ServerFailure());
+  }
+
+  Future<Either<Failure, List<SolicitudSeguroModel>>>
+      solicitudesAprobadosSeguros() async {
+    final url = 'private/agente-seguros/solicitudes/aprobados';
+
+    final res = await _dio.client.get(url);
+    if (res.statusCode == 200) {
+      return right(SolicitudSeguroModel.fromJsonList(res.data['datos']));
+    }
+    return left(ServerFailure());
+  }
+
+  Future<Either<Failure, List<SolicitudSeguroModel>>>
+      solicitudesRechazadosSeguros() async {
+    final url = 'private/agente-seguros/solicitudes/rechazados';
+
+    final res = await _dio.client.get(url);
+    if (res.statusCode == 200) {
+      return right(SolicitudSeguroModel.fromJsonList(res.data['datos']));
+    }
+    return left(ServerFailure());
+  }
+
+  Future<Either<Failure, SolicitudSeguroModel>> obtenerSolicitudSeguroById(
+      int id) async {
+    final url = 'private/agente-seguros/solicitudes/$id';
+
+    final res = await _dio.client.get(url);
+    if (res.statusCode == 200) {
+      return right(SolicitudSeguroModel.fromMap(res.data['datos']));
+    }
+    return left(ServerFailure());
+  }
+
+  Future<Either<Failure, String>> confirmarSolicitudSeguro(int id) async {
+    final url = 'private/agente-seguros/confirmar/$id';
+
+    final res = await _dio.client.post(url);
+    if (res.statusCode == 200) {
+      return right(res.data['datos']);
+    }
+    return left(ServerFailure());
+  }
+
+  Future<Either<Failure, PersonaModel>> buscarPersonaByTipoDocAndDoc(
+      String tipoDoc, String doc) async {
+    final url = 'private/persona/byDoc/$doc/$tipoDoc';
+
+    final res = await _dio.client.get(url);
+    if (res.statusCode == 200) {
+      print(res.data);
+      final data = RespuestaModel.fromJson(res.data);
+
+      if (data.estado.toUpperCase() == 'OK') {
+        return right(PersonaModel.fromJson(data.datos));
+      } else {
+        return left(NoDataFailure(mensaje: data.error));
+      }
+    } else {
+      return left(ServerFailure());
+    }
   }
 }

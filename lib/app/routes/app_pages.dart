@@ -16,6 +16,12 @@ import 'package:fupa_aliados/app/modules/pin_code/pin_code_binding.dart';
 import 'package:fupa_aliados/app/modules/pin_code/pin_code_page.dart';
 import 'package:fupa_aliados/app/modules/register/register_binding.dart';
 import 'package:fupa_aliados/app/modules/register/register_page.dart';
+import 'package:fupa_aliados/app/modules/seguros/nueva-solicitud/nueva_solicitud_seguros_binding.dart';
+import 'package:fupa_aliados/app/modules/seguros/nueva-solicitud/nueva_solicitud_seguros_page.dart';
+import 'package:fupa_aliados/app/modules/seguros/reporte-totales/reporte_seguros_binding.dart';
+import 'package:fupa_aliados/app/modules/seguros/reporte-totales/reporte_seguros_page.dart';
+import 'package:fupa_aliados/app/modules/seguros/solicitudes-realizadas/solicitudes_seguros_binding.dart';
+import 'package:fupa_aliados/app/modules/seguros/solicitudes-realizadas/solicitudes_seguros_page.dart';
 import 'package:fupa_aliados/app/modules/splash/splash_binding.dart';
 import 'package:fupa_aliados/app/modules/splash/splash_page.dart';
 import 'package:get/route_manager.dart';
@@ -62,5 +68,20 @@ class AppPage {
         name: AppRoutes.SOLICITUDES_AGENTE,
         page: () => SolicitudesAgentePage(),
         binding: SolicitudesAgenteBinding()),
+
+    // Seguros
+    GetPage(
+        name: AppRoutes.NUEVA_SOLICITUD_SEGUROS,
+        page: () => NuevaSolcitudSegurosPage(),
+        binding: NuevaSolicitudSegurosBinding()),
+
+    GetPage(
+        name: AppRoutes.REPORTE_SEGUROS,
+        page: () => ReporteSegurosPage(),
+        binding: ReporteSegurosBinding()),
+    GetPage(
+        name: AppRoutes.SOLICITUDES_SEGUROS,
+        page: () => SolicitudesSegurosPage(),
+        binding: SolicitudesSegurosBinding()),
   ];
 }

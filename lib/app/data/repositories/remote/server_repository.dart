@@ -5,8 +5,10 @@ import 'package:fupa_aliados/app/config/errors/failures.dart';
 import 'package:fupa_aliados/app/data/models/agente_parametro_model.dart';
 import 'package:fupa_aliados/app/data/models/cliente_model.dart';
 import 'package:fupa_aliados/app/data/models/destino_solicitud_agente_model.dart';
+import 'package:fupa_aliados/app/data/models/persona_model.dart';
 import 'package:fupa_aliados/app/data/models/proforma_model.dart';
 import 'package:fupa_aliados/app/data/models/solicitud_agente_model.dart';
+import 'package:fupa_aliados/app/data/models/solicitud_seguro_model.dart';
 import 'package:fupa_aliados/app/data/models/token_model.dart';
 import 'package:fupa_aliados/app/data/models/usuario_model.dart';
 import 'package:fupa_aliados/app/data/providers/remote/server_api.dart';
@@ -90,4 +92,38 @@ class ServerRepository {
 
   Future<Either<Failure, List<SolicitudAgenteModel>>>
       solicitudesRechazadosAgente() => _api.solicitudesRechazadosAgente();
+
+  // seguros
+
+  Future<Either<Failure, PersonaModel>> buscarPersonaByTipoDocAndDoc(
+          String tipoDoc, String doc) =>
+      _api.buscarPersonaByTipoDocAndDoc(tipoDoc, doc);
+
+  Future<Either<Failure, bool>> subirArchivosSeguros(Uint8List bytes,
+          String filePath, int idsolicitud, String tipo, String campo) =>
+      _api.subirArchivosSeguros(bytes, filePath, idsolicitud, tipo, campo);
+
+  Future<Either<Failure, int>> enviarSolicitudSeguros(
+          SolicitudSeguroModel solicitud) =>
+      _api.enviarSolicitudSeguros(solicitud);
+
+  Future<Either<Failure, List<SolicitudSeguroModel>>> obtenerReporteSeguros(
+          int mes, int anio) =>
+      _api.obtenerReporteSeguros(mes, anio);
+
+  Future<Either<Failure, List<SolicitudSeguroModel>>>
+      solicitudesPendientesSeguros() => _api.solicitudesPendientesSeguros();
+
+  Future<Either<Failure, List<SolicitudSeguroModel>>>
+      solicitudesAprobadosSeguros() => _api.solicitudesAprobadosSeguros();
+
+  Future<Either<Failure, List<SolicitudSeguroModel>>>
+      solicitudesRechazadosSeguros() => _api.solicitudesRechazadosSeguros();
+
+  Future<Either<Failure, SolicitudSeguroModel>> obtenerSolicitudSeguroById(
+          int id) =>
+      _api.obtenerSolicitudSeguroById(id);
+
+  Future<Either<Failure, String>> confirmarSolicitudSeguro(int id) =>
+      _api.confirmarSolicitudSeguro(id);
 }

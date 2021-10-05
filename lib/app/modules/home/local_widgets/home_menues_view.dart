@@ -11,7 +11,9 @@ class HomeMenuesView extends StatelessWidget {
         ? _menuFranquicia()
         : Cache.instance.user.tipobeneficiario == 300
             ? _menuAgentes()
-            : Container();
+            : Cache.instance.user.tipobeneficiario == 400
+                ? _menuSeguros()
+                : Container();
   }
 
   Widget _menuFranquicia() {
@@ -57,6 +59,37 @@ class HomeMenuesView extends StatelessWidget {
               text: 'Reporte totales',
               descripcion: "Operaciones realizadas con éxito",
               route: AppRoutes.REPORTE_AGENTE),
+        ])
+      ],
+    );
+  }
+
+  Widget _menuSeguros() {
+    return Table(
+      children: [
+        TableRow(children: [
+          MenuButtonWidget(
+              vertical: false,
+              icon: FontAwesomeIcons.plus,
+              text: 'Nueva solicitud',
+              descripcion: 'Registre una nueva solicitud',
+              route: AppRoutes.NUEVA_SOLICITUD_SEGUROS),
+        ]),
+        TableRow(children: [
+          MenuButtonWidget(
+              vertical: false,
+              icon: FontAwesomeIcons.externalLinkAlt,
+              text: 'Solicitudes realizadas',
+              descripcion: "Últimas solicitudes realizadas",
+              route: AppRoutes.SOLICITUDES_SEGUROS),
+        ]),
+        TableRow(children: [
+          MenuButtonWidget(
+              vertical: false,
+              icon: FontAwesomeIcons.check,
+              text: 'Reporte totales',
+              descripcion: "Operaciones realizadas con éxito",
+              route: AppRoutes.REPORTE_SEGUROS),
         ])
       ],
     );

@@ -10,20 +10,20 @@ PersonaModel personaModelFromJson(String str) =>
 String personaModelToJson(PersonaModel data) => json.encode(data.toJson());
 
 class PersonaModel {
-  PersonaModel({
-    this.idpersona,
-    this.nrodoc,
-    this.nombres,
-    this.apellidos,
-    this.estado,
-    this.telefono1,
-    this.telefono2,
-    this.fechanaciemiento,
-    this.codtipopersona,
-    this.direccion,
-    this.email,
-    this.tipopersona,
-  });
+  PersonaModel(
+      {this.idpersona,
+      this.nrodoc,
+      this.nombres,
+      this.apellidos,
+      this.estado,
+      this.telefono1,
+      this.telefono2,
+      this.fechanaciemiento,
+      this.codtipopersona,
+      this.direccion,
+      this.email,
+      this.tipopersona,
+      this.sexo});
 
   int idpersona;
   String nrodoc;
@@ -31,6 +31,7 @@ class PersonaModel {
   String apellidos;
   dynamic estado;
   String telefono1;
+  String sexo;
   String telefono2;
   String fechanaciemiento;
   int codtipopersona;
@@ -51,6 +52,7 @@ class PersonaModel {
         direccion: json["direccion"],
         email: json["email"],
         tipopersona: json["tipopersona"],
+        sexo: json["sexo"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -66,5 +68,6 @@ class PersonaModel {
         "direccion": direccion,
         "email": email,
         "tipopersona": tipopersona,
+        "sexo": sexo,
       };
 }
