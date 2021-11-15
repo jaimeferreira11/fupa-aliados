@@ -221,7 +221,7 @@ class InputWidget extends StatelessWidget {
               print("key siguiente inexistente $key");
             }
           },
-          focusNode: focusNode ?? FocusNode(),
+          //  focusNode: focusNode ?? FocusNode(),
           onChanged: (valor) {
             inputsValues[keyInputValue] = valor;
             this.onChanged(valor);

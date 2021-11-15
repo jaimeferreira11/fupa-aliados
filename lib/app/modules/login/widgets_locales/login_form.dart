@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fupa_aliados/app/globlas_widgets/line_separator_widget.dart';
@@ -126,30 +128,34 @@ class LoginForm extends GetView<LoginController> {
               SizedBox(
                 height: responsive.hp(3),
               ),
-              lineSeparator(),
-              SizedBox(
-                height: responsive.hp(3),
-              ),
-              Wrap(children: [
-                Text(
-                  '¿No tenés usuario?',
-                  style: TextStyle(
-                      fontSize: responsive.dp(1.8),
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black87),
-                ),
-                SizedBox(width: responsive.wp(3)),
-                GestureDetector(
-                  onTap: () => controller.nav.goTo(AppRoutes.REGISTER),
-                  child: Text(
-                    'Registrate',
-                    style: AppFonts.secondaryFont.copyWith(
-                        fontSize: responsive.dp(1.8),
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueGrey),
-                  ),
-                )
-              ]),
+              Platform.isAndroid ? Container() : lineSeparator(),
+              Platform.isAndroid
+                  ? Container()
+                  : SizedBox(
+                      height: responsive.hp(3),
+                    ),
+              Platform.isAndroid
+                  ? Container()
+                  : Wrap(children: [
+                      Text(
+                        '¿No tenés usuario?',
+                        style: TextStyle(
+                            fontSize: responsive.dp(1.8),
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87),
+                      ),
+                      SizedBox(width: responsive.wp(3)),
+                      GestureDetector(
+                        onTap: () => controller.nav.goTo(AppRoutes.REGISTER),
+                        child: Text(
+                          'Registrate',
+                          style: AppFonts.secondaryFont.copyWith(
+                              fontSize: responsive.dp(1.8),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blueGrey),
+                        ),
+                      )
+                    ]),
             ],
           ),
         ),
