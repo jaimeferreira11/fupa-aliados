@@ -53,8 +53,8 @@ class Step4View extends StatelessWidget {
                     _.agente.otrosingresos = text;
                   },
                   validator: (value) {
-                    if (value == null || value.length == 0)
-                      return 'Este campo es requerido';
+                    // if (value == null || value.length == 0)
+                    //   return 'Este campo es requerido';
                     return null;
                   },
                 ),

@@ -62,35 +62,59 @@ class Step5View extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: responsive.hp(1)),
-                InputWidget(
-                  label: 'Cantidad cuotas (Mensual)',
-                  maxLength:
-                      '${Cache.instance.agenteParametro.cuotasmax}'.length,
-                  keyboardType: TextInputType.number,
+                InputSelectWidget(
+                  value: _.agente.cantidadcuota.toString(),
                   fontSize: responsive.dp(1.8),
-                  // error: _.error2.value,
-                  valor: _.agente.cantidadcuota != null
-                      ? _.agente.cantidadcuota.toString()
-                      : '',
+                  label: 'Cantidad cuotas (Mensual)',
+                  requerido: true,
+                  options: List<String>.generate(
+                      Cache.instance.agenteParametro.cuotasmax,
+                      (i) => (i + 1).toString()),
                   onChanged: (text) {
                     _.agente.cantidadcuota =
                         text.isEmpty ? null : int.parse(text);
                   },
-                  validator: (value) {
-                    if (value == null || value.length == 0)
-                      return 'Este campo es requerido';
+                  // validator: (value) {
+                  //   if (Cache.instance.agenteParametro.cuotasmax <
+                  //       int.parse(value.replaceAll(".", "")))
+                  //     return 'El plazo maximo es de ${Cache.instance.agenteParametro.cuotasmax} cuotas';
 
-                    if (Cache.instance.agenteParametro.cuotasmax <
-                        int.parse(value.replaceAll(".", "")))
-                      return 'El plazo maximo es de ${Cache.instance.agenteParametro.cuotasmax} cuotas';
+                  //   if (Cache.instance.agenteParametro.cuotasmin >
+                  //       int.parse(value.replaceAll(".", "")))
+                  //     return 'El plazo minimo es de ${Cache.instance.agenteParametro.cuotasmin} cuotas';
 
-                    if (Cache.instance.agenteParametro.cuotasmin >
-                        int.parse(value.replaceAll(".", "")))
-                      return 'El plazo minimo es de ${Cache.instance.agenteParametro.cuotasmin} cuotas';
-
-                    return null;
-                  },
+                  //   return null;
+                  // },
                 ),
+                // InputWidget(
+                //   label: 'Cantidad cuotas (Mensual)',
+                //   maxLength:
+                //       '${Cache.instance.agenteParametro.cuotasmax}'.length,
+                //   keyboardType: TextInputType.number,
+                //   fontSize: responsive.dp(1.8),
+                //   // error: _.error2.value,
+                //   valor: _.agente.cantidadcuota != null
+                //       ? _.agente.cantidadcuota.toString()
+                //       : '',
+                //   onChanged: (text) {
+                //     _.agente.cantidadcuota =
+                //         text.isEmpty ? null : int.parse(text);
+                //   },
+                //   validator: (value) {
+                //     if (value == null || value.length == 0)
+                //       return 'Este campo es requerido';
+
+                //     if (Cache.instance.agenteParametro.cuotasmax <
+                //         int.parse(value.replaceAll(".", "")))
+                //       return 'El plazo maximo es de ${Cache.instance.agenteParametro.cuotasmax} cuotas';
+
+                //     if (Cache.instance.agenteParametro.cuotasmin >
+                //         int.parse(value.replaceAll(".", "")))
+                //       return 'El plazo minimo es de ${Cache.instance.agenteParametro.cuotasmin} cuotas';
+
+                //     return null;
+                //   },
+                // ),
                 InputSelectWidget(
                   value: _.agente.destino ??
                       Cache.instance.agenteDestinos.first.descripcion,

@@ -14,8 +14,7 @@ import 'package:fupa_aliados/app/globlas_widgets/yes_no_dialog.dart';
 import 'package:fupa_aliados/app/helpers/notifications/notificacion_service.dart';
 import 'package:fupa_aliados/app/routes/app_routes.dart';
 import 'package:fupa_aliados/app/routes/navigator.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/route_manager.dart';
+
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -112,6 +111,7 @@ class NuevaSolicitudController extends GetxController {
     this.agente = new SolicitudAgenteModel(
         otrosingresos: '0',
         tipovivienda: 'PROPIA',
+        cantidadcuota: 1,
         destino: Cache.instance.agenteDestinos.first.descripcion);
     resp.fold((l) {
       this.agente.cliente = new ClienteModel(

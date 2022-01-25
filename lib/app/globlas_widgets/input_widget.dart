@@ -318,7 +318,7 @@ class InputWidget extends StatelessWidget {
           inputsFocusNodes[keyInputValue] = FocusNode();
         }
         listaWidgets.add(FocusWidget(
-          focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
+          // focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
           child: Container(
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(
@@ -400,7 +400,7 @@ class InputWidget extends StatelessWidget {
                   })));
         }
         listaWidgets.add(FocusWidget(
-          focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
+          // focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
           child: Container(
             margin: EdgeInsets.only(
                 top: 8.0, bottom: 25.0, left: 20.0, right: 20.0),
@@ -473,7 +473,7 @@ class InputWidget extends StatelessWidget {
                   })));
         }
         listaWidgets.add(FocusWidget(
-          focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
+          // focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
           child: Container(
               margin: EdgeInsets.only(
                   top: 8.0, bottom: 25.0, left: 20.0, right: 20.0),
