@@ -19,8 +19,8 @@ echo "Installed flutter to `pwd`/flutter"
 
 # compilar APK 
 # si obtienes "Error de ejecución para la tarea ':aplicación:lintVitalRelease'". error, elimine el comentario de las siguientes dos líneas 
-# flutter build apk --debug 
-# flutter build apk --profile 
+flutter build apk --debug 
+flutter build apk --profile 
 flutter build apk --release 
 
 # si necesita el paquete de compilación (AAB) además de su APK, elimine el comentario de la línea a continuación y la última línea de este script .
