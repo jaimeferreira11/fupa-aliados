@@ -317,41 +317,38 @@ class InputWidget extends StatelessWidget {
         } else {
           inputsFocusNodes[keyInputValue] = FocusNode();
         }
-        listaWidgets.add(FocusWidget(
-          // focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
-          child: Container(
-            alignment: Alignment.centerLeft,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: this.validator == null ? Colors.grey : Colors.red,
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(20.0),
+        listaWidgets.add(Container(
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: this.validator == null ? Colors.grey : Colors.red,
+              width: 1,
             ),
-            padding: EdgeInsets.only(left: 10.0, right: 5.0, top: 5, bottom: 5),
-            width: MediaQuery.of(context).size.width,
-            child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-              style: TextStyle(
-                fontWeight: FontWeight.w300,
-                color: Colors.black,
-                fontSize: fontSize,
-              ),
-              isExpanded: true,
-              value: inputsValues[keyInputValue],
-              onChanged: (valor) {
-                FocusScope.of(context).requestFocus(new FocusNode());
-                inputsValues[keyInputValue] = valor;
-              },
-              items: options.map<DropdownMenuItem>((valor) {
-                return DropdownMenuItem(
-                  child: Text(valor),
-                  value: valor,
-                );
-              }).toList(),
-            )),
+            borderRadius: BorderRadius.circular(20.0),
           ),
+          padding: EdgeInsets.only(left: 10.0, right: 5.0, top: 5, bottom: 5),
+          width: MediaQuery.of(context).size.width,
+          child: DropdownButtonHideUnderline(
+              child: DropdownButton(
+            style: TextStyle(
+              fontWeight: FontWeight.w300,
+              color: Colors.black,
+              fontSize: fontSize,
+            ),
+            isExpanded: true,
+            value: inputsValues[keyInputValue],
+            onChanged: (valor) {
+              FocusScope.of(context).requestFocus(new FocusNode());
+              inputsValues[keyInputValue] = valor;
+            },
+            items: options.map<DropdownMenuItem>((valor) {
+              return DropdownMenuItem(
+                child: Text(valor),
+                value: valor,
+              );
+            }).toList(),
+          )),
         ));
         break;
       case "radio":
@@ -399,24 +396,21 @@ class InputWidget extends StatelessWidget {
                     FocusScope.of(context).requestFocus(new FocusNode());
                   })));
         }
-        listaWidgets.add(FocusWidget(
-          // focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
-          child: Container(
-            margin: EdgeInsets.only(
-                top: 8.0, bottom: 25.0, left: 20.0, right: 20.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: this.validator == null ? Colors.grey : Colors.red,
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(5.0),
+        listaWidgets.add(Container(
+          margin:
+              EdgeInsets.only(top: 8.0, bottom: 25.0, left: 20.0, right: 20.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: this.validator == null ? Colors.grey : Colors.red,
+              width: 1,
             ),
-            child: Container(
-              margin: EdgeInsets.only(bottom: 0.0),
-              child: Column(
-                children: radioList,
-              ),
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          child: Container(
+            margin: EdgeInsets.only(bottom: 0.0),
+            child: Column(
+              children: radioList,
             ),
           ),
         ));
@@ -472,24 +466,20 @@ class InputWidget extends StatelessWidget {
                     print("TOUCHED: $keyCheckBox OF $label VALUE: $valor");
                   })));
         }
-        listaWidgets.add(FocusWidget(
-          // focusNode: inputsFocusNodes[keyInputValue] ?? FocusNode(),
-          child: Container(
-              margin: EdgeInsets.only(
-                  top: 8.0, bottom: 25.0, left: 20.0, right: 20.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                  color:
-                      this.validator == null ? Colors.transparent : Colors.red,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(5.0),
+        listaWidgets.add(Container(
+            margin: EdgeInsets.only(
+                top: 8.0, bottom: 25.0, left: 20.0, right: 20.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: this.validator == null ? Colors.transparent : Colors.red,
+                width: 1,
               ),
-              child: Column(
-                children: checkBoxList,
-              )),
-        ));
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            child: Column(
+              children: checkBoxList,
+            )));
         break;
       case "date":
         Widget errorTextWidget = Container(

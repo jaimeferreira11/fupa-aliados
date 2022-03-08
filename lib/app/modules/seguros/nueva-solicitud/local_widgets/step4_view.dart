@@ -18,58 +18,65 @@ class Step4View extends StatelessWidget {
                   physics: BouncingScrollPhysics(),
                   shrinkWrap: true,
                   children: [
-                    Card(
-                      child: ListTile(
-                        title: Text("Indiviual"),
-                        subtitle: Text("Cobertura titular"),
-                        leading: Radio(
-                          value: "INDIVIDUAL",
-                          groupValue: _.agente.tiposeguro,
-                          onChanged: (value) {
-                            _.agente.tiposeguro = value;
-                            _.agente.monto = 240000;
-                            _.update(['tipo-seguro']);
-                          },
-                          activeColor: Colors.green,
-                        ),
-                        trailing: Text(
-                          'G. 20.000 \n x 12 meses',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: AppColors.accentColor,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                      ),
+                    _CardTipo(
+                      title: "Individual",
+                      condicion: 'G. 20.000 \n x 12 meses',
                     ),
-                    Card(
-                      child: ListTile(
-                        title: Text("Familiar"),
-                        subtitle: Text(
-                            'Cobertura titular, cónyuge y hasta 3 hijos menores a 21 años'),
-                        leading: Radio(
-                          value: "FAMILIAR",
-                          groupValue: _.agente.tiposeguro,
-                          onChanged: (value) {
-                            _.agente.tiposeguro = value;
-                            _.agente.monto = 1080000;
-                            _.update(['tipo-seguro']);
-                          },
-                          activeColor: Colors.green,
-                        ),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                        trailing: Text(
-                          'G. 90.000 \n x 12 meses',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: AppColors.accentColor,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
+                    _CardTipo(
+                      title: "Familiar",
+                      subtitle:
+                          'Cobertura titular, cónyuge y hasta 3 hijos menores a 21 años',
+                      condicion: 'G. 90.000 \n x 12 meses',
+                    ),
+                    _CardTipo(
+                      title: "Multiventajas",
+                      condicion: 'G. 77.000 \n x 12 meses',
                     ),
                   ],
                 )));
+  }
+}
+
+class _CardTipo extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final String condicion;
+
+  const _CardTipo(
+      {Key key,
+      @required this.title,
+      this.subtitle = 'Cobertura titular',
+      @required this.condicion})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<NuevaSolicitudSegurosController>(
+      builder: (_) {
+        return Card(
+          child: ListTile(
+            title: Text(title),
+            subtitle: Text(subtitle),
+            leading: Radio(
+              value: title.toUpperCase(),
+              groupValue: _.agente.tiposeguro,
+              onChanged: (value) {
+                _.agente.tiposeguro = value;
+                _.agente.monto = 1080000;
+                _.update(['tipo-seguro']);
+              },
+              activeColor: Colors.green,
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+            trailing: Text(
+              condicion,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: AppColors.accentColor, fontWeight: FontWeight.w500),
+            ),
+          ),
+        );
+      },
+    );
   }
 }

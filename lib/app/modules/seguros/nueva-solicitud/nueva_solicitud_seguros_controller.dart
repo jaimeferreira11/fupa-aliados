@@ -75,6 +75,18 @@ class NuevaSolicitudSegurosController extends GetxController {
 
   _init() async {
     this.cedulas = [];
+    this.agente = new SolicitudSeguroModel(beneficiarios: []);
+
+    steps.add(CoolStep(
+        title: "Tipo de cobertura",
+        subtitle: "Seleccione el tipo de seguro",
+        content: Step4View(),
+        validation: () {
+          if (agente.tiposeguro == null || agente.tiposeguro.isEmpty) {
+            return 'Favor, seleccione el tipo de seguro';
+          }
+          return null;
+        }));
 
     steps.add(CoolStep(
         title: "Cliente",
@@ -122,17 +134,6 @@ class NuevaSolicitudSegurosController extends GetxController {
         }));
 
     steps.add(CoolStep(
-        title: "Tipo de cobertura",
-        subtitle: "Seleccione el tipo de seguro",
-        content: Step4View(),
-        validation: () {
-          if (agente.tiposeguro == null || agente.tiposeguro.isEmpty) {
-            return 'Favor, seleccione el tipo de seguro';
-          }
-          return null;
-        }));
-
-    steps.add(CoolStep(
         title: "Resumen",
         subtitle: "Verifique que los datos sean correctos",
         content: Step5View(),
@@ -159,13 +160,15 @@ class NuevaSolicitudSegurosController extends GetxController {
   onNext(int currentStep) async {
     print('currentStep: $currentStep');
 
-    if (currentStep > 2) {
+    if (currentStep > 3) {
       doc = "";
       tipodoc = "CI";
     }
 
     switch (currentStep) {
       case 1:
+        break;
+      case 2:
         await buscarCliente();
         break;
       case 5:
@@ -340,7 +343,7 @@ class NuevaSolicitudSegurosController extends GetxController {
     final resp =
         await serverRepo.buscarClienteByTipoDocAndDoc(this.tipodoc, this.doc);
     this.buscando.value = false;
-    this.agente = new SolicitudSeguroModel(beneficiarios: []);
+
     resp.fold((l) {
       this.agente.beneficiarios = [];
       this.agente.cliente = new ClienteModel(
