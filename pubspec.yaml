@@ -22,6 +22,9 @@ environment:
 
 dependencies:
   animate_do: ^2.0.0
+  appcenter: ^0.2.1
+  appcenter_analytics: ^0.2.1
+  appcenter_crashes: ^0.2.1
   cached_network_image: null
   connectivity: ^3.0.6
   cool_stepper: ^1.2.1
