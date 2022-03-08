@@ -16,12 +16,12 @@ import 'app/theme/theme.dart';
 
 void initAppCenter() async {
   final ios = defaultTargetPlatform == TargetPlatform.iOS;
-  var app_secret = ios
+  var appSecret = ios
       ? "123cfac9-123b-123a-123f-123273416a48"
       : "2f4f4e86-bff5-47a0-8e3d-e5a3754edbbc";
 
-  await AppCenter.start("{2f4f4e86-bff5-47a0-8e3d-e5a3754edbbc}",
-      [AppCenterAnalytics.id, AppCenterCrashes.id]);
+  await AppCenter.start(
+      appSecret, [AppCenterAnalytics.id, AppCenterCrashes.id]);
 }
 
 void main() async {
